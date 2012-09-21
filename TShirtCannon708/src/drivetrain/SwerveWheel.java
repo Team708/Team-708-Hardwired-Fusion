@@ -107,7 +107,10 @@ public class SwerveWheel {
         if(onTarget)
         {
             //send power to wheel
-            speedMotor.set(wheelSpeedPWM);
+            if(reverseDirection)
+                speedMotor.set(-wheelSpeedPWM);
+            else 
+                speedMotor.set(wheelSpeedPWM);
         }else
         {
             //stop wheel
