@@ -41,6 +41,6 @@ public class HeadingPotentiometer extends AnalogChannel{
      */
     public double getAngleRads()
     {
-        return getAngleDeg() * Math.PI / 180.0;
+        return Math.toRadians(getAngleDeg());
     }
 }
