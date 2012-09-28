@@ -1,0 +1,18 @@
+#this script will make the robot around the lockers (27x15 ft rect.)
+Drive distance= 324 speed= .6
+Wait
+Wait 1.0
+
+Rotate heading= 90 speed= .6
+Wait
+Wait 1.0
+
+Drive distance= 144 speed= .6
+Wait
+Wait 1.0
+
+Rotate heading= 90 speed= .6
+Wait
+Wait 1.0
+
+Repeat 2

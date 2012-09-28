@@ -1,0 +1,10 @@
+#this script will make the robot drive in a 3x3 square
+Drive distance= 36 speed= .6
+Wait
+Wait 1.0
+
+Rotate heading= 90 speed= .8
+Wait
+Wait 1.0
+
+Repeat 4

@@ -1,0 +1,4 @@
+#autonomous mode: targets top basket and shoots 2 balls
+Shoot
+Wait
+#Wait 1.0

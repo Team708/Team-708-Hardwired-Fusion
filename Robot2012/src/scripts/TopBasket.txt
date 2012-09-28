@@ -1,0 +1,25 @@
+#autonomous mode: targets top basket and shoots 2 balls
+Shoot
+Wait
+#Wait 1.0
+
+#go back to ramp
+Drive distance= 68.0 speed= .6
+Wait
+#Wait 0.5
+
+#put arm down
+ArmDown
+Wait
+Wait 4.0
+
+ArmUp
+#Wait
+
+#drive backwards (allow balls to roll)
+Drive distance= 24.0 speed= -.6
+Wait
+
+Shoot
+Wait
+Wait 1.0
