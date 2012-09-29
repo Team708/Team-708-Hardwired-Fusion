@@ -13,26 +13,26 @@ import edu.wpi.first.wpilibj.Relay;
  */
 public class Constants{
     
-    public class crioModules{
+    public static class crioModules{
         public static final int kModule1 = 1;
 	public static final int kModule2 = 2;
     }
     
-    public class PWMChannels{
+    public static class PWMChannels{
         public static final int kFrontRightCIM = 0;
         public static final int kFrontLeftCIM = 1;
         public static final int kRearLeftCIM = 2;
         public static final int kRearRightCIM = 3;
     }
     
-    public class RelayChannels{
+    public static class RelayChannels{
         public static final int kFrontRightSpike = 0;
         public static final int kFrontLeftSpike = 1;
         public static final int kRearLeftSpike = 2;
         public static final int kRearRightSpike = 3;
     }
     
-    public class DigitalIOChannels{
+    public static class DigitalIOChannels{
         public static final int kFrontRightEncoderA = 1;
         public static final int kFrontRightEncoderB = 2;
         public static final int kFrontLeftEncoderA = 3;
@@ -43,18 +43,18 @@ public class Constants{
         public static final int kRearRightEncoderB = 4;
     }
     
-    public class AnalogInputChannels{
+    public static class AnalogInputChannels{
         public static final int kFrontRightPot = 0;
         public static final int kFrontLeftPot = 1;
         public static final int kRearLeftPot = 2;
         public static final int kRearRightPot = 3;
     }
     
-    public class SolenoidChannels{
+    public static class SolenoidChannels{
 	//add solenoids for tshirt cannon
     }
     
-    public class Calibrations
+    public static class Calibrations
     {
         public static final double kFrontRightPotLowVlts = 0.0;
         public static final double kFrontRightPotHighVlts = 1.0;
@@ -64,5 +64,15 @@ public class Constants{
         public static final double kRearLeftPotHighVlts = 1.0;
         public static final double kRearRightPotLowVlts = 0.0;
         public static final double kRearRightPotHighVlts = 1.0; 
+    
+        public static final Relay.Value kFrontRightHeadingLower = Relay.Value.kForward;
+        public static final Relay.Value kFrontRightHeadingHigher = Relay.Value.kReverse;
+        public static final Relay.Value kFrontLeftHeadingLower = Relay.Value.kForward;
+        public static final Relay.Value kFrontLeftHeadingHigher = Relay.Value.kReverse;
+        public static final Relay.Value kRearLeftHeadingLower = Relay.Value.kForward;
+        public static final Relay.Value kRearLeftHeadingHigher = Relay.Value.kReverse;
+        public static final Relay.Value kRearRightHeadingLower = Relay.Value.kForward;
+        public static final Relay.Value kRearRightHeadingHigher = Relay.Value.kReverse;
+    
     }
 }

@@ -20,20 +20,13 @@ public class SwerveTest extends IterativeRobot {
 
     private Gamepad gamepad;
     private SwerveWheel wheel1, wheel2, wheel3, wheel4;
-    public static final Relay.Value kFrontRightHeadingLower = Relay.Value.kForward;
-    public static final Relay.Value kFrontRightHeadingHigher = Relay.Value.kReverse;
-    public static final Relay.Value kFrontLeftHeadingLower = Relay.Value.kForward;
-    public static final Relay.Value kFrontLeftHeadingHigher = Relay.Value.kReverse;
-    public static final Relay.Value kRearLeftHeadingLower = Relay.Value.kForward;
-    public static final Relay.Value kRearLeftHeadingHigher = Relay.Value.kReverse;
-    public static final Relay.Value kRearRightHeadingLower = Relay.Value.kForward;
-    public static final Relay.Value kRearRightHeadingHigher = Relay.Value.kReverse;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
+    
         wheel1 = new SwerveWheel(Constants.RelayChannels.kFrontRightSpike,
                 Constants.PWMChannels.kFrontRightCIM,
                 Constants.AnalogInputChannels.kFrontRightPot,
@@ -41,7 +34,8 @@ public class SwerveTest extends IterativeRobot {
                 Constants.DigitalIOChannels.kFrontRightEncoderB,
                 false, Constants.Calibrations.kFrontRightPotLowVlts,
                 Constants.Calibrations.kFrontRightPotHighVlts,
-                kFrontRightHeadingLower,kFrontRightHeadingHigher);
+                Constants.Calibrations.kFrontRightHeadingLower,
+                Constants.Calibrations.kFrontRightHeadingHigher);
 
         wheel2 = new SwerveWheel(Constants.RelayChannels.kFrontLeftSpike,
                 Constants.PWMChannels.kFrontLeftCIM,
@@ -50,7 +44,8 @@ public class SwerveTest extends IterativeRobot {
                 Constants.DigitalIOChannels.kFrontLeftEncoderB,
                 false, Constants.Calibrations.kFrontLeftPotLowVlts,
                 Constants.Calibrations.kFrontLeftPotHighVlts,
-                kFrontLeftHeadingLower,kFrontLeftHeadingHigher);
+                Constants.Calibrations.kFrontLeftHeadingLower,
+                Constants.Calibrations.kFrontLeftHeadingHigher);
 
         wheel3 = new SwerveWheel(Constants.RelayChannels.kRearLeftSpike,
                 Constants.PWMChannels.kRearLeftCIM,
@@ -59,7 +54,8 @@ public class SwerveTest extends IterativeRobot {
                 Constants.DigitalIOChannels.kRearLeftEncoderB,
                 false, Constants.Calibrations.kRearLeftPotLowVlts,
                 Constants.Calibrations.kRearLeftPotHighVlts,
-                kRearLeftHeadingLower,kRearLeftHeadingHigher);
+                Constants.Calibrations.kRearLeftHeadingLower,
+                Constants.Calibrations.kRearLeftHeadingHigher);
 
         wheel4 = new SwerveWheel(Constants.RelayChannels.kRearRightSpike,
                 Constants.PWMChannels.kRearRightCIM,
@@ -68,7 +64,8 @@ public class SwerveTest extends IterativeRobot {
                 Constants.DigitalIOChannels.kRearRightEncoderB,
                 false, Constants.Calibrations.kRearRightPotLowVlts,
                 Constants.Calibrations.kRearRightPotHighVlts,
-                kRearRightHeadingLower,kRearRightHeadingHigher);
+                Constants.Calibrations.kRearRightHeadingLower,
+                Constants.Calibrations.kRearRightHeadingHigher);
 
         gamepad = new Gamepad(1);
     }

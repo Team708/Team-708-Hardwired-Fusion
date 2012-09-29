@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * @author Connor Willison
  */
 public class Gamepad extends Joystick{
-    
+
     //floating-point values:
     public static final int leftStick_X = 1;
     public static final int leftStick_Y = 2;
