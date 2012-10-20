@@ -174,4 +174,19 @@ public class SwerveWheel {
     {
         headingMotor.set(Relay.Value.kOff);
     }
+    
+    public void setPWM(double speed)
+    {
+        speedMotor.set(speed);
+    }
+    
+    public double getHeading()
+    {
+        return pot.getAngleDeg();
+    }
+    
+    public double getPotVlts()
+    {
+        return pot.getVoltage();
+    }
 }

@@ -8,6 +8,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -81,22 +82,42 @@ public class SwerveTest extends IterativeRobot {
      */
     public void teleopPeriodic() {
         double rotation = gamepad.getAxis(Gamepad.leftStick_X);
-
+        double speed = gamepad.getAxis(Gamepad.rightStick_X);
+        String selected = "";
+        
+        
         if (gamepad.getButton(Gamepad.button_A)) {
             setRotation(rotation, wheel1);
+            wheel1.setPWM(speed);
+            selected += "FR ";
         }
 
         if (gamepad.getButton(Gamepad.button_X)) {
             setRotation(rotation, wheel2);
+            wheel2.setPWM(speed);
+            selected += "FL ";
         }
 
         if (gamepad.getButton(Gamepad.button_Y)) {
             setRotation(rotation, wheel3);
+            wheel3.setPWM(speed);
+            selected += "RL ";
+            
         }
 
         if (gamepad.getButton(Gamepad.button_B)) {
             setRotation(rotation, wheel4);
+            wheel4.setPWM(speed);
+            selected += "RR ";
         }
+        
+        
+        
+        SmartDashboard.putString("Selected Wheel",selected);
+        SmartDashboard.putDouble("Speed", speed);
+        SmartDashboard.putDouble("Rotation",rotation);
+        SmartDashboard.putDouble("Angle fr",Math708.round(wheel1.getHeading(),2));
+        SmartDashboard.putDouble("Vlts fr",Math708.round(wheel1.getPotVlts(),2));
     }
 
     private void setRotation(double rotation, SwerveWheel wheel) {

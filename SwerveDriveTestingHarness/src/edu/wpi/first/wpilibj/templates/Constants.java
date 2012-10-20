@@ -19,17 +19,17 @@ public class Constants{
     }
     
     public static class PWMChannels{
-        public static final int kFrontRightCIM = 0;
-        public static final int kFrontLeftCIM = 1;
-        public static final int kRearLeftCIM = 2;
-        public static final int kRearRightCIM = 3;
+        public static final int kFrontRightCIM = 1;
+        public static final int kFrontLeftCIM = 2;
+        public static final int kRearLeftCIM = 3;
+        public static final int kRearRightCIM = 4;
     }
     
     public static class RelayChannels{
-        public static final int kFrontRightSpike = 0;
-        public static final int kFrontLeftSpike = 1;
-        public static final int kRearLeftSpike = 2;
-        public static final int kRearRightSpike = 3;
+        public static final int kFrontRightSpike = 1;
+        public static final int kFrontLeftSpike = 2;
+        public static final int kRearLeftSpike = 3;
+        public static final int kRearRightSpike = 4;
     }
     
     public static class DigitalIOChannels{
@@ -37,17 +37,17 @@ public class Constants{
         public static final int kFrontRightEncoderB = 2;
         public static final int kFrontLeftEncoderA = 3;
         public static final int kFrontLeftEncoderB = 4;
-        public static final int kRearLeftEncoderA = 1;
-        public static final int kRearLeftEncoderB = 2;
-        public static final int kRearRightEncoderA = 3;
-        public static final int kRearRightEncoderB = 4;
+        public static final int kRearLeftEncoderA = 5;
+        public static final int kRearLeftEncoderB = 6;
+        public static final int kRearRightEncoderA = 7;
+        public static final int kRearRightEncoderB = 8;
     }
     
     public static class AnalogInputChannels{
-        public static final int kFrontRightPot = 0;
-        public static final int kFrontLeftPot = 1;
-        public static final int kRearLeftPot = 2;
-        public static final int kRearRightPot = 3;
+        public static final int kFrontRightPot = 1;
+        public static final int kFrontLeftPot = 2;
+        public static final int kRearLeftPot = 3;
+        public static final int kRearRightPot = 4;
     }
     
     public static class SolenoidChannels{
