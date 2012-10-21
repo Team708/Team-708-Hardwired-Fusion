@@ -5,6 +5,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Represents a gamepad connected to the driver
@@ -35,6 +36,8 @@ public class Gamepad extends Joystick{
     public static final int button_RightStick = 10;	//only 12 buttons allowed - must find out which can be read    
     
     private static final double axis_deadzone = .1;
+    
+    private int port;
     /**
      * Creates a gamepad attached to
      * the specified port on the driver station.
@@ -42,6 +45,7 @@ public class Gamepad extends Joystick{
      */
     public Gamepad(int port){
 	super(port);
+        this.port = port;
     }
     
     /**
@@ -66,5 +70,25 @@ public class Gamepad extends Joystick{
      */
     public boolean getButton(int button){
 	return getRawButton(button);
+    }
+    
+    public int getPort()
+    {
+        return port;
+    }
+    
+    /**
+     * Outputs the gamepad's axes to the SmartDashboard.
+     */
+    public void sendAxesToDashboard()
+    {
+        SmartDashboard.putDouble("Gamepad " + port + "Right Stick X:",
+                getAxis(Gamepad.rightStick_X));
+        SmartDashboard.putDouble("Gamepad " + port + "Right Stick Y:",
+                getAxis(Gamepad.rightStick_Y));
+        SmartDashboard.putDouble("Gamepad " + port + "Left Stick X:",
+                getAxis(Gamepad.leftStick_X));
+        SmartDashboard.putDouble("Gamepad " + port + "Left Stick Y:",
+                getAxis(Gamepad.leftStick_Y));
     }
 }

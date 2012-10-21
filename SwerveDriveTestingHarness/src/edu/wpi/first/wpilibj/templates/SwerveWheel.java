@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class represents a swerve drive wheel, which
@@ -40,23 +41,34 @@ import edu.wpi.first.wpilibj.Victor;
  */
 public class SwerveWheel {
     
+    //objects
     private Relay headingMotor;
     private SpeedController speedMotor;
     
     private HeadingPotentiometer pot;
     private Encoder encoder; //may replace with pid encoder to measure rpm
     
+    //constants
+    
     /*
      * These values must be verified:
      * headingLower - decreases the pot's value (degrees)
      * headingHigher - increases the pot's value (degrees)
      */
-    private Relay.Value headingHigher = Relay.Value.kForward;
-    private Relay.Value headingLower = Relay.Value.kReverse;
+    private Relay.Value headingHigher;
+    private Relay.Value headingLower;
     
-    private double goalHeadingDeg = 0.0;
+    /*
+     * This is the tolerance value for rotation - the wheel
+     * will stop rotating when the heading is within "epsilon"
+     * degrees of the goal heading.
+     */
     private final double headingEpsilonDeg = 1.0; //must tune through testing
     
+    //variables
+    private double currentHeadingDeg = 0.0;
+    private double error = 0.0;
+    private double goalHeadingDeg = 0.0;
     private double wheelSpeedPWM = 0.0;
     private boolean reverseDirection = false;
     private boolean onTarget = false;
@@ -75,49 +87,47 @@ public class SwerveWheel {
     
     /**
      * Call periodically to keep the swerve wheel's heading on
-     * target. Returns whether the wheel's heading is on target.
+     * target. Return value indicates whether or not the wheel's heading
+     * is on target.
      */
     public boolean update()
     {
-        double currentHeadingDeg;
-        if(reverseDirection)
-        {
-            //use pot-180 for input angle, since reversal of wheel
-            //concerns negative side of circle
-            currentHeadingDeg = pot.getAngleDeg() - 180;
-        }else
-        {
-            currentHeadingDeg = pot.getAngleDeg();
-        }
+        //decide whether a wheel reversal is necessary: -180 <= x < 0
+        reverseDirection = goalHeadingDeg < 0;
+        
+        currentHeadingDeg = getAdjustedAngle();
         
         //calculate error
-        double error = currentHeadingDeg - goalHeadingDeg;
+        error = currentHeadingDeg - goalHeadingDeg;
         
         //seek goal heading
         if(error > headingEpsilonDeg)
         {
+            //heading needs to decrease
             headingMotor.set(headingLower);
             onTarget = false;
         }else if(error < headingEpsilonDeg)
         {
+            //heading needs to increase
             headingMotor.set(headingHigher);
             onTarget = false;
         }else
         {
+            //heading is on target
             headingMotor.set(Relay.Value.kOff);
             onTarget = true;
         }
         
         if(onTarget)
         {
-            //send power to wheel
+            //send power to wheel - heading is on target
             if(reverseDirection)
                 speedMotor.set(-wheelSpeedPWM);
             else 
                 speedMotor.set(wheelSpeedPWM);
         }else
         {
-            //stop wheel
+            //do not spin wheels until heading is on target
             speedMotor.set(0.0);
         }
         
@@ -139,27 +149,24 @@ public class SwerveWheel {
         //validate heading - find coterminal angle for OOB parameters
         while(goalHeadingDeg > 180) goalHeadingDeg -= 360;
         while(goalHeadingDeg < -180) goalHeadingDeg += 360;
-        
-        //decide whether a wheel reversal is necessary: -180 <= x < 0
-        reverseDirection = goalHeadingDeg < 0;
     }
     
     /**
      * Sets the wheel's orientation in vector form.
-     * Assumes the vector is already normalized.
-     * (Length -1.0 - 1.0)
      * @param xcomp - the x component of the wheel vector.
      * @param ycomp - the y component of the wheel vector.
      */
     public void setVector(double xcomp,double ycomp)
     {
-        set(Math.sqrt(xcomp * xcomp + ycomp * ycomp),MathUtils.atan2(ycomp,xcomp));
+        set(Math708.length(xcomp, ycomp),MathUtils.atan2(ycomp,xcomp));
     }
     
-    
-    /**
-     * Three testing functions. Used in absence of update function.
+    /*
+     * The following three methods are used to control
+     * the rotation of the wheel manually (without the update
+     * method).
      */
+    
     public void decreaseHeading()
     {
         headingMotor.set(headingLower);
@@ -175,18 +182,70 @@ public class SwerveWheel {
         headingMotor.set(Relay.Value.kOff);
     }
     
+    /**
+     * Manually adjusts the drive motor speed.
+     * @param speed 
+     */
     public void setPWM(double speed)
     {
         speedMotor.set(speed);
     }
     
-    public double getHeading()
+    /**
+     * Returns the HeadingPotentiometer used to
+     * read the heading of this wheel.
+     * @return 
+     */
+    public HeadingPotentiometer getPot()
     {
-        return pot.getAngleDeg();
+        return pot;
+    }
+
+    /**
+     * Returns the Encoder object used to read the
+     * speed/distance traveled by this wheel.
+     * @return 
+     */
+    
+    public Encoder getEncoder()
+    {
+        return encoder;
     }
     
-    public double getPotVlts()
+    /**
+     * Returns the angle of this wheel (-180 to 180),
+     * as used as input in the update method.
+     * @return 
+     */
+    public double getAdjustedAngle()
     {
-        return pot.getVoltage();
+        if(reverseDirection)
+        {
+            /*
+             * Use pot-180 for input angle since reversal of wheel
+             * concerns negative side of unit circle.
+             */
+            return pot.getAngleDeg() - 180;
+        }else
+        {
+            return pot.getAngleDeg();
+        }
+    }
+    
+    /**
+     * Returns the underlying SpeedController object.
+     * @return 
+     */
+    public SpeedController getMotor()
+    {
+        return speedMotor;
+    }
+    
+    public void sendToDashboard(String name)
+    {
+        SmartDashboard.putDouble(name + " pot angle",pot.getAngleDeg());
+        SmartDashboard.putDouble(name + " adjusted angle",getAdjustedAngle());
+        SmartDashboard.putDouble(name + " pot vlts",pot.getVoltage());
+        SmartDashboard.putDouble(name + " speed",wheelSpeedPWM);
     }
 }

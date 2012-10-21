@@ -15,6 +15,6 @@ public class TestProj {
      */
     public static void main(String[] args) {
         
-        System.out.println(Math708.round(3.678234123, 5));
+        System.out.println(Math708.round(6785.4, -2));
     }
 }

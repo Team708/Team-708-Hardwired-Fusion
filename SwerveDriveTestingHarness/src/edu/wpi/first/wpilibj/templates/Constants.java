@@ -48,6 +48,7 @@ public class Constants{
         public static final int kFrontLeftPot = 2;
         public static final int kRearLeftPot = 3;
         public static final int kRearRightPot = 4;
+        public static final int kGyro = 5;
     }
     
     public static class SolenoidChannels{
