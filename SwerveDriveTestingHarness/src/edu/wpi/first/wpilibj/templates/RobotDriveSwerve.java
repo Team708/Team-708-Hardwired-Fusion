@@ -142,6 +142,8 @@ public class RobotDriveSwerve extends RobotDrive{
         sumy3 /= maxLength;
         sumx4 /= maxLength;
         sumy4 /= maxLength;
+
+	maxLength = 0;
         
         wheel1.setVector(sumx1,sumy1);
         wheel1.update();
