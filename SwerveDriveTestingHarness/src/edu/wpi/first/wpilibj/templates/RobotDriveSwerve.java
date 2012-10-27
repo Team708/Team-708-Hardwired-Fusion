@@ -29,8 +29,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * Credit for the swerve drive algorithm goes to Ether on ChiefDelphi.
  * @author Connor
  */
-public class RobotDriveSwerve extends RobotDrive{
-
+public class RobotDriveSwerve{
+    
     //objects
     private SwerveWheel wheel1,wheel2,wheel3,wheel4;
     private Gyro relstrGyro;
@@ -84,8 +84,11 @@ public class RobotDriveSwerve extends RobotDrive{
     
     public RobotDriveSwerve(SwerveWheel wheel1,SwerveWheel wheel2,
             SwerveWheel wheel3, SwerveWheel wheel4,Gyro relstrGyro) {
-        super(wheel1.getMotor(),wheel2.getMotor(),wheel3.getMotor(),wheel4.getMotor());
         this.relstrGyro = relstrGyro;
+        this.wheel1 = wheel1;
+        this.wheel2 = wheel2;
+        this.wheel3 = wheel3;
+        this.wheel4 = wheel4;
     }
     
     public RobotDriveSwerve(SwerveWheel wheel1,SwerveWheel wheel2,

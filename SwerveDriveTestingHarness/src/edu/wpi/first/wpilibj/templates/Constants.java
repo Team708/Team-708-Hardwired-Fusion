@@ -44,11 +44,12 @@ public class Constants{
     }
     
     public static class AnalogInputChannels{
-        public static final int kFrontRightPot = 1;
-        public static final int kFrontLeftPot = 2;
-        public static final int kRearLeftPot = 3;
-        public static final int kRearRightPot = 4;
-        public static final int kGyro = 5;
+        public static final int kGyro = 1;
+        public static final int kFrontRightPot = 2;
+        public static final int kFrontLeftPot = 3;
+        public static final int kRearLeftPot = 4;
+        public static final int kRearRightPot = 5;
+        
     }
     
     public static class SolenoidChannels{
@@ -57,8 +58,8 @@ public class Constants{
     
     public static class Calibrations
     {
-        public static final double kFrontRightPotLowVlts = 0.0;
-        public static final double kFrontRightPotHighVlts = 1.0;
+        public static final double kFrontRightPotLowVlts = 3.32;
+        public static final double kFrontRightPotHighVlts = .64;
         public static final double kFrontLeftPotLowVlts = 0.0;
         public static final double kFrontLeftPotHighVlts = 1.0;
         public static final double kRearLeftPotLowVlts = 0.0;
@@ -66,8 +67,8 @@ public class Constants{
         public static final double kRearRightPotLowVlts = 0.0;
         public static final double kRearRightPotHighVlts = 1.0; 
     
-        public static final Relay.Value kFrontRightHeadingLower = Relay.Value.kForward;
-        public static final Relay.Value kFrontRightHeadingHigher = Relay.Value.kReverse;
+        public static final Relay.Value kFrontRightHeadingLower = Relay.Value.kReverse;
+        public static final Relay.Value kFrontRightHeadingHigher = Relay.Value.kForward;
         public static final Relay.Value kFrontLeftHeadingLower = Relay.Value.kForward;
         public static final Relay.Value kFrontLeftHeadingHigher = Relay.Value.kReverse;
         public static final Relay.Value kRearLeftHeadingLower = Relay.Value.kForward;

@@ -83,12 +83,12 @@ public class Gamepad extends Joystick{
     public void sendAxesToDashboard()
     {
         SmartDashboard.putDouble("Gamepad " + port + "Right Stick X:",
-                getAxis(Gamepad.rightStick_X));
+                Math708.round(getAxis(Gamepad.rightStick_X),2));
         SmartDashboard.putDouble("Gamepad " + port + "Right Stick Y:",
-                getAxis(Gamepad.rightStick_Y));
+                Math708.round(getAxis(Gamepad.rightStick_Y),2));
         SmartDashboard.putDouble("Gamepad " + port + "Left Stick X:",
-                getAxis(Gamepad.leftStick_X));
+                Math708.round(getAxis(Gamepad.leftStick_X),2));
         SmartDashboard.putDouble("Gamepad " + port + "Left Stick Y:",
-                getAxis(Gamepad.leftStick_Y));
+                Math708.round(getAxis(Gamepad.leftStick_Y),2));
     }
 }

@@ -158,7 +158,7 @@ public class SwerveWheel {
      */
     public void setVector(double xcomp,double ycomp)
     {
-        set(Math708.length(xcomp, ycomp),MathUtils.atan2(ycomp,xcomp));
+        set(Math708.length(xcomp, ycomp),Math.toDegrees(MathUtils.atan2(ycomp,xcomp)));
     }
     
     /*
@@ -243,9 +243,10 @@ public class SwerveWheel {
     
     public void sendToDashboard(String name)
     {
-        SmartDashboard.putDouble(name + " pot angle",pot.getAngleDeg());
-        SmartDashboard.putDouble(name + " adjusted angle",getAdjustedAngle());
-        SmartDashboard.putDouble(name + " pot vlts",pot.getVoltage());
-        SmartDashboard.putDouble(name + " speed",wheelSpeedPWM);
+        SmartDashboard.putDouble(name + " pot angle",Math708.round(pot.getAngleDeg(),2));
+        SmartDashboard.putDouble(name + " adjusted angle",Math708.round(getAdjustedAngle(),2));
+        SmartDashboard.putDouble(name + " pot vlts",Math708.round(pot.getVoltage(),2));
+        SmartDashboard.putDouble(name + " speed",Math708.round(wheelSpeedPWM,2));
+        SmartDashboard.putDouble(name + " goal angle",Math708.round(goalHeadingDeg,2));
     }
 }

@@ -125,7 +125,7 @@ public class SwerveTest extends IterativeRobot {
         //read input from the gamepad
         lsx = gamepad.getAxis(Gamepad.leftStick_X);
         rsx = gamepad.getAxis(Gamepad.rightStick_X);
-        lsy = gamepad.getAxis(Gamepad.leftStick_Y);
+        lsy = -gamepad.getAxis(Gamepad.leftStick_Y);
         selected = "";
         
         //cycle to next mode if button is pressed once
