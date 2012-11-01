@@ -58,8 +58,8 @@ public class Constants{
     
     public static class Calibrations
     {
-        public static final double kFrontRightPotLowVlts = 3.32;
-        public static final double kFrontRightPotHighVlts = .64;
+        public static final double kFrontRightPotLowVlts = 4.25;
+        public static final double kFrontRightPotHighVlts = 1.55;
         public static final double kFrontLeftPotLowVlts = 0.0;
         public static final double kFrontLeftPotHighVlts = 1.0;
         public static final double kRearLeftPotLowVlts = 0.0;

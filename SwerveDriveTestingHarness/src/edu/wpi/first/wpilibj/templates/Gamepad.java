@@ -35,7 +35,7 @@ public class Gamepad extends Joystick{
     public static final int button_LeftStick = 9;
     public static final int button_RightStick = 10;	//only 12 buttons allowed - must find out which can be read    
     
-    private static final double axis_deadzone = .1;
+    private static final double axis_deadzone = .07;
     
     private int port;
     /**

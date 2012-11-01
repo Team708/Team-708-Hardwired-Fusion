@@ -63,7 +63,7 @@ public class SwerveWheel {
      * will stop rotating when the heading is within "epsilon"
      * degrees of the goal heading.
      */
-    private final double headingEpsilonDeg = 1.0; //must tune through testing
+    private final double headingEpsilonDeg = 11.0; //must tune through testing
     
     //variables
     private double currentHeadingDeg = 0.0;
@@ -106,7 +106,7 @@ public class SwerveWheel {
             //heading needs to decrease
             headingMotor.set(headingLower);
             onTarget = false;
-        }else if(error < headingEpsilonDeg)
+        }else if(error < -headingEpsilonDeg)
         {
             //heading needs to increase
             headingMotor.set(headingHigher);
@@ -239,6 +239,13 @@ public class SwerveWheel {
     public SpeedController getMotor()
     {
         return speedMotor;
+    }
+    
+    public void reset()
+    {
+        goalHeadingDeg = 0.0;
+        reverseDirection = false;
+        wheelSpeedPWM = 0.0;
     }
     
     public void sendToDashboard(String name)

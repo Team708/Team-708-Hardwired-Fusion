@@ -133,6 +133,10 @@ public class SwerveTest extends IterativeRobot {
         {
             inputMode++;
             inputMode %= 3;
+            wheel1.reset();
+            wheel2.reset();
+            wheel3.reset();
+            wheel4.reset();
         }
         
         //move in/out of relative steering mode
