@@ -106,8 +106,8 @@ public class RobotDriveSwerve{
     {
         if(relstrMode && relstrGyro != null)
         {
-            //perform a clockwise rotation of <gyro> degrees on input vector
-            double angle = relstrGyro.getAngle();
+            //perform a clockwise rotation of <gyro> radians on input vector
+            double angle = Math.toRadians(relstrGyro.getAngle());
             double cosa = Math.cos(angle);
             double sina = Math.sin(angle);
             
@@ -118,6 +118,7 @@ public class RobotDriveSwerve{
             vy = newvy;
         }
         
+        //main swerve algorithm (see whitepaper by Ether on ChiefDelphi)
         sumx1 = vx + rotation * rx1;
         sumy1 = vy + rotation * ry1;
         
