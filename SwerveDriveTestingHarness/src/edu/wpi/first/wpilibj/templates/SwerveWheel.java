@@ -103,14 +103,23 @@ public class SwerveWheel {
         //seek goal heading
         if(error > headingEpsilonDeg)
         {
-            //heading needs to decrease
-            headingMotor.set(headingLower);
-            onTarget = false;
+            //redundant bounds check using raw pot value
+            //so that robot doesn't destroy itself
+            if(pot.getAngleDeg() >= 0)
+            {
+                //heading needs to decrease
+                headingMotor.set(headingLower);
+                onTarget = false;
+            }
+            
         }else if(error < -headingEpsilonDeg)
         {
-            //heading needs to increase
-            headingMotor.set(headingHigher);
-            onTarget = false;
+            if(pot.getAngleDeg() <= 180)
+            {
+                //heading needs to increase
+                headingMotor.set(headingHigher);
+                onTarget = false;
+            }
         }else
         {
             //heading is on target
