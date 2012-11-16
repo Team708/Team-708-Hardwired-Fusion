@@ -60,6 +60,7 @@ public class SwerveTest extends IterativeRobot {
     private double lsy = 0.0; //left stick y
     private double root2 = Math.sqrt(2);
     private String selected;
+    private boolean buttonsPressed = false;
 
     private int inputMode = MANUAL_MODE;
 
@@ -77,7 +78,7 @@ public class SwerveTest extends IterativeRobot {
                 false, Constants.Calibrations.kFrontRightPotLowVlts,
                 Constants.Calibrations.kFrontRightPotHighVlts,
                 Constants.Calibrations.kFrontRightHeadingLower,
-                Constants.Calibrations.kFrontRightHeadingHigher);
+                Constants.Calibrations.kFrontRightHeadingHigher,false);
 
         wheel2 = new SwerveWheel(Constants.RelayChannels.kFrontLeftSpike,
                 Constants.PWMChannels.kFrontLeftCIM,
@@ -87,7 +88,7 @@ public class SwerveTest extends IterativeRobot {
                 false, Constants.Calibrations.kFrontLeftPotLowVlts,
                 Constants.Calibrations.kFrontLeftPotHighVlts,
                 Constants.Calibrations.kFrontLeftHeadingLower,
-                Constants.Calibrations.kFrontLeftHeadingHigher);
+                Constants.Calibrations.kFrontLeftHeadingHigher,true);
 
         wheel3 = new SwerveWheel(Constants.RelayChannels.kRearLeftSpike,
                 Constants.PWMChannels.kRearLeftCIM,
@@ -97,7 +98,7 @@ public class SwerveTest extends IterativeRobot {
                 false, Constants.Calibrations.kRearLeftPotLowVlts,
                 Constants.Calibrations.kRearLeftPotHighVlts,
                 Constants.Calibrations.kRearLeftHeadingLower,
-                Constants.Calibrations.kRearLeftHeadingHigher);
+                Constants.Calibrations.kRearLeftHeadingHigher,true);
 
         wheel4 = new SwerveWheel(Constants.RelayChannels.kRearRightSpike,
                 Constants.PWMChannels.kRearRightCIM,
@@ -107,7 +108,7 @@ public class SwerveTest extends IterativeRobot {
                 false, Constants.Calibrations.kRearRightPotLowVlts,
                 Constants.Calibrations.kRearRightPotHighVlts,
                 Constants.Calibrations.kRearRightHeadingLower,
-                Constants.Calibrations.kRearRightHeadingHigher);
+                Constants.Calibrations.kRearRightHeadingHigher,false);
         
         gyro = new Gyro(Constants.AnalogInputChannels.kGyro);
         
@@ -149,31 +150,45 @@ public class SwerveTest extends IterativeRobot {
         {
             case MANUAL_MODE:
             case VECTOR_MODE:
-                
+                buttonsPressed = false;
                 if (gamepad.getButton(Gamepad.button_A)) {
+                    buttonsPressed = true;
                     controlWheel(wheel1,"FR ");
                 }
 
                 if (gamepad.getButton(Gamepad.button_X)) {
                     controlWheel(wheel2,"FL ");
+                     buttonsPressed = true;
                 }
 
                 if (gamepad.getButton(Gamepad.button_Y)) {
                     controlWheel(wheel3,"RL ");
+                     buttonsPressed = true;
                 }
 
                 if (gamepad.getButton(Gamepad.button_B)) {
                     controlWheel(wheel4,"RR ");
+                     buttonsPressed = true;
                 }
                 SmartDashboard.putString("Selected Wheel(s)",selected);
             break; 
             
             case SWERVE_MODE:
                 
-                robotDrive.swerveDrive(lsx/root2,lsy/root2,rsx);
-                
+                //robotDrive.swerveDrive(lsx/root2,lsy/root2,rsx);
+                robotDrive.swerveDrive(lsx,lsy,rsx);
             break;
                 
+                
+                
+        }
+        
+        if(!buttonsPressed)
+        {
+            wheel1.reset();
+            wheel2.reset();
+            wheel3.reset();
+            wheel4.reset();
         }
                 
         //output data
@@ -218,7 +233,7 @@ public class SwerveTest extends IterativeRobot {
                 * (a^2 + b^2 = c^2), so dividing by this number does
                 * the trick.
                 */
-                w.setVector(lsx / root2,lsy / root2);
+                w.setVector(lsx,lsy);
 
                 //adjust speed/heading of wheel to match the vector
                 w.update();
