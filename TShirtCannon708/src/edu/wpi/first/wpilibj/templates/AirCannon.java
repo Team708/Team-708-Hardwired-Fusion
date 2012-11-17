@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -24,7 +25,7 @@ public class AirCannon {
     private Timer timer;
     
     //constants
-    private final double rotationSpeed = .5;
+    private final double rotationSpeed = .25;
     private final double valveRelease = .1; //time (sec) that the firingSolenoid takes
                                             //to release pressure
     private final boolean kValveOpen = true;
@@ -61,13 +62,19 @@ public class AirCannon {
         state = STATE_IDLE;
     }
     
+    /**
+     * This method should be called periodically to operate the air cannnon.
+     */
     public void update()
     {
         switch(state)
         {
+                //enters STATE_IDLE when ready to rotate or fire
             case STATE_IDLE:
                 break;
              
+                //may enter STATE_ROTATING when a barrel is aligned
+                //or when between barrels
             case STATE_ROTATING:
                 
                 if(lockingSwitch.get())
@@ -77,16 +84,44 @@ public class AirCannon {
                     if(betweenBarrels)
                     {
                         //has passed in between barrels - goal is reached
+                        
+                        //stop rotating
                         rotationMotor.set(0.0);
-                        lockingSolenoid.set();
+                        
+                        //NOTE: possible location for extending lock piston
+//                        //extend lock piston (will fall into notch on next barrel)
+//                        lockingSolenoid.set(kPistonExtend);
+                    
+                        //reset flag
+                        betweenBarrels = false;
+                        
+                        //ready to fire
+                        state = STATE_IDLE;
+                    }else
+                    {
+                        //has not passed between barrels yet - still on current barrel
+                        
+                        //retract locking piston
+                        lockingSolenoid.set(kPistonRetract);
+                        
+                        //begin rotating to next barrel
+                        rotationMotor.set(rotationSpeed);
                     }
                 }else{
+                    //continue rotating
+                    rotationMotor.set(rotationSpeed);
+                    
+                    //extend lock piston (will fall into notch on next barrel)
+                    lockingSolenoid.set(kPistonExtend);
+                    
                     //between barrels
                     betweenBarrels = true;
                 }
                 
                 break;
                 
+                //enters STATE_FIRING when barrel is aligned
+                //and about to fire
             case STATE_FIRING:
                //leave the firing valve open for a certain interval 
                timer.start();
@@ -94,10 +129,10 @@ public class AirCannon {
                if(timer.get() <= valveRelease)
                {
                    //allow air to flow through valve
-                   firingSolenoid.set(true);
+                   firingSolenoid.set(kValveOpen);
                }else{
                    //close the valve
-                   firingSolenoid.set(kValveOpen);
+                   firingSolenoid.set(kValveClose);
                    
                    //reset timer
                    timer.reset();
@@ -114,7 +149,14 @@ public class AirCannon {
     
     public void fire()
     {
-        if(state == STATE_IDLE) state = STATE_FIRING;
+        //make sure that barrels are not rotating and barrel is aligned
+        //and we are NOT in manual override mode
+        if(state == STATE_IDLE && lockingSwitch.get() && !manualOverride) state = STATE_FIRING;
+    }
+    
+    public void rotateToNextBarrel()
+    {
+        if(state == STATE_IDLE) state = STATE_ROTATING;
     }
     
     public void engageManualOverride()
@@ -137,8 +179,20 @@ public class AirCannon {
     {
         if(manualOverride)
         {
-            rotationMotor.set(speed);
+            rotationMotor.set(rotationSpeed * speed);
         }
+    }
+    
+    public void sendToDashboard()
+    {
+        SmartDashboard.putBoolean("Cannon Override", manualOverride);
+        SmartDashboard.putBoolean("Between Barrels", betweenBarrels);
+        SmartDashboard.putDouble("Cannon Rot Speed",rotationMotor.get());
+        SmartDashboard.putString("Cannon State",(state == STATE_IDLE)?"Idle":
+                (state == STATE_ROTATING)?"Rotating":(state == STATE_FIRING)?"Firing":"Unknown");
+        SmartDashboard.putBoolean("Lock Piston",lockingSolenoid.get());
+        SmartDashboard.putBoolean("Valve", firingSolenoid.get());
+        SmartDashboard.putBoolean("Cannon Switch",lockingSwitch.get());
     }
 }
     
