@@ -10,6 +10,7 @@ import button.LatchWhenPressedButton;
 import button.SwitchWhenPressedButton;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.networktables.NetworkTableKeyNotDefined;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -31,6 +32,7 @@ public class SwerveTest extends IterativeRobot {
     private Gyro gyro;
     
     //constants
+    
     
     /*
      * The testing harness has three modes:
@@ -58,9 +60,9 @@ public class SwerveTest extends IterativeRobot {
     private double rsx = 0.0; //right stick x
     private double lsx = 0.0; //left stick x
     private double lsy = 0.0; //left stick y
-    private double root2 = Math.sqrt(2);
     private String selected;
     private boolean buttonsPressed = false;
+    private double stickFactor = .5;
 
     private int inputMode = MANUAL_MODE;
 
@@ -123,10 +125,11 @@ public class SwerveTest extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+        
         //read input from the gamepad
-        lsx = gamepad.getAxis(Gamepad.leftStick_X);
-        rsx = gamepad.getAxis(Gamepad.rightStick_X);
-        lsy = -gamepad.getAxis(Gamepad.leftStick_Y);
+        lsx = stickFactor * gamepad.getAxis(Gamepad.leftStick_X);
+        rsx = stickFactor * -gamepad.getAxis(Gamepad.rightStick_X);
+        lsy = stickFactor * gamepad.getAxis(Gamepad.leftStick_Y);
         selected = "";
         
         //cycle to next mode if button is pressed once

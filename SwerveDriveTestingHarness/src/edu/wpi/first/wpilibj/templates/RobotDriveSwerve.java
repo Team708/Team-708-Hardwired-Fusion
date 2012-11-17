@@ -41,8 +41,8 @@ public class RobotDriveSwerve{
      * must verify measurements on robot:
      * used to determine directions of rotational vectors.
      */
-    private final double halfRobotWidthIn = 18;
-    private final double halfRobotLengthIn = 30;
+    private final double halfRobotWidthIn = 13;
+    private final double halfRobotLengthIn = 18.5;
     private final double radiusLength = 
             Math.sqrt(halfRobotWidthIn * halfRobotWidthIn
             + halfRobotLengthIn * halfRobotLengthIn);

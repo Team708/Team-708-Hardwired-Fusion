@@ -63,7 +63,7 @@ public class SwerveWheel {
      * will stop rotating when the heading is within "epsilon"
      * degrees of the goal heading.
      */
-    private final double headingEpsilonDeg = 11.0; //must tune through testing
+    private final double headingEpsilonDeg = 13.0; //must tune through testing
     
     //variables
     private double currentHeadingDeg = 0.0;
@@ -72,10 +72,12 @@ public class SwerveWheel {
     private double wheelSpeedPWM = 0.0;
     private boolean reverseDirection = false;
     private boolean onTarget = false;
+    private boolean invertedWheel = false;
     
     public SwerveWheel(int relayChannel,int speedChannel,int potChannel,
             int encoderAChannel,int encoderBChannel,boolean reverseEnc,
-            double potLowVlts,double potHighVlts,Relay.Value headingLower,Relay.Value headingHigher)
+            double potLowVlts,double potHighVlts,Relay.Value headingLower,Relay.Value headingHigher,
+            boolean invertedWheel)
     {
         headingMotor = new Relay(relayChannel);
         speedMotor = new Victor(speedChannel);
@@ -83,6 +85,7 @@ public class SwerveWheel {
         encoder = new Encoder(encoderAChannel,encoderBChannel,reverseEnc);
         this.headingLower = headingLower;
         this.headingHigher = headingHigher;
+        this.invertedWheel = invertedWheel;
     }
     
     /**
@@ -105,20 +108,24 @@ public class SwerveWheel {
         {
             //redundant bounds check using raw pot value
             //so that robot doesn't destroy itself
-            if(pot.getAngleDeg() >= 0)
+            if(pot.getAngleDeg() >= -90)
             {
                 //heading needs to decrease
                 headingMotor.set(headingLower);
                 onTarget = false;
+            }else{
+                headingMotor.set(Relay.Value.kOff);
             }
             
         }else if(error < -headingEpsilonDeg)
         {
-            if(pot.getAngleDeg() <= 180)
+            if(pot.getAngleDeg() <= 270)
             {
                 //heading needs to increase
                 headingMotor.set(headingHigher);
                 onTarget = false;
+            }else{
+                headingMotor.set(Relay.Value.kOff);
             }
         }else
         {
@@ -131,13 +138,13 @@ public class SwerveWheel {
         {
             //send power to wheel - heading is on target
             if(reverseDirection)
-                speedMotor.set(-wheelSpeedPWM);
+                setPWM(-wheelSpeedPWM);
             else 
-                speedMotor.set(wheelSpeedPWM);
+                setPWM(wheelSpeedPWM);
         }else
         {
             //do not spin wheels until heading is on target
-            speedMotor.set(0.0);
+            setPWM(0.0);
         }
         
         return onTarget;
@@ -197,7 +204,7 @@ public class SwerveWheel {
      */
     public void setPWM(double speed)
     {
-        speedMotor.set(speed);
+        speedMotor.set((invertedWheel)?-speed:speed);
     }
     
     /**

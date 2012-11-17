@@ -58,14 +58,14 @@ public class Constants{
     
     public static class Calibrations
     {
-        public static final double kFrontRightPotLowVlts = 3.9;
-        public static final double kFrontRightPotHighVlts = 1.35;
-        public static final double kFrontLeftPotLowVlts = 3.86;
-        public static final double kFrontLeftPotHighVlts = 1.21;
-        public static final double kRearLeftPotLowVlts = 4.86;
-        public static final double kRearLeftPotHighVlts = 2.18;
-        public static final double kRearRightPotLowVlts = 0.0;
-        public static final double kRearRightPotHighVlts = 1.0; 
+        public static final double kFrontRightPotLowVlts = 4.28;
+        public static final double kFrontRightPotHighVlts = 1.49;
+        public static final double kFrontLeftPotLowVlts = 3.47;
+        public static final double kFrontLeftPotHighVlts = .77;
+        public static final double kRearLeftPotLowVlts = 4.13;
+        public static final double kRearLeftPotHighVlts = 1.79;
+        public static final double kRearRightPotLowVlts = 4.1;
+        public static final double kRearRightPotHighVlts = 1.28; 
     
         public static final Relay.Value kFrontRightHeadingLower = Relay.Value.kReverse;
         public static final Relay.Value kFrontRightHeadingHigher = Relay.Value.kForward;
@@ -73,8 +73,8 @@ public class Constants{
         public static final Relay.Value kFrontLeftHeadingHigher = Relay.Value.kReverse;
         public static final Relay.Value kRearLeftHeadingLower = Relay.Value.kForward;
         public static final Relay.Value kRearLeftHeadingHigher = Relay.Value.kReverse;
-        public static final Relay.Value kRearRightHeadingLower = Relay.Value.kForward;
-        public static final Relay.Value kRearRightHeadingHigher = Relay.Value.kReverse;
+        public static final Relay.Value kRearRightHeadingLower = Relay.Value.kReverse;
+        public static final Relay.Value kRearRightHeadingHigher = Relay.Value.kForward;
     
     }
 }
