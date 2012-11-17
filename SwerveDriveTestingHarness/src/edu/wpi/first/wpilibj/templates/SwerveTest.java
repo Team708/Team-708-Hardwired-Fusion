@@ -62,7 +62,7 @@ public class SwerveTest extends IterativeRobot {
     private double lsy = 0.0; //left stick y
     private String selected;
     private boolean buttonsPressed = false;
-    private double stickFactor = .5;
+    private double stickFactor = .4;
 
     private int inputMode = MANUAL_MODE;
 
