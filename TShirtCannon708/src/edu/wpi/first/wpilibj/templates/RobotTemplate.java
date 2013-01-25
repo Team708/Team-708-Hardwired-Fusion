@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class TShirtCannonMain extends IterativeRobot {
+public class RobotTemplate extends IterativeRobot {
 
     //objects
     private Gamepad gamepad;
