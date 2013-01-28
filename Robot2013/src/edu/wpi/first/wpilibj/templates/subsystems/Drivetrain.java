@@ -31,6 +31,9 @@ public class Drivetrain extends PIDSubsystem {
             (gearMultiplier * encoderCountsPerRotation);
     private static final double robotDiameterIn = 26.5;
     
+    private static final boolean HIGH_GEAR = true;
+    private static final boolean DEFAULT_GEAR = HIGH_GEAR;
+    
     private RobotDrive robotDrive;
     private Encoder leftEnc,rightEnc;
     private RotationSensor rotationSensor;
@@ -51,6 +54,9 @@ public class Drivetrain extends PIDSubsystem {
         rightEnc.start();
         
         rotationSensor = new EncoderRotationSensor(leftEnc,rightEnc,robotDiameterIn);
+        
+        shifter = new Solenoid(RobotMap.shiftingSolenoid);
+        shifter.set(DEFAULT_GEAR);
 
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system
@@ -91,6 +97,37 @@ public class Drivetrain extends PIDSubsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         setDefaultCommand(new ArcadeDrive());
+    }
+    
+    public void shiftHigh()
+    {
+        shifter.set(HIGH_GEAR);
+    }
+    
+    public void shiftLow()
+    {
+        shifter.set(!HIGH_GEAR);
+    }
+    
+    public boolean getDefaultGear()
+    {
+        return DEFAULT_GEAR;
+    }
+    
+    public boolean getGear()
+    {
+        return shifter.get();
+    }
+    
+    public void changeGear()
+    {
+        if(shifter.get() == HIGH_GEAR)
+        {
+            shiftLow();
+        }else
+        {
+            shiftHigh();
+        }
     }
     
     protected double returnPIDInput() {

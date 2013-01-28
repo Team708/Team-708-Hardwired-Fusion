@@ -5,6 +5,7 @@ import Team708Classes.Gamepad;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.templates.commands.ArcadeDrive;
+import edu.wpi.first.wpilibj.templates.commands.Shift;
 import edu.wpi.first.wpilibj.templates.commands.TankDrive;
 
 /**
@@ -54,6 +55,9 @@ public class OI {
         
         Button arcadeDriveButton = new JoystickButton(driverGamepad,Gamepad.button_Back);
         arcadeDriveButton.whenPressed(new ArcadeDrive());
+        
+        Button shiftButton = new JoystickButton(driverGamepad,Gamepad.button_L_Shoulder);
+        shiftButton.whileHeld(new Shift());
     }
     
     public double getArcadeMovementAxis()

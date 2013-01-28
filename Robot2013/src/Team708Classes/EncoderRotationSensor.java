@@ -17,7 +17,6 @@ public class EncoderRotationSensor extends RotationSensor{
     private double robotDiameter; //inches
 
     private Encoder left, right;
-    private double offset = 0.0;  //subtracted from value returned by getAngle(), used to reset sensor
 
     public EncoderRotationSensor(Encoder left,Encoder right,double robotDiameter){
         this.left = left;
@@ -31,7 +30,7 @@ public class EncoderRotationSensor extends RotationSensor{
      * @return 
      */
     public double getAngle(){
-        return Math.toDegrees((left.getDistance() - right.getDistance())/robotDiameter) - offset;
+        return Math.toDegrees((left.getDistance() - right.getDistance())/robotDiameter);
     }
 
     public void setRobotDiameter(double diameter){
@@ -39,6 +38,7 @@ public class EncoderRotationSensor extends RotationSensor{
     }
 
     public void reset(){
-        offset = getAngle();
+        left.reset();
+        right.reset();
     }
 }

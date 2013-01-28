@@ -32,7 +32,7 @@ import java.io.PrintStream;
 public class Team708VisionApp extends WPICameraExtension{
     
     private int p1x,p1y,p2x,p3y;
-    private boolean written = false;
+//    private boolean written = false;
     private boolean initialized = false;
     private ITable robot;
     private WPIPoint rp1,rp2,rp3,rp4;
@@ -69,22 +69,22 @@ public class Team708VisionApp extends WPICameraExtension{
 	}
 	catch (TableKeyNotDefinedException exp)
         {
-            if(!written)
-            {
-                try{
-                    File f = new File("C:/Users/Robotics/Desktop/dash_error.txt");
-                    if(!f.exists()) f.createNewFile();
-                    PrintStream stream = new PrintStream(f);
-                    exp.printStackTrace(stream);
-                    stream.close();
-                    
-                }catch(IOException e)
-                {
-                    
-                }
-                
-                written = true;
-            }
+//            if(!written)
+//            {
+//                try{
+//                    File f = new File("C:/Users/Robotics/Desktop/dash_error.txt");
+//                    if(!f.exists()) f.createNewFile();
+//                    PrintStream stream = new PrintStream(f);
+//                    exp.printStackTrace(stream);
+//                    stream.close();
+//                    
+//                }catch(IOException e)
+//                {
+//                    
+//                }
+//                
+//                written = true;
+//            }
 	}
 
         return rawImage;

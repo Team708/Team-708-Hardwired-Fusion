@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.ResetEncoders;
+import edu.wpi.first.wpilibj.templates.commands.Shift;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -39,6 +40,7 @@ public class RobotTemplate extends IterativeRobot {
         
         //add commands to the SmartDashboard
         SmartDashboard.putData(new ResetEncoders());
+        SmartDashboard.putData(new Shift());
     }
 
     public void autonomousInit() {
