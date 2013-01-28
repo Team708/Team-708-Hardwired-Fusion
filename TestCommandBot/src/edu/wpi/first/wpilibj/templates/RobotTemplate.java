@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
-import edu.wpi.first.wpilibj.templates.commands.SpinMotor;
+import edu.wpi.first.wpilibj.templates.commands.MotorSequence;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,7 +35,7 @@ public class RobotTemplate extends IterativeRobot {
         //autonomousCommand = new SpinMotor();
         
         //this command should be displayed as a button so we can test it from the Dash
-        SmartDashboard.putData(new SpinMotor());
+        SmartDashboard.putData(new MotorSequence());
 
         // Initialize all subsystems
         CommandBase.init();

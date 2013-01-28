@@ -27,9 +27,6 @@ public class OI {
         driverpad = new Gamepad(RobotMap.driverGamepad);
         button1 = new JoystickButton(driverpad,Gamepad.button_A);
         button1.whenPressed(new SpinMotor(5.0));
-        
-        //wondering if this is necessary? Does the button constructor call this?
-        //Scheduler.getInstance().addButton(button1);
     }
     
     public double getDriveAxis()

@@ -1,8 +1,11 @@
 
 package edu.wpi.first.wpilibj.templates;
 
+import Team708Classes.Gamepad;
 import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.templates.commands.ArcadeDrive;
+import edu.wpi.first.wpilibj.templates.commands.TankDrive;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -40,5 +43,38 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+    
+    private Gamepad driverGamepad;
+    
+    public OI()
+    {
+        driverGamepad = new Gamepad(RobotMap.driverGamepad);
+        Button tankDriveButton = new JoystickButton(driverGamepad,Gamepad.button_Start);
+        tankDriveButton.whenPressed(new TankDrive());
+        
+        Button arcadeDriveButton = new JoystickButton(driverGamepad,Gamepad.button_Back);
+        arcadeDriveButton.whenPressed(new ArcadeDrive());
+    }
+    
+    public double getArcadeMovementAxis()
+    {
+        return driverGamepad.getAxis(Gamepad.leftStick_Y);
+    }
+    
+    public double getArcadeRotationAxis()
+    {
+        return driverGamepad.getAxis(Gamepad.rightStick_X);
+    }
+    
+    public double getTankLeftAxis()
+    {
+        return driverGamepad.getAxis(Gamepad.leftStick_Y);
+    }
+    
+    public double getTankRightAxis()
+    {
+        return driverGamepad.getAxis(Gamepad.rightStick_Y);
+    }
+    
 }
 
