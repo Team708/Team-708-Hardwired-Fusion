@@ -4,6 +4,8 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
+import edu.wpi.first.wpilibj.templates.OI;
+
 /**
  *
  * @author Connor Willison
@@ -26,7 +28,7 @@ public class Shift extends CommandBase{
     }
 
     protected boolean isFinished() {
-        return true;
+        return !oi.isShiftButtonHeld();
     }
 
     protected void end() {

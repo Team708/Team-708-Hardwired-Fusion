@@ -1,7 +1,7 @@
 
 package edu.wpi.first.wpilibj.templates;
 
-import Team708Classes.Gamepad;
+import utilclasses.Gamepad;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.templates.commands.ArcadeDrive;
@@ -46,6 +46,9 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
     
     private Gamepad driverGamepad;
+	
+	//gamepad button assignments
+	private static final int shiftButtonNumber = Gamepad.button_L_Shoulder;
     
     public OI()
     {
@@ -56,8 +59,8 @@ public class OI {
         Button arcadeDriveButton = new JoystickButton(driverGamepad,Gamepad.button_Back);
         arcadeDriveButton.whenPressed(new ArcadeDrive());
         
-        Button shiftButton = new JoystickButton(driverGamepad,Gamepad.button_L_Shoulder);
-        shiftButton.whileHeld(new Shift());
+        Button shiftButton = new JoystickButton(driverGamepad,shiftButtonNumber);
+        shiftButton.whenPressed(new Shift());
     }
     
     public double getArcadeMovementAxis()
@@ -79,6 +82,11 @@ public class OI {
     {
         return driverGamepad.getAxis(Gamepad.rightStick_Y);
     }
+	
+	public boolean isShiftButtonHeld()
+	{
+		return driverGamepad.getButton(shiftButtonNumber);
+	}
     
 }
 
