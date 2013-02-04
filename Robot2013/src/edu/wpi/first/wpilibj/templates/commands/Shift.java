@@ -12,15 +12,12 @@ import edu.wpi.first.wpilibj.templates.OI;
  */
 public class Shift extends CommandBase{
     
-    public Shift()
-    {
-        requires(drivetrain);
-    }
-    
     protected void initialize() {
     }
 
     protected void execute() {
+        
+        //shift into the alternate gear as long as the shift command is being run
         if(drivetrain.getGear() == drivetrain.getDefaultGear())
         {
             drivetrain.changeGear();
@@ -32,6 +29,7 @@ public class Shift extends CommandBase{
     }
 
     protected void end() {
+        //when the shift command ends, shift the drivetrain back to the default gear
         if(drivetrain.getGear() != drivetrain.getDefaultGear())
         {
             drivetrain.changeGear();

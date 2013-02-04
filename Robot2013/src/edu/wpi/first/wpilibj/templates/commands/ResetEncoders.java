@@ -10,11 +10,6 @@ package edu.wpi.first.wpilibj.templates.commands;
  */
 public class ResetEncoders extends CommandBase{
     
-    public ResetEncoders()
-    {
-        requires(drivetrain);
-    }
-    
     protected void initialize() {
     }
 

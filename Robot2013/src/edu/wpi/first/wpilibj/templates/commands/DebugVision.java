@@ -4,16 +4,16 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  *
- * @author Nam Tran
+ * @author Connor Willison
  */
-public class TankDrive extends CommandBase{
-        
-public TankDrive() {
-        // Use requires() here to declare subsystem dependencies
-        super("TankDrive");
-        requires(drivetrain);
+public class DebugVision extends CommandBase {
+    
+    public DebugVision() {
+        requires(visionProcessor);
     }
 
     // Called just before this Command runs the first time
@@ -22,9 +22,12 @@ public TankDrive() {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        oi.sendGamepad();
-        drivetrain.sendToDash();
-        drivetrain.tankDrive(oi.getTankLeftAxis(), oi.getTankRightAxis());
+        visionProcessor.processData();
+        SmartDashboard.putString("Current Target:", visionProcessor.getTargetType());
+        SmartDashboard.putNumber("Distance To Target:", visionProcessor.getDistanceToTarget());
+        SmartDashboard.putNumber("Pixel Difference:", visionProcessor.getDifferencePx());
+        SmartDashboard.putNumber("Aspect Ratio:", visionProcessor.getAspectRatio());
+        SmartDashboard.putNumber("Blob Count:", visionProcessor.getBlobCount());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,12 +37,10 @@ public TankDrive() {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.tankDrive(0.0,0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }

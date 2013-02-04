@@ -1,16 +1,20 @@
 
-package edu.wpi.first.wpilibj.templates.commands;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 /**
  *
  * @author Connor Willison
  */
-public class ArcadeDrive extends CommandBase {
-
-    public ArcadeDrive() {
-        // Use requires() here to declare subsystem dependencies
-        super("ArcadeDrive");
-        requires(drivetrain);
+public class VisionDebug extends CommandBase {
+    
+    public VisionDebug() {
+        requires(visionProcessor);
     }
 
     // Called just before this Command runs the first time
@@ -19,9 +23,10 @@ public class ArcadeDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        oi.sendGamepad();
-        drivetrain.sendToDash();
-        drivetrain.arcadeDrive(oi.getArcadeMovementAxis(), oi.getArcadeRotationAxis());
+        visionProcessor.processData();
+        SmartDashboard.putString("Current Target:", visionProcessor.getTargetType());
+        SmartDashboard.putNumber("Distance To Target:", visionProcessor.getDistanceToTarget());
+        SmartDashboard.putNumber("Pixel Difference:", visionProcessor.getDifferencePx());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -31,12 +36,10 @@ public class ArcadeDrive extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.arcadeDrive(0.0,0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }

@@ -63,9 +63,14 @@ public class OI {
         shiftButton.whenPressed(new Shift());
     }
     
+    public void sendGamepad()
+    {
+        driverGamepad.sendAxesToDashboard();
+    }
+    
     public double getArcadeMovementAxis()
     {
-        return driverGamepad.getAxis(Gamepad.leftStick_Y);
+        return -driverGamepad.getAxis(Gamepad.leftStick_Y);
     }
     
     public double getArcadeRotationAxis()
@@ -75,18 +80,18 @@ public class OI {
     
     public double getTankLeftAxis()
     {
-        return driverGamepad.getAxis(Gamepad.leftStick_Y);
+        return -driverGamepad.getAxis(Gamepad.leftStick_Y);
     }
     
     public double getTankRightAxis()
     {
-        return driverGamepad.getAxis(Gamepad.rightStick_Y);
+        return -driverGamepad.getAxis(Gamepad.rightStick_Y);
     }
-	
-	public boolean isShiftButtonHeld()
-	{
-		return driverGamepad.getButton(shiftButtonNumber);
-	}
+
+    public boolean isShiftButtonHeld()
+    {
+	return driverGamepad.getButton(shiftButtonNumber);
+    }
     
 }
 

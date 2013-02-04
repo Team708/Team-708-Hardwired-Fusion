@@ -20,7 +20,9 @@ public class RobotMap {
     //pwm outputs
     public static final int leftJag = 1;
     public static final int rightJag = 2;
-    
+    public static final int shooterVictor = 3;
+    public static final int rightArmJag = 4;
+    public static final int leftArmJag = 5;
     //digital inputs
     public static final int leftEncoderA = 1;
     public static final int leftEncoderB = 2;
@@ -28,10 +30,21 @@ public class RobotMap {
     public static final int rightEncoderA = 3;
     public static final int rightEncoderB = 4;
     
+    public static final int shooterEncoderA = 5;
+    public static final int shooterEncoderB = 6;
+    
+    public static final int leftArmEncoderA = 7;
+    public static final int leftArmEncoderB = 8;
+    
+    public static final int rightArmEncoderA = 9;
+    public static final int rightArmEncoderB = 10;
+   
     //solenoids
     public static final int shiftingSolenoid = 1;
+    public static final int feederSolenoid = 2;
+    public static final int tippingSolenoid = 3;
     
     //driverstation controls
     public static final int driverGamepad = 1;
-           
+    
 }
