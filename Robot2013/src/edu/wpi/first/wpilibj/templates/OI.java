@@ -94,6 +94,11 @@ public class OI {
         operatorGamepad.sendAxesToDashboard();
     }
     
+    public void sendGamepad()
+    {
+        driverGamepad.sendAxesToDashboard();
+    }
+    
     public double getArcadeMovementAxis()
     {
         return -driverGamepad.getAxis(Gamepad.leftStick_Y);
