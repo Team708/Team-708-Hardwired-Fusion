@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilclasses;
+package edu.wpi.first.wpilibj.templates;
 
 import com.sun.squawk.util.MathUtils;
 
@@ -11,20 +11,6 @@ import com.sun.squawk.util.MathUtils;
  * @author Connor Willison
  */
 public class Math708 {
-    
-    /**
-     * Performs linear interpolation between the points (x1,y1) and (x2,y2)
-     * and returns the approximate value of the function at x_result.
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @return 
-     */
-    public static double lerp(double x1,double y1, double x2, double y2,double x_result)
-    {
-        return y2 - ((x2 - x1)* (x2 - x_result)/(y2 - y1));
-    }
     
     /**
      * Used to round a floating point value to

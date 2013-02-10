@@ -5,20 +5,16 @@
 package edu.wpi.first.wpilibj.templates.commands;
 
 /**
- * This command is used to drive the robot during autonomous mode.
+ *
  * @author Connor Willison
  */
-public class Drive extends CommandBase{
+public class ResetDrivetrainEncoders extends CommandBase{
     
-    public Drive(double distance,double speed,double rotation)
-    {
-        
-    }
-
     protected void initialize() {
     }
 
     protected void execute() {
+        drivetrain.resetEncoders();
     }
 
     protected boolean isFinished() {
@@ -30,6 +26,5 @@ public class Drive extends CommandBase{
 
     protected void interrupted() {
     }
-    
     
 }
