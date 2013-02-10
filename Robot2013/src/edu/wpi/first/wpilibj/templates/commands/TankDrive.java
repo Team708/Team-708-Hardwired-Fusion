@@ -22,7 +22,6 @@ public TankDrive() {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.sendToDash();
         drivetrain.tankDrive(oi.getTankLeftAxis(), oi.getTankRightAxis());
     }
 

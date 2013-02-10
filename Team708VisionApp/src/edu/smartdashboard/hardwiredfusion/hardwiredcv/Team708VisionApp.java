@@ -62,10 +62,6 @@ public class Team708VisionApp extends WPICameraExtension{
             
             //draw a box around the acquired target
             rawImage.drawRect(p1x,p1y,p2x - p1x, p3y - p1y, WPIColor.GREEN,1);
-            
-            //draw a reticule in the center of the screen for easier aiming
-            rawImage.drawLine(rp1,rp2, WPIColor.GREEN, 1);
-            rawImage.drawLine(rp3,rp4, WPIColor.GREEN, 1);
 	}
 	catch (TableKeyNotDefinedException exp)
         {
@@ -86,6 +82,10 @@ public class Team708VisionApp extends WPICameraExtension{
 //                written = true;
 //            }
 	}
+        
+        //draw a reticule in the center of the screen for easier aiming
+        rawImage.drawLine(rp1,rp2, WPIColor.GREEN, 1);
+        rawImage.drawLine(rp3,rp4, WPIColor.GREEN, 1);
 
         return rawImage;
     }

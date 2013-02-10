@@ -35,7 +35,7 @@ public class Gamepad extends Joystick{
     public static final int button_LeftStick = 9;
     public static final int button_RightStick = 10;	//only 12 buttons allowed - must find out which can be read    
     
-    private static final double axis_deadzone = .05;
+    private static final double axis_deadzone = .02;
     
     private int port;
     /**
@@ -85,10 +85,10 @@ public class Gamepad extends Joystick{
         SmartDashboard.putDouble("Gamepad " + port + "Right Stick X:",
                 Math708.round(getAxis(Gamepad.rightStick_X),2));
         SmartDashboard.putDouble("Gamepad " + port + "Right Stick Y:",
-                Math708.round(getAxis(Gamepad.rightStick_Y),2));
+                Math708.round(-getAxis(Gamepad.rightStick_Y),2));
         SmartDashboard.putDouble("Gamepad " + port + "Left Stick X:",
                 Math708.round(getAxis(Gamepad.leftStick_X),2));
         SmartDashboard.putDouble("Gamepad " + port + "Left Stick Y:",
-                Math708.round(getAxis(Gamepad.leftStick_Y),2));
+                Math708.round(-getAxis(Gamepad.leftStick_Y),2));
     }
 }

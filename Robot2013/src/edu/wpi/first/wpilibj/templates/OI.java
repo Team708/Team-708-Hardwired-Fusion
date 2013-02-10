@@ -5,6 +5,8 @@ import utilclasses.Gamepad;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.templates.commands.ArcadeDrive;
+import edu.wpi.first.wpilibj.templates.commands.ManualClimb;
+import edu.wpi.first.wpilibj.templates.commands.ResetClimberEncoders;
 import edu.wpi.first.wpilibj.templates.commands.Shift;
 import edu.wpi.first.wpilibj.templates.commands.TankDrive;
 
@@ -46,13 +48,17 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
     
     private Gamepad driverGamepad;
+    private Gamepad operatorGamepad;
 	
 	//gamepad button assignments
 	private static final int shiftButtonNumber = Gamepad.button_L_Shoulder;
+        private static final int climberOverrideButtonNumber = Gamepad.button_L_Shoulder;
     
     public OI()
     {
         driverGamepad = new Gamepad(RobotMap.driverGamepad);
+        operatorGamepad = new Gamepad(RobotMap.operatorGamepad);
+        
         Button tankDriveButton = new JoystickButton(driverGamepad,Gamepad.button_Start);
         tankDriveButton.whenPressed(new TankDrive());
         
@@ -61,11 +67,23 @@ public class OI {
         
         Button shiftButton = new JoystickButton(driverGamepad,shiftButtonNumber);
         shiftButton.whenPressed(new Shift());
+        
+        Button resetClimbEncodersButton = new JoystickButton(operatorGamepad,Gamepad.button_R_Shoulder);
+        resetClimbEncodersButton.whenPressed(new ResetClimberEncoders());
+        
+        Button manualClimbButton = new JoystickButton(operatorGamepad,climberOverrideButtonNumber);
+        manualClimbButton.whenPressed(new ManualClimb());
+    }
+    
+    public void sendGamepads()
+    {
+        driverGamepad.sendAxesToDashboard();
+        operatorGamepad.sendAxesToDashboard();
     }
     
     public double getArcadeMovementAxis()
     {
-        return driverGamepad.getAxis(Gamepad.leftStick_Y);
+        return -driverGamepad.getAxis(Gamepad.leftStick_Y);
     }
     
     public double getArcadeRotationAxis()
@@ -75,18 +93,33 @@ public class OI {
     
     public double getTankLeftAxis()
     {
-        return driverGamepad.getAxis(Gamepad.leftStick_Y);
+        return -driverGamepad.getAxis(Gamepad.leftStick_Y);
     }
     
     public double getTankRightAxis()
     {
-        return driverGamepad.getAxis(Gamepad.rightStick_Y);
+        return -driverGamepad.getAxis(Gamepad.rightStick_Y);
     }
-	
-	public boolean isShiftButtonHeld()
-	{
-		return driverGamepad.getButton(shiftButtonNumber);
-	}
+
+    public boolean isShiftButtonHeld()
+    {
+	return driverGamepad.getButton(shiftButtonNumber);
+    }
+    
+    public boolean isClimberOverrideButtonHeld()
+    {
+	return driverGamepad.getButton(climberOverrideButtonNumber);
+    }
+    
+    public double getClimbingLeftAxis()
+    {
+        return operatorGamepad.getAxis(Gamepad.leftStick_Y);
+    }
+    
+    public double getClimbingRightAxis()
+    {
+        return operatorGamepad.getAxis(Gamepad.rightStick_Y);
+    }
     
 }
 

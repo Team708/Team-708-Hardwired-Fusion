@@ -16,7 +16,7 @@ package utilclasses;
  *    270_     _ 90
  *
  *          | 180
- * @author 708
+ * @author Connor Willison
  */
 public abstract class RotationSensor {
 

@@ -30,6 +30,7 @@ public class EncoderRotationSensor extends RotationSensor{
      * @return 
      */
     public double getAngle(){
+        //
         return Math.toDegrees((left.getDistance() - right.getDistance())/robotDiameter);
     }
 

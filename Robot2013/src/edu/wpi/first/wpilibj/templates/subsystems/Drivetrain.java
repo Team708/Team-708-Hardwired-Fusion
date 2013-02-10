@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.templates.commands.ArcadeDrive;
 
 /**
  *
- * @author Vince & Nam
+ * @author Vincent Gargiulo & Nam Tran
  */
 public class Drivetrain extends PIDSubsystem {
 
@@ -28,13 +28,13 @@ public class Drivetrain extends PIDSubsystem {
     
     private static final double wheelDiameterIn = 6.0;
     private static final double gearMultiplier = 7.5;
-    private static final double encoderCountsPerRotation = 360.0;
+    private static final double encoderCountsPerRotation = 250.0;
     private static final double distancePerCount = wheelDiameterIn * Math.PI /
             (gearMultiplier * encoderCountsPerRotation);
     private static final double robotDiameterIn = 26.5;
     
-    private static final boolean HIGH_GEAR = true;
-    private static final boolean DEFAULT_GEAR = HIGH_GEAR;
+    private static final boolean HIGH_GEAR = false;
+    private static final boolean DEFAULT_GEAR = !HIGH_GEAR;
     
     private double moveSpeed = 0.0;
     private double pidOut = 0.0;
@@ -50,9 +50,12 @@ public class Drivetrain extends PIDSubsystem {
         super("Drivetrain", Kp, Ki, Kd);
         robotDrive = new RobotDrive(RobotMap.leftJag, RobotMap.rightJag);
         
-        leftEnc = new AvgRateEncoder(RobotMap.leftEncoderA,RobotMap.leftEncoderB);
+//        leftEnc = new AvgRateEncoder(RobotMap.leftEncoderA,RobotMap.leftEncoderB);
+        leftEnc = new Encoder(RobotMap.leftEncoderA,RobotMap.leftEncoderB);
         leftEnc.setReverseDirection(true);
-        rightEnc = new AvgRateEncoder(RobotMap.rightEncoderA,RobotMap.rightEncoderB);
+//        rightEnc = new AvgRateEncoder(RobotMap.rightEncoderA,RobotMap.rightEncoderB);
+        rightEnc = new Encoder(RobotMap.rightEncoderA,RobotMap.rightEncoderB);
+//        rightEnc.setReverseDirection(true);
         
         leftEnc.setDistancePerPulse(distancePerCount);
         rightEnc.setDistancePerPulse(distancePerCount);
@@ -139,6 +142,7 @@ public class Drivetrain extends PIDSubsystem {
         {
             shiftHigh();
         }
+//        shifter.set(!shifter.get());
     }
     
     public double getEncoderDifference()
@@ -161,19 +165,19 @@ public class Drivetrain extends PIDSubsystem {
     {
         //if trying to drive straight, use encoder feedback
         //to compensate for drivetrain bias
-        if(rotate == 0.0 && move != 0.0)
-        {
-            if(!this.getPIDController().isEnable())
-            {
-                this.enable();
-            }
-            
-            moveSpeed = move;
-        }else
-        {
-            if(this.getPIDController().isEnable()) this.disable();
+//        if(rotate == 0.0 && move != 0.0)
+//        {
+//            if(!this.getPIDController().isEnable())
+//            {
+//                this.enable();
+//            }
+//            
+//            moveSpeed = move;
+//        }else
+//        {
+//            if(this.getPIDController().isEnable()) this.disable();
             robotDrive.arcadeDrive(move,rotate);
-        }
+//        }
     }
     public void tankDrive(double leftStick, double rightStick)
     {
@@ -205,5 +209,7 @@ public class Drivetrain extends PIDSubsystem {
         SmartDashboard.putNumber("RightEncRate",rightEnc.getRate());
         SmartDashboard.putNumber("LeftEncRate",leftEnc.getRate());
         SmartDashboard.putNumber("PIDOutput",pidOut);
+        
+        SmartDashboard.putString("Drive Gear",(shifter.get() == HIGH_GEAR)?"High":"Low");
     }
 }

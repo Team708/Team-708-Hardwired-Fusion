@@ -57,7 +57,6 @@ public class AvgRateEncoder extends Encoder{
     private class ReaderThread extends Thread
     {
         private Timer timer;
-        private int prevPulseCount;
         
         public ReaderThread()
         {
@@ -65,7 +64,8 @@ public class AvgRateEncoder extends Encoder{
         }
         
         public void run() {
-            int pulseCount = getPulseCount();
+            long pulseCount = 0;
+            long prevPulseCount = getPulseCount();
             timer.start();
             
             while(true)
@@ -73,7 +73,7 @@ public class AvgRateEncoder extends Encoder{
                 if(timer.get() >= sampleTime)
                 {
                     pulseCount = getPulseCount() - prevPulseCount;
-                    prevPulseCount = pulseCount;
+                    prevPulseCount += pulseCount;
                     
                     setRate((double)pulseCount/sampleTime);
                     timer.reset();
