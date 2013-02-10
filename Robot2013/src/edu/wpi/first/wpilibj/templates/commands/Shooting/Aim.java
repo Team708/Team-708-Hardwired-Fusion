@@ -2,7 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands;
+package edu.wpi.first.wpilibj.templates.commands.Shooting;
+
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
@@ -45,7 +47,11 @@ public class Aim extends CommandBase {
                 linedUp = true;
             }
             
-            drivetrain.arcadeDrive(.5, rotation);
+            drivetrain.arcadeDrive(0.0, rotation);
+        }else
+        {
+            //stop aiming because target was lost
+            linedUp = true;
         }
         
     }

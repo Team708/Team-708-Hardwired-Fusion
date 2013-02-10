@@ -2,7 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands;
+package edu.wpi.first.wpilibj.templates.commands.Climbing;
+
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  * This command lets the operator manually control the climber.

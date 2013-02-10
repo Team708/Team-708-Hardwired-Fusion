@@ -2,30 +2,30 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands;
+package edu.wpi.first.wpilibj.templates.commands.Shooting;
 
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
- *
- * @author Vincent Gargiulo
+ * This command stops the shooter after a shot.
+ * @author Connor
  */
-public class Shoot extends CommandBase {
+public class SpinDown extends CommandBase {
     
-    public Shoot() {
+    public SpinDown() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(shooter);
-        requires(visionProcessor);
     }
+
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        
-        
+        //stop the shooter
+        shooter.setSpeed(0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

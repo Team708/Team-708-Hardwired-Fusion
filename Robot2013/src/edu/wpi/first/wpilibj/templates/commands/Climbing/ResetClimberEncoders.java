@@ -1,16 +1,20 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package edu.wpi.first.wpilibj.templates.commands.Climbing;
 
-package edu.wpi.first.wpilibj.templates.commands;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
  * @author Connor Willison
  */
-public class ArcadeDrive extends CommandBase {
-
-    public ArcadeDrive() {
+public class ResetClimberEncoders extends CommandBase {
+    
+    public ResetClimberEncoders() {
         // Use requires() here to declare subsystem dependencies
-        super("ArcadeDrive");
-        requires(drivetrain);
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -19,22 +23,21 @@ public class ArcadeDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.arcadeDrive(oi.getArcadeMovementAxis(), oi.getArcadeRotationAxis());
+        leftArm.resetEncoder();
+        rightArm.resetEncoder();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.arcadeDrive(0.0,0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }

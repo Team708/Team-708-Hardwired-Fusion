@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.RobotMap;
-import edu.wpi.first.wpilibj.templates.commands.ArcadeDrive;
+import edu.wpi.first.wpilibj.templates.commands.Driving.ArcadeDrive;
 
 /**
  *

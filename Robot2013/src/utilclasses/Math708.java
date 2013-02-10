@@ -14,7 +14,7 @@ public class Math708 {
     
     /**
      * Performs linear interpolation between the points (x1,y1) and (x2,y2)
-     * and returns the approximate value of the function at x_result.
+     * and returns the interpolated value of the function at x_result.
      * @param x1
      * @param y1
      * @param x2
@@ -23,7 +23,7 @@ public class Math708 {
      */
     public static double lerp(double x1,double y1, double x2, double y2,double x_result)
     {
-        return y2 - ((x2 - x1)* (x2 - x_result)/(y2 - y1));
+        return ((x_result - x1) * (y2 - y1) / (x2 - x1)) + y1;
     }
     
     /**

@@ -4,11 +4,14 @@ package edu.wpi.first.wpilibj.templates;
 import utilclasses.Gamepad;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.templates.commands.ArcadeDrive;
-import edu.wpi.first.wpilibj.templates.commands.ManualClimb;
-import edu.wpi.first.wpilibj.templates.commands.ResetClimberEncoders;
-import edu.wpi.first.wpilibj.templates.commands.Shift;
-import edu.wpi.first.wpilibj.templates.commands.TankDrive;
+import edu.wpi.first.wpilibj.templates.commands.Driving.ArcadeDrive;
+import edu.wpi.first.wpilibj.templates.commands.Climbing.ManualClimb;
+import edu.wpi.first.wpilibj.templates.commands.Climbing.ResetClimberEncoders;
+import edu.wpi.first.wpilibj.templates.commands.Driving.Shift;
+import edu.wpi.first.wpilibj.templates.commands.Driving.TankDrive;
+import edu.wpi.first.wpilibj.templates.commands.Shooting.ManualFeed;
+import edu.wpi.first.wpilibj.templates.commands.Shooting.ManualSpinUp;
+import edu.wpi.first.wpilibj.templates.commands.Shooting.RetractFeeder;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -53,6 +56,7 @@ public class OI {
 	//gamepad button assignments
 	private static final int shiftButtonNumber = Gamepad.button_L_Shoulder;
         private static final int climberOverrideButtonNumber = Gamepad.button_L_Shoulder;
+        private static final int shooterOverrideButtonNumber = Gamepad.button_A;
     
     public OI()
     {
@@ -73,6 +77,15 @@ public class OI {
         
         Button manualClimbButton = new JoystickButton(operatorGamepad,climberOverrideButtonNumber);
         manualClimbButton.whenPressed(new ManualClimb());
+        
+        Button manualSpinUpButton = new JoystickButton(operatorGamepad,shooterOverrideButtonNumber);
+        manualSpinUpButton.whenPressed(new ManualSpinUp());
+        
+        Button manualFeedButton = new JoystickButton(operatorGamepad,Gamepad.button_R_Shoulder);
+        manualFeedButton.whenPressed(new ManualFeed());
+        manualFeedButton.whenReleased(new RetractFeeder());
+        
+        
     }
     
     public void sendGamepads()
@@ -110,6 +123,13 @@ public class OI {
     {
 	return driverGamepad.getButton(climberOverrideButtonNumber);
     }
+    
+    public boolean isShooterOverrideButtonHeld()
+    {
+	return driverGamepad.getButton(shooterOverrideButtonNumber);
+    }
+    
+    //may need to read an axis on operator stick to set shooter speed
     
     public double getClimbingLeftAxis()
     {

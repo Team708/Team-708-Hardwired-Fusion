@@ -13,12 +13,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.templates.commands.ChaseTarget;
+import edu.wpi.first.wpilibj.templates.commands.Driving.ChaseTarget;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.DebugVision;
-import edu.wpi.first.wpilibj.templates.commands.DriveAroundLockerPods;
-import edu.wpi.first.wpilibj.templates.commands.DriveForDistance;
-import edu.wpi.first.wpilibj.templates.commands.ResetDrivetrainEncoders;
+import edu.wpi.first.wpilibj.templates.commands.Driving.DriveAroundLockerPods;
+import edu.wpi.first.wpilibj.templates.commands.Driving.DriveForDistance;
+import edu.wpi.first.wpilibj.templates.commands.Driving.ResetDrivetrainEncoders;
 
 /**
  * The VM is configured to automatically run this class, and to call the
