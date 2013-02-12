@@ -15,6 +15,7 @@ public class SpinUp extends CommandBase {
     public SpinUp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        super("SpinUp");
         requires(shooter);
         requires(visionProcessor);
     }

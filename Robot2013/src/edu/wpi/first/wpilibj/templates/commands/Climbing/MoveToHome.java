@@ -7,18 +7,22 @@ package edu.wpi.first.wpilibj.templates.commands.Climbing;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
- * This command lets the operator manually control the climber.
- * @author Connor Willison
+ *
+ * @author Robotics
  */
-public class ManualClimb extends CommandBase {
+public class MoveToHome extends CommandBase {
     
-    public ManualClimb() {
-        super("Manual Climb");
+    private static final double movementSpeed = .5;
+    
+    private boolean leftArmDone = false;
+    private boolean rightArmDone = false;
+    
+    public MoveToHome() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        super("MoveToHome");
         requires(leftArm);
         requires(rightArm);
-        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -29,35 +33,25 @@ public class ManualClimb extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //use the gamepad joysticks to move the climber manually
-        if(oi.getClimbingLeftAxis() > 0)
+        if(leftArm.getEncoderCounts() < leftArm.HOME_COUNTS)
         {
-            if(leftArm.isExtended()) leftArm.stop();
-            else leftArm.setMotorSpeed(oi.getClimbingLeftAxis());
-        }else if(oi.getClimbingLeftAxis() < 0)
-        {
-            if(leftArm.isRetracted()) leftArm.stop();
-            else leftArm.setMotorSpeed(oi.getClimbingLeftAxis());
+            leftArm.setMotorSpeed(movementSpeed);
         }else{
-            leftArm.stop();
+            leftArmDone = true;
         }
         
-        if(oi.getClimbingRightAxis() > 0)
+        if(rightArm.getEncoderCounts() < rightArm.HOME_COUNTS)
         {
-            if(rightArm.isExtended()) rightArm.stop();
-            else rightArm.setMotorSpeed(oi.getClimbingRightAxis());
-        }else if(oi.getClimbingRightAxis() < 0)
+            rightArm.setMotorSpeed(movementSpeed);
+        }else
         {
-            if(rightArm.isRetracted()) rightArm.stop();
-            else rightArm.setMotorSpeed(oi.getClimbingRightAxis());
-        }else{
-            rightArm.stop();
+            rightArmDone = true;
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !oi.isClimberOverrideButtonHeld();
+        return leftArmDone && rightArmDone;
     }
 
     // Called once after isFinished returns true
@@ -69,6 +63,5 @@ public class ManualClimb extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }

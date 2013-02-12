@@ -2,48 +2,59 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.Shooting;
+package edu.wpi.first.wpilibj.templates.commands.Climbing;
 
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
- * Allows the operator to manually control the shooter.
+ * Lowers the arms to the start position.
  * @author Connor Willison
  */
-public class ManualSpinUp extends CommandBase {
+public class RetractArms extends CommandBase {
     
-    private double shooterSpeedRPM = 0.0;
+    private static final double homeSpeed = .5;
     
-    public ManualSpinUp() {
+    public RetractArms() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        super("ManualSpinUp");
+        super("Reset Climber to Home");
+        
+        requires(leftArm);
+        requires(rightArm);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        shooterSpeedRPM = Preferences.getInstance().getDouble("ManualShooterSpeedRPM",0.0);
+        rightArm.stop();
+        leftArm.stop();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        shooter.setSpeed(shooterSpeedRPM);  
+        if(!leftArm.isRetracted())
+        {
+            leftArm.setMotorSpeed(-homeSpeed);
+        }
+        
+        if(!rightArm.isRetracted())
+        {
+            rightArm.setMotorSpeed(-homeSpeed);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !oi.isShooterOverrideButtonHeld();
+        return leftArm.isRetracted() && rightArm.isRetracted();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        shooter.setSpeed(0.0);
+        leftArm.resetEncoder();
+        rightArm.resetEncoder();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }

@@ -7,34 +7,37 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  * @author Debbie Musselman + Connor Willison
  */
-public class Climber extends Subsystem// extends PIDSubsystem{
-{
+public class Climber extends PIDSubsystem
+{   
+    private static final double kp = 0;
+    private static final double ki = 0;
+    private static final double kd = 0;
+    public static final double tolerance = 50;
     
-//    private static final double kp = 0;
-//    private static final double ki = 0;
-//    private static final double kd = 0;
-//    public static final double tolerance = 50;
+    //needs to be calibrated
+//    private static final double inchesPerCount = 2.0;
     
-    public static final int extendedArm = 0;
-    public static final double extendSpeed = 1.0;
+    //length in inches of one stroke on the climber
+    public static final double extendedArmCounts = 1300;
+    public static final double HOME_COUNTS = 300;
 
     private Jaguar motor;
     private Encoder encoder;
     private DigitalInput topSwitch,bottomSwitch;
     
     public Climber(String name,int encoderChannelA, int encoderChannelB, int motorChannel,
-            int topSwitchChan, int bottomSwitchChan){
-        //super("Climber", kp, ki, kd);
-        super(name + " Climber");
+            int topSwitchChan, int bottomSwitchChan,boolean flipEncoder){
+        super(name + " Climber", kp, ki, kd);
         motor = new Jaguar(motorChannel);
-        encoder = new Encoder(encoderChannelA, encoderChannelB);
+        encoder = new Encoder(encoderChannelA, encoderChannelB,flipEncoder,Encoder.EncodingType.k2X);
+//        encoder.setDistancePerPulse(inchesPerCount);
         encoder.start();
         
         topSwitch = new DigitalInput(topSwitchChan);
@@ -50,21 +53,27 @@ public class Climber extends Subsystem// extends PIDSubsystem{
     
     public void extend()
     {
-//        setSetpoint(extendedArm);
-//        enable();
-        motor.set(extendSpeed);
+        setSetpoint(extendedArmCounts);
+        enable();
+//        motor.set(extendSpeed);
     }
     
     public void retract()
     {
-//        setSetpoint(0);
-//        enable();
-        motor.set(-extendSpeed);
+        setSetpoint(0.0);
+        enable();
+//        motor.set(-extendSpeed);
+    }
+    
+    public boolean onTarget()
+    {
+        return this.onTarget();
     }
     
     public void stop()
     {
         motor.set(0.0);
+        disable();
     }
     
     public boolean isExtended()
@@ -82,20 +91,25 @@ public class Climber extends Subsystem// extends PIDSubsystem{
         return encoder.get();
     }
     
-    public int getTopDifference()
-    {
-        return extendedArm - encoder.get();
+//    public double getEncoderReadingInches()
+//    {
+//        return encoder.getDistance();
+//    }
+    
+//    public int getTopDifference()
+//    {
+//        return extendedArm - encoder.get();
+//    }
+
+    protected double returnPIDInput() {
+        return encoder.get();
     }
 
-//    protected double returnPIDInput() {
-//        return encoder.get();
-//    }
-//
-//    protected void usePIDOutput(double d) {
-//        motor.set(d);
-//    }
-//    // Put methods for controlling this subsystem
-//    // here. Call these from Commands.
+    protected void usePIDOutput(double d) {
+        motor.set(d);
+    }
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
     
     public void resetEncoder()
     {
@@ -110,6 +124,7 @@ public class Climber extends Subsystem// extends PIDSubsystem{
     public void sendToDash()
     {
         SmartDashboard.putNumber(this.getName() + " EncCounts",encoder.get());
+//        SmartDashboard.putNumber(this.getName() + " EncInches",encoder.getDistance());
         SmartDashboard.putBoolean(this.getName() + " TopSwitch",topSwitch.get());
         SmartDashboard.putBoolean(this.getName() + " BottomSwitch",bottomSwitch.get());
     }

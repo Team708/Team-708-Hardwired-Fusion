@@ -14,7 +14,7 @@ public class RetractFeeder extends CommandBase{
 
     public RetractFeeder()
     {
-        requires(shooter);
+        super("RetractFeeder");
     }
     
     protected void initialize() {

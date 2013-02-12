@@ -15,6 +15,10 @@ public class ResetClimberEncoders extends CommandBase {
     public ResetClimberEncoders() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        super("Reset Climber Encoders");
+        
+//        requires(leftArm);
+//        requires(rightArm);
     }
 
     // Called just before this Command runs the first time

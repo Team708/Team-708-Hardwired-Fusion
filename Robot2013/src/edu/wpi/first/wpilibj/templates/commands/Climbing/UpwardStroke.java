@@ -7,14 +7,19 @@ package edu.wpi.first.wpilibj.templates.commands.Climbing;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
- * This command autonomously operates the climber to scale the pyramid.
- * @author Connor Willison
+ *
+ * @author Robotics
  */
-public class Climb extends CommandBase {
+public class UpwardStroke extends CommandBase {
     
-    public Climb() {
+    private boolean leftArmDone = false;
+    private boolean rightArmDone = false;
+    
+    public UpwardStroke() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        super("Upward Stroke");
+        
         requires(leftArm);
         requires(rightArm);
         requires(drivetrain);
@@ -26,11 +31,27 @@ public class Climb extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        leftArm.extend();
+        rightArm.extend();
+        
+        if(leftArm.onTarget() || leftArm.isExtended())
+        {
+            //leftArm.resetEncoder();
+            leftArm.stop();
+            leftArmDone = true;
+        }
+        
+        if(rightArm.onTarget() || rightArm.isExtended())
+        {
+            //rightArm.resetEncoder();
+            rightArm.stop();
+            rightArmDone = true;
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return leftArmDone && rightArmDone;
     }
 
     // Called once after isFinished returns true

@@ -2,48 +2,64 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.Shooting;
+package edu.wpi.first.wpilibj.templates.commands.Climbing;
 
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
- * Allows the operator to manually control the shooter.
- * @author Connor Willison
+ *
+ * @author Robotics
  */
-public class ManualSpinUp extends CommandBase {
+public class DownwardStroke extends CommandBase {
     
-    private double shooterSpeedRPM = 0.0;
+    private boolean leftArmDone = false;
+    private boolean rightArmDone = false;
     
-    public ManualSpinUp() {
+    public DownwardStroke() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        super("ManualSpinUp");
+        super("Downward Stroke");
+        
+        requires(leftArm);
+        requires(rightArm);
+        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        shooterSpeedRPM = Preferences.getInstance().getDouble("ManualShooterSpeedRPM",0.0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        shooter.setSpeed(shooterSpeedRPM);  
+        leftArm.retract();
+        rightArm.retract();
+        
+        if(leftArm.onTarget() || leftArm.isRetracted())
+        {
+            leftArm.resetEncoder();
+            leftArm.stop();
+            leftArmDone = true;
+        }
+        
+        if(rightArm.onTarget() || rightArm.isRetracted())
+        {
+            rightArm.resetEncoder();
+            rightArm.stop();
+            rightArmDone = true;
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !oi.isShooterOverrideButtonHeld();
+        return leftArmDone && rightArmDone;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        shooter.setSpeed(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }

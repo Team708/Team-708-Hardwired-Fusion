@@ -15,6 +15,7 @@ public class SpinDown extends CommandBase {
     public SpinDown() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        super("SpinDown");
         requires(shooter);
     }
 

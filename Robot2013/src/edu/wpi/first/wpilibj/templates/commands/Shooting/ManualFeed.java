@@ -15,7 +15,7 @@ public class ManualFeed extends CommandBase {
     public ManualFeed() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(shooter);
+        super("Manual Feed");
     }
 
     // Called just before this Command runs the first time
