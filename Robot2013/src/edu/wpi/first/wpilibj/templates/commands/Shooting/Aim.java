@@ -15,6 +15,9 @@ public class Aim extends CommandBase {
     public Aim() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        super("Aim");
+        requires(drivetrain);
+        requires(visionProcessor);
     }
     private double rotationTolerancePx= 0;
     private double rotationSpeed = 0.3;

@@ -2,22 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.Shooting;
+package edu.wpi.first.wpilibj.templates.commands.Climbing;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
- * Spins up the shooter for a shot.
+ *
  * @author Connor Willison
  */
-public class SpinUp extends CommandBase {
+public class RetractClimber extends CommandBase {
     
-    public SpinUp() {
+    public RetractClimber() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        super("SpinUp");
-        requires(shooter);
-        requires(visionProcessor);
+        super("Retract Climber");
+        requires(rightArm);
+        requires(leftArm);
+        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -26,23 +28,12 @@ public class SpinUp extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //run image processing to calculate distance to current target
-        visionProcessor.processData();
-        
-        if(visionProcessor.hasTarget())
-        {
-        
-            /*Gets distance from the camera, and uses that to retrieve from the table
-             the correct RPMs to set the speed of the shooter to. (Assuming Vision
-             Processor has a .getRPM command)*/
-            shooter.setSpeed(visionProcessor.getRPM());
-        }
+        Climber.retractClimber();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-            //check whether shooter is done spinning up
-            return shooter.isAtSpeed() || !visionProcessor.hasTarget();
+        return true;
     }
 
     // Called once after isFinished returns true

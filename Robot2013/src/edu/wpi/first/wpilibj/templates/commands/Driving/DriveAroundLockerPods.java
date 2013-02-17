@@ -28,6 +28,11 @@ public class DriveAroundLockerPods extends CommandGroup {
        addSequential(new RotateToAngle(-90, .7));
     }
     
+    protected void initialize()
+    {
+        counter = 0;
+    }
+    
     protected void execute()
     {
         super.execute();

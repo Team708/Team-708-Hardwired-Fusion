@@ -20,9 +20,11 @@ public class RobotMap {
     //pwm outputs
     public static final int leftJag = 1;
     public static final int rightJag = 2;
-    public static final int shooterVictor = 3;
-    public static final int rightArmJag = 4;
-    public static final int leftArmJag = 5;
+    public static final int rightArmJag = 3;
+    public static final int leftArmJag = 4;
+    public static final int shooterVictor1 = 5;
+    public static final int shooterVictor2 = 6;
+    public static final int shooterVictor3 = 7;
     
     //digital inputs
     public static final int leftEncoderA = 1;
@@ -40,18 +42,28 @@ public class RobotMap {
     public static final int rightArmEncoderA = 9;
     public static final int rightArmEncoderB = 10;
     
-    public static final int leftArmTopSwitch = 11;
-    public static final int leftArmBottomSwitch = 12;
+    public static final int compressorPressureSwitch = 11;
+//    public static final int leftArmTopSwitch = 11;
+//    public static final int leftArmBottomSwitch = 12;
     
-    public static final int rightArmTopSwitch = 13;
-    public static final int rightArmBottomSwitch = 14;
+//    public static final int rightArmTopSwitch = 13;
+//    public static final int rightArmBottomSwitch = 14;
     
-
-   
     //solenoids
     public static final int shiftingSolenoid = 1;
     public static final int feederSolenoid = 2;
     public static final int tippingSolenoid = 3;
+    public static final int liftingSolenoid = 4;
+    public static final int climberExtendSolenoid = 5;
+    
+    //analog inputs
+    public static final int leftArmTopSwitch = 1;
+    public static final int rightArmTopSwitch = 2;
+    public static final int leftArmBottomSwitch = 3;
+    public static final int rightArmBottomSwitch = 4;
+    
+    //relays
+    public static final int compressorSpike = 1;
     
     //driverstation controls
     public static final int driverGamepad = 1;

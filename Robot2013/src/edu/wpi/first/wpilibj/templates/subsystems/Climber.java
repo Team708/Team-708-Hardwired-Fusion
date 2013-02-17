@@ -4,63 +4,116 @@
  */
 package edu.wpi.first.wpilibj.templates.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogChannel;
+import edu.wpi.first.wpilibj.AnalogTrigger;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.templates.RobotMap;
 
 /**
  *
  * @author Debbie Musselman + Connor Willison
  */
-public class Climber extends Subsystem// extends PIDSubsystem{
-{
-    
+public class Climber extends Subsystem
+//extends PIDSubsystem
+{   
 //    private static final double kp = 0;
 //    private static final double ki = 0;
 //    private static final double kd = 0;
 //    public static final double tolerance = 50;
     
-    public static final int extendedArm = 0;
-    public static final double extendSpeed = 1.0;
+    //needs to be calibrated
+//    private static final double inchesPerCount = 2.0;
+    
+    //length in inches of one stroke on the climber
+    public static final int EXTENDED_COUNTS = 1280;
+    public static final int HOME_COUNTS = 230;
+    
+    private static final boolean LIFTER_EXTENDED = true;
+    private static final boolean CLIMBER_EXTENDED = true;
 
     private Jaguar motor;
     private Encoder encoder;
-    private DigitalInput topSwitch,bottomSwitch;
+    private AnalogChannel topSwitchAnalog, bottomSwitchAnalog;
+    private AnalogTrigger topSwitchTrigger, bottomSwitchTrigger;
+    private static Solenoid liftPiston = new Solenoid(RobotMap.liftingSolenoid);
+    private static Solenoid extendPiston = new Solenoid(RobotMap.climberExtendSolenoid);
+    private boolean reverseMotor;
     
     public Climber(String name,int encoderChannelA, int encoderChannelB, int motorChannel,
-            int topSwitchChan, int bottomSwitchChan){
-        //super("Climber", kp, ki, kd);
+            int topSwitchChan, int bottomSwitchChan,boolean flipEncoder,boolean reverseMotor){
+//        super(name + " Climber", kp, ki, kd);
         super(name + " Climber");
         motor = new Jaguar(motorChannel);
-        encoder = new Encoder(encoderChannelA, encoderChannelB);
+        encoder = new Encoder(encoderChannelA, encoderChannelB,flipEncoder,Encoder.EncodingType.k2X);
+//        encoder.setDistancePerPulse(inchesPerCount);
         encoder.start();
         
-        topSwitch = new DigitalInput(topSwitchChan);
-        bottomSwitch = new DigitalInput(bottomSwitchChan);
+        topSwitchAnalog = new AnalogChannel(topSwitchChan);
+        bottomSwitchAnalog = new AnalogChannel(bottomSwitchChan);
+        topSwitchTrigger = new AnalogTrigger(topSwitchAnalog);
+        topSwitchTrigger.setLimitsVoltage(2.5,2.5);
+        bottomSwitchTrigger = new AnalogTrigger(bottomSwitchAnalog);
+        bottomSwitchTrigger.setLimitsVoltage(2.5,2.5);
+        this.reverseMotor = reverseMotor;
 //        setAbsoluteTolerance(tolerance);
 //        setInputRange(0, extendedArm);
     }
     
+    public SpeedController getSpeedController()
+    {
+        return motor;
+    }
+    
     public void setMotorSpeed(double pwm)
     {
-        motor.set(pwm);
+        motor.set((reverseMotor)?-pwm:pwm);
     }
     
-    public void extend()
+//    public void extendArms()
+//    {
+////        setSetpoint(extendedArmCounts);
+////        enable();
+////        motor.set(extendSpeed);
+//    }
+//    
+//    public void retractArms()
+//    {
+////        setSetpoint(0.0);
+////        enable();
+////        motor.set(-extendSpeed);
+//    }
+    
+//    public boolean onTarget()
+//    {
+//        return this.onTarget();
+//    }
+    
+    public static void extendClimber()
     {
-//        setSetpoint(extendedArm);
-//        enable();
-        motor.set(extendSpeed);
+        extendPiston.set(CLIMBER_EXTENDED);
     }
     
-    public void retract()
+    public static void liftRobot()
     {
-//        setSetpoint(0);
-//        enable();
-        motor.set(-extendSpeed);
+        liftPiston.set(LIFTER_EXTENDED);
     }
+    
+    public static void retractClimber()
+    {
+        extendPiston.set(!CLIMBER_EXTENDED);
+    }
+    
+    public static void lowerRobot()
+    {
+        liftPiston.set(!LIFTER_EXTENDED);
+    }
+    
     
     public void stop()
     {
@@ -69,12 +122,12 @@ public class Climber extends Subsystem// extends PIDSubsystem{
     
     public boolean isExtended()
     {
-        return topSwitch.get();
+        return topSwitchTrigger.getTriggerState();
     }
     
     public boolean isRetracted()
     {
-        return bottomSwitch.get();
+        return bottomSwitchTrigger.getTriggerState();
     }
     
     public int getEncoderCounts()
@@ -82,20 +135,25 @@ public class Climber extends Subsystem// extends PIDSubsystem{
         return encoder.get();
     }
     
-    public int getTopDifference()
-    {
-        return extendedArm - encoder.get();
+//    public double getEncoderReadingInches()
+//    {
+//        return encoder.getDistance();
+//    }
+    
+//    public int getTopDifference()
+//    {
+//        return extendedArm - encoder.get();
+//    }
+
+    protected double returnPIDInput() {
+        return encoder.get();
     }
 
-//    protected double returnPIDInput() {
-//        return encoder.get();
-//    }
-//
-//    protected void usePIDOutput(double d) {
-//        motor.set(d);
-//    }
-//    // Put methods for controlling this subsystem
-//    // here. Call these from Commands.
+    protected void usePIDOutput(double d) {
+        setMotorSpeed(d);
+    }
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
     
     public void resetEncoder()
     {
@@ -110,7 +168,14 @@ public class Climber extends Subsystem// extends PIDSubsystem{
     public void sendToDash()
     {
         SmartDashboard.putNumber(this.getName() + " EncCounts",encoder.get());
-        SmartDashboard.putBoolean(this.getName() + " TopSwitch",topSwitch.get());
-        SmartDashboard.putBoolean(this.getName() + " BottomSwitch",bottomSwitch.get());
+//        SmartDashboard.putNumber(this.getName() + " EncInches",encoder.getDistance());
+        SmartDashboard.putBoolean(topSwitchAnalog.getChannel() + " " + 
+                this.getName() + " TopSwitch",topSwitchTrigger.getTriggerState());
+        SmartDashboard.putNumber(topSwitchAnalog.getChannel() + " " + 
+                this.getName() + " TopVoltage",topSwitchAnalog.getVoltage());
+        SmartDashboard.putBoolean(bottomSwitchAnalog.getChannel() + " " + 
+                this.getName() + " BottomSwitch",bottomSwitchTrigger.getTriggerState());
+        SmartDashboard.putNumber(bottomSwitchAnalog.getChannel() + " " + 
+                this.getName() + " BottomVoltage",bottomSwitchAnalog.getVoltage());
     }
 }

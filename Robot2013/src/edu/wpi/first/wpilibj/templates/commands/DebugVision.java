@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DebugVision extends CommandBase {
     
     public DebugVision() {
+        super("Debug Vision");
         requires(visionProcessor);
     }
 

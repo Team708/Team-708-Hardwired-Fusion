@@ -56,6 +56,8 @@ public class VisionProcessor extends Subsystem{
     
     public VisionProcessor()
     {
+        super("Vision Processor");
+        
         lowTargetTable = new double[10][2];
         //store (distance, RPM) pairs here in ascending order
         

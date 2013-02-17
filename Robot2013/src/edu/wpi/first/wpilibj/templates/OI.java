@@ -4,11 +4,14 @@ package edu.wpi.first.wpilibj.templates;
 import utilclasses.Gamepad;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.templates.commands.Driving.ArcadeDrive;
+import edu.wpi.first.wpilibj.templates.commands.AbortCommands;
+import edu.wpi.first.wpilibj.templates.commands.Climbing.ClimbPyramid;
+import edu.wpi.first.wpilibj.templates.commands.Climbing.ExtendArms;
+import edu.wpi.first.wpilibj.templates.commands.Climbing.GoHome;
 import edu.wpi.first.wpilibj.templates.commands.Climbing.ManualClimb;
-import edu.wpi.first.wpilibj.templates.commands.Climbing.ResetClimberEncoders;
+import edu.wpi.first.wpilibj.templates.commands.Climbing.MoveTo;
+import edu.wpi.first.wpilibj.templates.commands.Climbing.RetractArms;
 import edu.wpi.first.wpilibj.templates.commands.Driving.Shift;
-import edu.wpi.first.wpilibj.templates.commands.Driving.TankDrive;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.ManualFeed;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.ManualSpinUp;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.RetractFeeder;
@@ -54,28 +57,40 @@ public class OI {
     private Gamepad operatorGamepad;
 	
 	//gamepad button assignments
-	private static final int shiftButtonNumber = Gamepad.button_L_Shoulder;
-        private static final int climberOverrideButtonNumber = Gamepad.button_L_Shoulder;
-        private static final int shooterOverrideButtonNumber = Gamepad.button_A;
+    private static final int shiftButtonNumber = Gamepad.button_R_Shoulder;
+    private static final int climberOverrideButtonNumber = Gamepad.button_L_Shoulder;
+    private static final int shooterOverrideButtonNumber = Gamepad.button_A;
     
     public OI()
     {
         driverGamepad = new Gamepad(RobotMap.driverGamepad);
         operatorGamepad = new Gamepad(RobotMap.operatorGamepad);
         
-        Button tankDriveButton = new JoystickButton(driverGamepad,Gamepad.button_Start);
-        tankDriveButton.whenPressed(new TankDrive());
-        
-        Button arcadeDriveButton = new JoystickButton(driverGamepad,Gamepad.button_Back);
-        arcadeDriveButton.whenPressed(new ArcadeDrive());
+//        Button tankDriveButton = new JoystickButton(driverGamepad,Gamepad.button_Start);
+//        tankDriveButton.whenPressed(new TankDrive());
+//        
+//        Button arcadeDriveButton = new JoystickButton(driverGamepad,Gamepad.button_Back);
+//        arcadeDriveButton.whenPressed(new ArcadeDrive());
         
         Button shiftButton = new JoystickButton(driverGamepad,shiftButtonNumber);
         shiftButton.whenPressed(new Shift());
         
-        Button resetClimbEncodersButton = new JoystickButton(operatorGamepad,Gamepad.button_R_Shoulder);
-        resetClimbEncodersButton.whenPressed(new ResetClimberEncoders());
+        Button climbUpwardStrokeButton = new JoystickButton(driverGamepad,Gamepad.button_Y);
+        climbUpwardStrokeButton.whenPressed(new ExtendArms());
         
-        Button manualClimbButton = new JoystickButton(operatorGamepad,climberOverrideButtonNumber);
+        Button climbDownwardStrokeButton = new JoystickButton(driverGamepad,Gamepad.button_A);
+        climbDownwardStrokeButton.whenPressed(new RetractArms());
+        
+        Button climbHomeButton = new JoystickButton(driverGamepad,Gamepad.button_B);
+        climbHomeButton.whenPressed(new GoHome());
+        
+        Button climbPyramidButton = new JoystickButton(driverGamepad,Gamepad.button_X);
+        climbPyramidButton.whenPressed(new ClimbPyramid());
+        
+        Button moveToButton =  new JoystickButton(driverGamepad,Gamepad.button_RightStick);
+        moveToButton.whenPressed(new MoveTo(900));
+        
+        Button manualClimbButton = new JoystickButton(driverGamepad,climberOverrideButtonNumber);
         manualClimbButton.whenPressed(new ManualClimb());
         
         Button manualSpinUpButton = new JoystickButton(operatorGamepad,shooterOverrideButtonNumber);
@@ -85,7 +100,8 @@ public class OI {
         manualFeedButton.whenPressed(new ManualFeed());
         manualFeedButton.whenReleased(new RetractFeeder());
         
-        
+        Button abortButton = new JoystickButton(driverGamepad,Gamepad.button_Back);
+        abortButton.whenPressed(new AbortCommands());
     }
     
     public void sendGamepads()
@@ -101,7 +117,7 @@ public class OI {
     
     public double getArcadeMovementAxis()
     {
-        return -driverGamepad.getAxis(Gamepad.leftStick_Y);
+        return driverGamepad.getAxis(Gamepad.leftStick_Y);
     }
     
     public double getArcadeRotationAxis()
@@ -111,12 +127,12 @@ public class OI {
     
     public double getTankLeftAxis()
     {
-        return -driverGamepad.getAxis(Gamepad.leftStick_Y);
+        return driverGamepad.getAxis(Gamepad.leftStick_Y);
     }
     
     public double getTankRightAxis()
     {
-        return -driverGamepad.getAxis(Gamepad.rightStick_Y);
+        return driverGamepad.getAxis(Gamepad.rightStick_Y);
     }
 
     public boolean isShiftButtonHeld()
@@ -131,19 +147,43 @@ public class OI {
     
     public boolean isShooterOverrideButtonHeld()
     {
-	return driverGamepad.getButton(shooterOverrideButtonNumber);
+	return operatorGamepad.getButton(shooterOverrideButtonNumber);
     }
+    
+//    private boolean climberIndependentButtonState = false;
+//    private boolean hasBeenFalse = false;
+//    
+//    public boolean getClimberIndependentButtonState()
+//    {
+//        if(driverGamepad.getButton(Gamepad.button_Start))
+//        {
+//            if(hasBeenFalse)
+//            {
+//                climberIndependentButtonState = !climberIndependentButtonState;
+//            }
+//        }
+//    }
     
     //may need to read an axis on operator stick to set shooter speed
     
     public double getClimbingLeftAxis()
     {
-        return operatorGamepad.getAxis(Gamepad.leftStick_Y);
+        return driverGamepad.getAxis(Gamepad.leftStick_Y);
     }
     
     public double getClimbingRightAxis()
     {
-        return operatorGamepad.getAxis(Gamepad.rightStick_Y);
+        return driverGamepad.getAxis(Gamepad.rightStick_Y);
+    }
+    
+    public double getClimbingUpDownAxis()
+    {
+        return driverGamepad.getAxis(Gamepad.leftStick_Y);
+    }
+    
+    public double getClimbingLeftRightAxis()
+    {
+        return driverGamepad.getAxis(Gamepad.rightStick_X);
     }
     
 }

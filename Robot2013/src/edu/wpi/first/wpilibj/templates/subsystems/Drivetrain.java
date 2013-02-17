@@ -4,16 +4,17 @@
  */
 package edu.wpi.first.wpilibj.templates.subsystems;
 
-import utilclasses.AvgRateEncoder;
 import utilclasses.EncoderRotationSensor;
 import utilclasses.RotationSensor;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.RobotMap;
 import edu.wpi.first.wpilibj.templates.commands.Driving.ArcadeDrive;
+import edu.wpi.first.wpilibj.templates.commands.Driving.TankDrive;
 
 /**
  *
@@ -109,8 +110,18 @@ public class Drivetrain extends PIDSubsystem {
     }
     
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        setDefaultCommand(new ArcadeDrive());
+        String driveMode = Preferences.getInstance().getString("DriveMode", "Halo");
+        
+        if(driveMode.equals("Halo"))
+        {
+            setDefaultCommand(new ArcadeDrive());
+        }else if(driveMode.equals("Tank"))
+        {
+            setDefaultCommand(new TankDrive());
+        }else
+        {
+            setDefaultCommand(new ArcadeDrive());
+        }
     }
     
     public void shiftHigh()

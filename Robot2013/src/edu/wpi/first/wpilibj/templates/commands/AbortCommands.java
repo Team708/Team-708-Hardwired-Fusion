@@ -2,23 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.Climbing;
+package edu.wpi.first.wpilibj.templates.commands;
 
-import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  *
  * @author Connor Willison
  */
-public class ResetClimberEncoders extends CommandBase {
+public class AbortCommands extends CommandBase {
     
-    public ResetClimberEncoders() {
+    public AbortCommands() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        super("ResetEnc");
-        
-        requires(leftArm);
-        requires(rightArm);
+        super("Stop Everything");
     }
 
     // Called just before this Command runs the first time
@@ -27,8 +24,7 @@ public class ResetClimberEncoders extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        leftArm.resetEncoder();
-        rightArm.resetEncoder();
+        Scheduler.getInstance().removeAll();
     }
 
     // Make this return true when this Command no longer needs to run execute()

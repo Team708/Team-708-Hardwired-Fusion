@@ -8,11 +8,13 @@
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.templates.commands.Climbing.ResetClimberEncoders;
 import edu.wpi.first.wpilibj.templates.commands.Driving.ChaseTarget;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.DebugVision;
@@ -40,18 +42,24 @@ public class RobotTemplate extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
         
+        //start the compressor thread
+        new Compressor(RobotMap.compressorPressureSwitch,RobotMap.compressorSpike).start();
+        
         //Radio Button chooser on the Smart Dashboard
         autoChooser = new SendableChooser();
         queueAutonomousCommands();
         
         //add commands to the SmartDashboard
-        //SmartDashboard.putData(Scheduler.getInstance());
+        SmartDashboard.putData(Scheduler.getInstance());
         SmartDashboard.putData(new ResetDrivetrainEncoders());
+        SmartDashboard.putData(new ResetClimberEncoders());
         SmartDashboard.putData("Choose Autonomous Mode", autoChooser);
     }
 
     public void disabledInit() {
         super.disabledInit();
+        
+        Scheduler.getInstance().removeAll();
         
         //reset autonomous commands
         queueAutonomousCommands();

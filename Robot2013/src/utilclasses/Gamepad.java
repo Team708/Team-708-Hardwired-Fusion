@@ -58,6 +58,11 @@ public class Gamepad extends Joystick{
 	double val = getRawAxis(axis);
         if(Math.abs(val) <= axis_deadzone){
             return 0;
+        }else if(axis == Gamepad.rightStick_Y || axis == Gamepad.leftStick_Y)
+        {
+            //flip the y axes on both joysticks
+            //they naturally read negative for upward motion, but they should read positive
+            return -val;
         }else{
             return val;
         }
@@ -82,13 +87,13 @@ public class Gamepad extends Joystick{
      */
     public void sendAxesToDashboard()
     {
-        SmartDashboard.putDouble("Gamepad " + port + "Right Stick X:",
+        SmartDashboard.putNumber("Gamepad " + port + "Right Stick X:",
                 Math708.round(getAxis(Gamepad.rightStick_X),2));
-        SmartDashboard.putDouble("Gamepad " + port + "Right Stick Y:",
-                Math708.round(-getAxis(Gamepad.rightStick_Y),2));
-        SmartDashboard.putDouble("Gamepad " + port + "Left Stick X:",
+        SmartDashboard.putNumber("Gamepad " + port + "Right Stick Y:",
+                Math708.round(getAxis(Gamepad.rightStick_Y),2));
+        SmartDashboard.putNumber("Gamepad " + port + "Left Stick X:",
                 Math708.round(getAxis(Gamepad.leftStick_X),2));
-        SmartDashboard.putDouble("Gamepad " + port + "Left Stick Y:",
-                Math708.round(-getAxis(Gamepad.leftStick_Y),2));
+        SmartDashboard.putNumber("Gamepad " + port + "Left Stick Y:",
+                Math708.round(getAxis(Gamepad.leftStick_Y),2));
     }
 }

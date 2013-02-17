@@ -4,11 +4,6 @@
  */
 package edu.wpi.first.wpilibj.templates.commands.Shooting;
 
-import edu.wpi.first.wpilibj.templates.commands.Shooting.Aim;
-import edu.wpi.first.wpilibj.templates.commands.Shooting.ExtendFeeder;
-import edu.wpi.first.wpilibj.templates.commands.Shooting.RetractFeeder;
-import edu.wpi.first.wpilibj.templates.commands.Shooting.SpinUp;
-import edu.wpi.first.wpilibj.templates.commands.Shooting.SpinDown;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.templates.commands.Wait;
 
@@ -24,9 +19,9 @@ public class Shoot extends CommandGroup {
         addSequential(new Aim());
         addSequential(new SpinUp());
         addSequential(new ExtendFeeder());
-        addSequential(new Wait(.5));
+        //addSequential(new Wait(.5));
         addSequential(new RetractFeeder());
-        addSequential(new Wait(.5));
+        //addSequential(new Wait(.5));
         addSequential(new SpinDown());
     }
 }

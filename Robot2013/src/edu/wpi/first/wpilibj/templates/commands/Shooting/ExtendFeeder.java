@@ -14,6 +14,7 @@ public class ExtendFeeder extends CommandBase{
 
     public ExtendFeeder()
     {
+        super("ExtendFeeder");
         requires(shooter);
     }
     
