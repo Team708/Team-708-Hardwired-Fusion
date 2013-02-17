@@ -4,8 +4,8 @@
  */
 package edu.wpi.first.wpilibj.templates.commands.Climbing;
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
  * This command lets the operator manually control the climber.
@@ -14,10 +14,6 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 public class ManualClimb extends CommandBase {
     double leftAxis  = 0;
     double rightAxis  = 0;
-    
-    private static final double maxSpeedAdjustment = .15;
-    private static final double maxEncoderDifference = 50;
-    private static final double speedDifferenceTolerance = 0;
     
     public ManualClimb() {
         super("Manual Climb");
@@ -41,7 +37,7 @@ public class ManualClimb extends CommandBase {
         double updown  = oi.getClimbingUpDownAxis();
 //        double leftRight = oi.getClimbingRightAxis();
         
-        double speedAdjustment = calcSpeedAdjustment(leftArm.getEncoderCounts() - rightArm.getEncoderCounts());
+        double speedAdjustment = Climber.calcSpeedAdjustment();
  
         if((leftArm.isExtended() && rightArm.isExtended()) || (leftArm.isRetracted() && rightArm.isRetracted()))
         {
@@ -130,19 +126,6 @@ public class ManualClimb extends CommandBase {
 //            rightArm.stop();
 //        }
     }
-    
-    private double calcSpeedAdjustment(int encoderDifference) {
-        if (Math.abs(encoderDifference) > speedDifferenceTolerance) {
-            double speedAdjustment = maxSpeedAdjustment * encoderDifference / maxEncoderDifference;
-
-            speedAdjustment = Math.min(maxSpeedAdjustment, speedAdjustment);
-            speedAdjustment = Math.max(-maxSpeedAdjustment, speedAdjustment);
-
-            return speedAdjustment;
-        } else {
-            return 0.0;
-        }
-    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
@@ -159,7 +142,7 @@ public class ManualClimb extends CommandBase {
     // subsystems is scheduled to run
 
     protected void interrupted() {
-        System.out.println(this.getName() + " interrupted");
+//        System.out.println(this.getName() + " interrupted");
         this.end();
     }
 }

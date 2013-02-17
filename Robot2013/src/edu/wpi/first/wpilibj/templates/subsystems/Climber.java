@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.RobotMap;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
@@ -36,6 +37,11 @@ public class Climber extends Subsystem
     
     private static final boolean LIFTER_EXTENDED = true;
     private static final boolean CLIMBER_EXTENDED = true;
+    
+    //constants for speed synchronization on right & left arms
+    private static final double maxSpeedAdjustment = .15;
+    private static final double maxEncoderDifference = 50;
+    private static final double speedDifferenceTolerance = 0;
 
     private Jaguar motor;
     private Encoder encoder;
@@ -163,6 +169,21 @@ public class Climber extends Subsystem
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public static double calcSpeedAdjustment() {
+        int encoderDifference = CommandBase.leftArm.getEncoderCounts() - CommandBase.rightArm.getEncoderCounts();
+        
+        if (Math.abs(encoderDifference) > speedDifferenceTolerance) {
+            double speedAdjustment = maxSpeedAdjustment * encoderDifference / maxEncoderDifference;
+
+            speedAdjustment = Math.min(maxSpeedAdjustment, speedAdjustment);
+            speedAdjustment = Math.max(-maxSpeedAdjustment, speedAdjustment);
+
+            return speedAdjustment;
+        } else {
+            return 0.0;
+        }
     }
     
     public void sendToDash()

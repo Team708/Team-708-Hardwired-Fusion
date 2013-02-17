@@ -10,6 +10,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -114,12 +115,26 @@ public class RobotTemplate extends IterativeRobot {
     
     private void outputStatistics()
     {
-        CommandBase.oi.sendGamepads();
-        CommandBase.drivetrain.sendToDash();
-        CommandBase.leftArm.sendToDash();
-        CommandBase.rightArm.sendToDash();
-        CommandBase.shooter.sendToDash();
-        CommandBase.visionProcessor.sendToDash();
+        /*
+         * Check the Preferences file to filter out unecessary debug messages on the SmartDashboard.
+         */
+        if(Preferences.getInstance().getBoolean("GamepadDebug",false))
+            CommandBase.oi.sendGamepads();
+        
+        if(Preferences.getInstance().getBoolean("DrivetrainDebug",false))
+            CommandBase.drivetrain.sendToDash();
+        
+        if(Preferences.getInstance().getBoolean("ClimberDebug",false))
+        {
+            CommandBase.leftArm.sendToDash();
+            CommandBase.rightArm.sendToDash();
+        }
+        
+        if(Preferences.getInstance().getBoolean("ShooterDebug",false))
+            CommandBase.shooter.sendToDash();
+        
+        if(Preferences.getInstance().getBoolean("VisionDebug",false))
+            CommandBase.visionProcessor.sendToDash();
     }
 }
 

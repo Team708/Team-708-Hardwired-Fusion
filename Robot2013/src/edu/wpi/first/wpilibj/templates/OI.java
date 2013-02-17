@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.templates.commands.Climbing.ManualClimb;
 import edu.wpi.first.wpilibj.templates.commands.Climbing.MoveTo;
 import edu.wpi.first.wpilibj.templates.commands.Climbing.RetractArms;
 import edu.wpi.first.wpilibj.templates.commands.Driving.Shift;
+import edu.wpi.first.wpilibj.templates.commands.Shooting.JoystickShooterControl;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.ManualFeed;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.ManualSpinUp;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.RetractFeeder;
@@ -60,6 +61,7 @@ public class OI {
     private static final int shiftButtonNumber = Gamepad.button_R_Shoulder;
     private static final int climberOverrideButtonNumber = Gamepad.button_L_Shoulder;
     private static final int shooterOverrideButtonNumber = Gamepad.button_A;
+    private static final int shooterJoystickControlButtonNumber = Gamepad.button_X;
     
     public OI()
     {
@@ -95,6 +97,9 @@ public class OI {
         
         Button manualSpinUpButton = new JoystickButton(operatorGamepad,shooterOverrideButtonNumber);
         manualSpinUpButton.whenPressed(new ManualSpinUp());
+        
+        Button shooterJoystickButton = new JoystickButton(operatorGamepad,shooterJoystickControlButtonNumber);
+        shooterJoystickButton.whenPressed(new JoystickShooterControl());
         
         Button manualFeedButton = new JoystickButton(operatorGamepad,Gamepad.button_R_Shoulder);
         manualFeedButton.whenPressed(new ManualFeed());
@@ -148,6 +153,16 @@ public class OI {
     public boolean isShooterOverrideButtonHeld()
     {
 	return operatorGamepad.getButton(shooterOverrideButtonNumber);
+    }
+    
+    public boolean isShooterJoystickControlButtonHeld()
+    {
+        return operatorGamepad.getButton(shooterJoystickControlButtonNumber);
+    }
+    
+    public double getShooterControlAxis()
+    {
+        return operatorGamepad.getAxis(Gamepad.leftStick_Y);
     }
     
 //    private boolean climberIndependentButtonState = false;

@@ -37,6 +37,9 @@ public class Drivetrain extends PIDSubsystem {
     private static final boolean HIGH_GEAR = false;
     private static final boolean DEFAULT_GEAR = !HIGH_GEAR;
     
+    private static final boolean ROBOT_TIPPED = true;
+    private static final boolean ROBOT_LEVEL = !ROBOT_TIPPED;
+    
     private double moveSpeed = 0.0;
     private double pidOut = 0.0;
     private static final double tankControlTolerance = .025;
@@ -45,6 +48,7 @@ public class Drivetrain extends PIDSubsystem {
     private Encoder leftEnc,rightEnc;
     private RotationSensor rotationSensor;
     private Solenoid shifter;
+    private Solenoid tipper;
 
     // Initialize your subsystem here
     public Drivetrain() {
@@ -68,6 +72,9 @@ public class Drivetrain extends PIDSubsystem {
         
         shifter = new Solenoid(RobotMap.shiftingSolenoid);
         shifter.set(DEFAULT_GEAR);
+        
+        tipper = new Solenoid(RobotMap.tippingSolenoid);
+        tipper.set(ROBOT_LEVEL);
 
         //set up PID Controller
         this.setAbsoluteTolerance(tolerance);
@@ -154,6 +161,16 @@ public class Drivetrain extends PIDSubsystem {
             shiftHigh();
         }
 //        shifter.set(!shifter.get());
+    }
+    
+    public void tipRobot()
+    {
+        tipper.set(ROBOT_TIPPED);
+    }
+    
+    public void levelRobot()
+    {
+        tipper.set(ROBOT_LEVEL);
     }
     
     public double getEncoderDifference()

@@ -4,8 +4,8 @@
  */
 package edu.wpi.first.wpilibj.templates.commands.Climbing;
 
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
  * This command is used to move the shooter up or down a given number of encoder
@@ -30,9 +30,6 @@ public class MoveTo extends CommandBase {
     
     private static final double defaultMovementSpeedNoLoad = 1.0;
     private static final double defaultMovementSpeedUnderLoad = 1.0;
-    private static final double maxSpeedAdjustment = .15;
-    private static final double maxEncoderDifference = 50;
-    private static final double speedDifferenceTolerance = 0;
     private static final int countsTolerance = 40;
     
     //number of counts away from goal that the climber begins
@@ -56,7 +53,7 @@ public class MoveTo extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        System.out.println(this.getName() + " initialized");
+//        System.out.println(this.getName() + " initialized");
 
 //        defaultMovementSpeedNoLoad =
 //                Preferences.getInstance().getDouble("DefaultMoveSpeedNoLoad", .5);
@@ -80,7 +77,7 @@ public class MoveTo extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        System.out.println(this.getName() + " executed");
+//        System.out.println(this.getName() + " executed");
 
         int countsDiffLeft = goalCounts - leftArm.getEncoderCounts();
         int countsDiffRight = goalCounts - rightArm.getEncoderCounts();
@@ -88,14 +85,14 @@ public class MoveTo extends CommandBase {
         double leftCoefficient = calcSpeedCoefficient(countsDiffLeft);
         double rightCoefficient = calcSpeedCoefficient(countsDiffRight);
 
-        double speedAdjustment = calcSpeedAdjustment(leftArm.getEncoderCounts() - rightArm.getEncoderCounts());
+        double speedAdjustment = Climber.calcSpeedAdjustment();
 
-        System.out.println(this.getName() + "goalCounts=" + goalCounts + " countsdiffleft=" + countsDiffLeft);
+//        System.out.println(this.getName() + "goalCounts=" + goalCounts + " countsdiffleft=" + countsDiffLeft);
 
         if (!leftArmDone) {
             if (countsDiffLeft > countsTolerance) {
                 if (leftArm.isExtended()) {
-                    System.out.println("Left Arm Extended");
+//                    System.out.println("Left Arm Extended");
                     leftArm.stop();
                     leftArmDone = true;
                 } else {
@@ -105,7 +102,7 @@ public class MoveTo extends CommandBase {
                 }
             } else if (countsDiffLeft < -countsTolerance) {
                 if (leftArm.isRetracted()) {
-                    System.out.println("Left Arm Retracted");
+//                    System.out.println("Left Arm Retracted");
                     leftArm.stop();
                     leftArmDone = true;
                 } else {
@@ -114,17 +111,17 @@ public class MoveTo extends CommandBase {
                     //leftArm.setMotorSpeed(-defaultMovementSpeedUnderLoad);
                 }
             } else {
-                System.out.println("Left Arm In Range");
+//                System.out.println("Left Arm In Range");
                 leftArm.stop();
                 leftArmDone = true;
             }
         }
 
-        System.out.println(this.getName() + "goalCounts=" + goalCounts + " countsdiffright=" + countsDiffRight);
+//        System.out.println(this.getName() + "goalCounts=" + goalCounts + " countsdiffright=" + countsDiffRight);
         if (!rightArmDone) {
             if (countsDiffRight > countsTolerance) {
                 if (rightArm.isExtended()) {
-                    System.out.println("Right Arm Extended");
+//                    System.out.println("Right Arm Extended");
                     rightArm.stop();
                     rightArmDone = true;
                 } else {
@@ -134,7 +131,7 @@ public class MoveTo extends CommandBase {
                 }
             } else if (countsDiffRight < -countsTolerance) {
                 if (rightArm.isRetracted()) {
-                    System.out.println("Right Arm Retracted");
+//                    System.out.println("Right Arm Retracted");
                     rightArm.stop();
                     rightArmDone = true;
                 } else {
@@ -143,7 +140,7 @@ public class MoveTo extends CommandBase {
                     //rightArm.setMotorSpeed(-defaultMovementSpeedUnderLoad);
                 }
             } else {
-                System.out.println("Right Arm In Range");
+//                System.out.println("Right Arm In Range");
 
                 rightArm.stop();
                 rightArmDone = true;
@@ -154,19 +151,6 @@ public class MoveTo extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return leftArmDone && rightArmDone;
-    }
-
-    private double calcSpeedAdjustment(int encoderDifference) {
-        if (Math.abs(encoderDifference) > speedDifferenceTolerance) {
-            double speedAdjustment = maxSpeedAdjustment * encoderDifference / maxEncoderDifference;
-
-            speedAdjustment = Math.min(maxSpeedAdjustment, speedAdjustment);
-            speedAdjustment = Math.max(-maxSpeedAdjustment, speedAdjustment);
-
-            return speedAdjustment;
-        } else {
-            return 0.0;
-        }
     }
     
     private double calcSpeedCoefficient(int countsToGoal) {
@@ -179,7 +163,7 @@ public class MoveTo extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        System.out.println(this.getName() + " finished");
+//        System.out.println(this.getName() + " finished");
         leftArm.stop();
         rightArm.stop();
     }
@@ -187,7 +171,7 @@ public class MoveTo extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        System.out.println(this.getName() + " interrupted");
+//        System.out.println(this.getName() + " interrupted");
         this.end();
     }
 }
