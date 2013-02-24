@@ -16,7 +16,7 @@ public class TipRobot extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         super("TipRobot");
-        requires(drivetrain);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time

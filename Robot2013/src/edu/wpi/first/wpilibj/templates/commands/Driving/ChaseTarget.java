@@ -20,7 +20,7 @@ public class ChaseTarget extends CommandBase {
     private static final double distanceToleranceIn = 50;
     private static final double rotationTolerancePx = 40;
     private static final double rotationSpeed = .6;
-    private static final double movementSpeed = .8;
+    private static final double movementSpeed = .7;
     
     public ChaseTarget() {
         requires(visionProcessor);

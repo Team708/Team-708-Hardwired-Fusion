@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.templates.commands.AutonomousModes.Fire3Frisbees;
 import edu.wpi.first.wpilibj.templates.commands.Climbing.ResetClimberEncoders;
-import edu.wpi.first.wpilibj.templates.commands.Driving.ChaseTarget;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
-import edu.wpi.first.wpilibj.templates.commands.DebugVision;
+import edu.wpi.first.wpilibj.templates.commands.Driving.ChaseTarget;
 import edu.wpi.first.wpilibj.templates.commands.Driving.DriveAroundLockerPods;
 import edu.wpi.first.wpilibj.templates.commands.Driving.DriveForDistance;
 import edu.wpi.first.wpilibj.templates.commands.Driving.ResetDrivetrainEncoders;
@@ -107,9 +107,9 @@ public class RobotTemplate extends IterativeRobot {
     
     private void queueAutonomousCommands()
     {
-        autoChooser.addDefault("Locker Pod Test", new DriveAroundLockerPods(6));
+        autoChooser.addDefault("Fire 3 Frisbees",new Fire3Frisbees());
+        autoChooser.addObject("Locker Pod Test", new DriveAroundLockerPods(6));
         autoChooser.addObject("Drive Meter Stick", new DriveForDistance(50.0,1.0,0.0));
-        autoChooser.addObject("Vision Debug",new DebugVision());
         autoChooser.addObject("Chase Target", new ChaseTarget());
     }
     
@@ -134,7 +134,10 @@ public class RobotTemplate extends IterativeRobot {
             CommandBase.shooter.sendToDash();
         
         if(Preferences.getInstance().getBoolean("VisionDebug",false))
+        {
+            CommandBase.visionProcessor.processData();
             CommandBase.visionProcessor.sendToDash();
+        }
     }
 }
 

@@ -154,11 +154,11 @@ public class MoveTo extends CommandBase {
     }
     
     private double calcSpeedCoefficient(int countsToGoal) {
-        if (Math.abs(countsToGoal) < proportionalEngagementCounts) {
-            return Math.max((double)Math.abs(countsToGoal) / proportionalEngagementCounts, .8);
-        } else {
+//        if (Math.abs(countsToGoal) < proportionalEngagementCounts) {
+//            return Math.max((double)Math.abs(countsToGoal) / proportionalEngagementCounts, .8);
+//        } else {
             return 1.0;
-        }
+//        }
     }
 
     // Called once after isFinished returns true

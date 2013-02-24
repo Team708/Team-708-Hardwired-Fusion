@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
- *
+ * Uses the climber lifting piston to push up the back end of the robot
+ * while on the pyramid.
  * @author Connor Willison
  */
 public class LiftRobot extends CommandBase {
@@ -20,7 +21,7 @@ public class LiftRobot extends CommandBase {
         super("Lift Robot");
         requires(rightArm);
         requires(leftArm);
-        requires(drivetrain);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time

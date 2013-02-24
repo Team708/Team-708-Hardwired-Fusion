@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
- *
+ * Uses the climber piston to tip the climber forward onto the pyramid.
  * @author Connor Willison
  */
 public class ExtendClimber extends CommandBase {
@@ -19,7 +19,7 @@ public class ExtendClimber extends CommandBase {
         super("Extend Climber");
         requires(rightArm);
         requires(leftArm);
-        requires(drivetrain);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time

@@ -7,7 +7,7 @@ package edu.wpi.first.wpilibj.templates.commands;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
- *
+ * Stops all currently running commmands.
  * @author Connor Willison
  */
 public class AbortCommands extends CommandBase {

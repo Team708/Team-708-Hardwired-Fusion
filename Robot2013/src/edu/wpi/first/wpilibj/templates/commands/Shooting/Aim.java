@@ -12,6 +12,11 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
  */
 public class Aim extends CommandBase {
     
+    private static final double rotationTolerancePx= 10;
+    private static final double rotationSpeed = .6;
+    private double rotation;
+    private boolean linedUp;
+    
     public Aim() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -19,14 +24,11 @@ public class Aim extends CommandBase {
         requires(drivetrain);
         requires(visionProcessor);
     }
-    private double rotationTolerancePx= 0;
-    private double rotationSpeed = 0.3;
-    private double rotation = 0;
-    private boolean linedUp = false;
+ 
     // Called just before this Command runs the first time
     protected void initialize() {
-        requires(drivetrain);
-        requires(visionProcessor);
+        rotation = 0;
+        linedUp = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,11 +38,11 @@ public class Aim extends CommandBase {
         //to line up with the target.
         if (visionProcessor.hasTarget())
         {
-            if (rotationTolerancePx < visionProcessor.getDifferencePx())
+            if (visionProcessor.getDifferencePx() > rotationTolerancePx)
             {
                 rotation = rotationSpeed;
             }
-            else if(rotationTolerancePx > -visionProcessor.getDifferencePx())
+            else if(visionProcessor.getDifferencePx() < -rotationTolerancePx)
             {
                 rotation = -rotationSpeed;
             }
@@ -66,11 +68,12 @@ public class Aim extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        
+        drivetrain.arcadeDrive(0.0,0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        this.end();
     }
 }

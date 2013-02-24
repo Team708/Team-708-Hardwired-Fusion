@@ -21,7 +21,7 @@ public class ManualClimb extends CommandBase {
         // eg. requires(chassis);
         requires(leftArm);
         requires(rightArm);
-        requires(drivetrain);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -129,7 +129,8 @@ public class ManualClimb extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !oi.isClimberOverrideButtonHeld();
+//        return !oi.isClimberOverrideButtonHeld();
+        return false;
     }
 
     // Called once after isFinished returns true

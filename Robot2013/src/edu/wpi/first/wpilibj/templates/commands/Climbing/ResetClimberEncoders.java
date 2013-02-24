@@ -7,7 +7,7 @@ package edu.wpi.first.wpilibj.templates.commands.Climbing;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
- *
+ * Resets the climber encoders to 0 counts.
  * @author Connor Willison
  */
 public class ResetClimberEncoders extends CommandBase {

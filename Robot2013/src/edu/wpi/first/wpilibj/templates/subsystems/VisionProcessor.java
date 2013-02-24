@@ -28,7 +28,7 @@ public class VisionProcessor extends Subsystem{
    
     private String[] targetNames = {"High Target","Middle Target","Low Target","Practice Target","???"};
 //    private double[] aspectRatios = {3.1,2.12,1.16,1.12,0};
-    private double[] aspectRatios = {3.1,2.12,100.0,1.12,0};
+    private double[] aspectRatios = {3.1,2.12,100.0,1.091,0};
     private double[] targetWidths = {62,62,37,24,0};
     
     private double[][] lowTargetTable, midTargetTable, highTargetTable;

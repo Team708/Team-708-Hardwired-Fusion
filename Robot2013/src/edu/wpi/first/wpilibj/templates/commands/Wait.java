@@ -5,7 +5,8 @@
 package edu.wpi.first.wpilibj.templates.commands;
 
 /**
- *
+ * Waits for the specified amount of time in seconds before continuing
+ * to the next command.
  * @author Debbie Musselman
  */
 public class Wait extends CommandBase{
