@@ -6,14 +6,14 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.AnalogTrigger;
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.RobotMap;
+import edu.wpi.first.wpilibj.templates.commands.Climbing.ManualClimb;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
@@ -33,29 +33,39 @@ public class Climber extends Subsystem
     
     //length in inches of one stroke on the climber
     public static final int EXTENDED_COUNTS = 1280;
-    public static final int HOME_COUNTS = 230;
+    public static final int HOME_COUNTS = 350;
     
-    private static final boolean LIFTER_EXTENDED = true;
-    private static final boolean CLIMBER_EXTENDED = true;
+    private static final DoubleSolenoid.Value LIFTER_EXTENDED = DoubleSolenoid.Value.kReverse;
+    private static final DoubleSolenoid.Value LIFTER_RETRACTED = DoubleSolenoid.Value.kForward;
+    
+    private static final DoubleSolenoid.Value CLIMBER_EXTENDED = DoubleSolenoid.Value.kForward;
+    private static final DoubleSolenoid.Value CLIMBER_RETRACTED = DoubleSolenoid.Value.kReverse;
     
     //constants for speed synchronization on right & left arms
     private static final double maxSpeedAdjustment = .15;
     private static final double maxEncoderDifference = 50;
-    private static final double speedDifferenceTolerance = 0;
+    private static final double speedDifferenceTolerance = 10;
 
-    private Jaguar motor;
+    private SpeedController motor;
     private Encoder encoder;
     private AnalogChannel topSwitchAnalog, bottomSwitchAnalog;
     private AnalogTrigger topSwitchTrigger, bottomSwitchTrigger;
-    private static Solenoid liftPiston = new Solenoid(RobotMap.liftingSolenoid);
-    private static Solenoid extendPiston = new Solenoid(RobotMap.climberExtendSolenoid);
+    private static DoubleSolenoid liftPiston = new DoubleSolenoid(RobotMap.liftingSolenoidChannelA,RobotMap.liftingSolenoidChannelB);
+//    private static DoubleSolenoid extendPiston = new DoubleSolenoid(RobotMap.climberExtendSolenoidChannelA,RobotMap.climberExtendSolenoidChannelB);
+        
     private boolean reverseMotor;
+    
+    static
+    {
+        liftPiston.set(LIFTER_RETRACTED);
+//        extendPiston.set(CLIMBER_RETRACTED);
+    }
     
     public Climber(String name,int encoderChannelA, int encoderChannelB, int motorChannel,
             int topSwitchChan, int bottomSwitchChan,boolean flipEncoder,boolean reverseMotor){
 //        super(name + " Climber", kp, ki, kd);
         super(name + " Climber");
-        motor = new Jaguar(motorChannel);
+        motor = new Victor(motorChannel);
         encoder = new Encoder(encoderChannelA, encoderChannelB,flipEncoder,Encoder.EncodingType.k2X);
 //        encoder.setDistancePerPulse(inchesPerCount);
         encoder.start();
@@ -67,6 +77,7 @@ public class Climber extends Subsystem
         bottomSwitchTrigger = new AnalogTrigger(bottomSwitchAnalog);
         bottomSwitchTrigger.setLimitsVoltage(2.5,2.5);
         this.reverseMotor = reverseMotor;
+       
 //        setAbsoluteTolerance(tolerance);
 //        setInputRange(0, extendedArm);
     }
@@ -102,7 +113,7 @@ public class Climber extends Subsystem
     
     public static void extendClimber()
     {
-        extendPiston.set(CLIMBER_EXTENDED);
+//        extendPiston.set(CLIMBER_EXTENDED);
     }
     
     public static void liftRobot()
@@ -112,18 +123,40 @@ public class Climber extends Subsystem
     
     public static void retractClimber()
     {
-        extendPiston.set(!CLIMBER_EXTENDED);
+//        extendPiston.set(CLIMBER_RETRACTED);
     }
     
     public static void lowerRobot()
     {
-        liftPiston.set(!LIFTER_EXTENDED);
+        liftPiston.set(LIFTER_RETRACTED);
     }
     
     
     public void stop()
     {
         motor.set(0.0);
+    }
+    
+    public static void toggleExtendClimber()
+    {
+//        if(extendPiston.get() == DoubleSolenoid.Value.kForward)
+//        {
+//            extendPiston.set(DoubleSolenoid.Value.kReverse);
+//        }else if(extendPiston.get() == DoubleSolenoid.Value.kReverse)
+//        {
+//            extendPiston.set(DoubleSolenoid.Value.kForward);
+//        }
+    }
+    
+    public static void toggleLiftRobot()
+    {
+        if(liftPiston.get() == DoubleSolenoid.Value.kForward)
+        {
+            liftPiston.set(DoubleSolenoid.Value.kReverse);
+        }else if(liftPiston.get() == DoubleSolenoid.Value.kReverse)
+        {
+            liftPiston.set(DoubleSolenoid.Value.kForward);
+        }
     }
     
     public boolean isExtended()
@@ -151,13 +184,13 @@ public class Climber extends Subsystem
 //        return extendedArm - encoder.get();
 //    }
 
-    protected double returnPIDInput() {
-        return encoder.get();
-    }
-
-    protected void usePIDOutput(double d) {
-        setMotorSpeed(d);
-    }
+//    protected double returnPIDInput() {
+//        return encoder.get();
+//    }
+//
+//    protected void usePIDOutput(double d) {
+//        setMotorSpeed(d);
+//    }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     
@@ -169,6 +202,7 @@ public class Climber extends Subsystem
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new ManualClimb());
     }
     
     public static double calcSpeedAdjustment() {

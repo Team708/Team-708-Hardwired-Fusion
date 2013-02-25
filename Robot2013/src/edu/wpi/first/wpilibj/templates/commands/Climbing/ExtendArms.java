@@ -9,8 +9,9 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
- *
- * @author Robotics
+ * Extends the climber arms to their full height, ensuring
+ * that the limit switches are pressed.
+ * @author Connor Willison
  */
 public class ExtendArms extends CommandBase {
     
@@ -23,7 +24,7 @@ public class ExtendArms extends CommandBase {
         
         requires(leftArm);
         requires(rightArm);
-        requires(drivetrain);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time

@@ -53,11 +53,13 @@ public class RobotMap {
     public static final int shiftingSolenoid = 1;
     public static final int feederSolenoid = 2;
     public static final int tippingSolenoid = 3;
-    public static final int liftingSolenoid = 4;
-    public static final int climberExtendSolenoid = 5;
+    public static final int liftingSolenoidChannelA = 4;
+    public static final int liftingSolenoidChannelB = 5;
+    public static final int climberExtendSolenoidChannelA = 6;
+    public static final int climberExtendSolenoidChannelB = 7;
     
     //analog inputs
-    public static final int leftArmTopSwitch = 1;
+    public static final int leftArmTopSwitch = 5;
     public static final int rightArmTopSwitch = 2;
     public static final int leftArmBottomSwitch = 3;
     public static final int rightArmBottomSwitch = 4;

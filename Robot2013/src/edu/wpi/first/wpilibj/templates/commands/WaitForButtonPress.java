@@ -2,40 +2,43 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.Climbing;
+package edu.wpi.first.wpilibj.templates.commands;
 
-import edu.wpi.first.wpilibj.templates.commands.CommandBase;
-import edu.wpi.first.wpilibj.templates.subsystems.Climber;
+import edu.wpi.first.wpilibj.Preferences;
 
 /**
- * Uses the climber lifting piston to push up the back end of the robot
- * while on the pyramid.
+ * Waits for the next stage button to be pressed before continuing
+ * to the next command.
  * @author Connor Willison
  */
-public class LiftRobot extends CommandBase {
+public class WaitForButtonPress extends CommandBase {
     
-    public LiftRobot() {
+    private boolean wasReleased = false;
+    private boolean climberDebug = false;
+    
+    public WaitForButtonPress() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        
-        super("Lift Robot");
-        requires(rightArm);
-        requires(leftArm);
-//        requires(drivetrain);
+        super("WaitForButtonPress");
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        climberDebug = Preferences.getInstance().getBoolean("WaitBetweenStage",false);
+        wasReleased = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Climber.liftRobot();
+        if(!oi.isNextStageButtonPressed())
+        {
+            wasReleased = true;
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return (oi.isNextStageButtonPressed() && wasReleased) || !climberDebug;
     }
 
     // Called once after isFinished returns true

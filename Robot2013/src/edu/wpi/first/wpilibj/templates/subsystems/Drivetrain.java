@@ -4,6 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import utilclasses.EncoderRotationSensor;
 import utilclasses.RotationSensor;
 import edu.wpi.first.wpilibj.Encoder;
@@ -37,8 +38,8 @@ public class Drivetrain extends PIDSubsystem {
     private static final boolean HIGH_GEAR = false;
     private static final boolean DEFAULT_GEAR = !HIGH_GEAR;
     
-    private static final boolean ROBOT_TIPPED = true;
-    private static final boolean ROBOT_LEVEL = !ROBOT_TIPPED;
+    private static final DoubleSolenoid.Value ROBOT_TIPPED = DoubleSolenoid.Value.kForward;
+    private static final DoubleSolenoid.Value ROBOT_LEVEL = DoubleSolenoid.Value.kReverse;
     
     private double moveSpeed = 0.0;
     private double pidOut = 0.0;
@@ -48,7 +49,7 @@ public class Drivetrain extends PIDSubsystem {
     private Encoder leftEnc,rightEnc;
     private RotationSensor rotationSensor;
     private Solenoid shifter;
-    private Solenoid tipper;
+    private DoubleSolenoid tipper;
 
     // Initialize your subsystem here
     public Drivetrain() {
@@ -73,7 +74,7 @@ public class Drivetrain extends PIDSubsystem {
         shifter = new Solenoid(RobotMap.shiftingSolenoid);
         shifter.set(DEFAULT_GEAR);
         
-        tipper = new Solenoid(RobotMap.tippingSolenoid);
+        tipper = new DoubleSolenoid(RobotMap.climberExtendSolenoidChannelA,RobotMap.climberExtendSolenoidChannelB);
         tipper.set(ROBOT_LEVEL);
 
         //set up PID Controller
@@ -173,6 +174,19 @@ public class Drivetrain extends PIDSubsystem {
         tipper.set(ROBOT_LEVEL);
     }
     
+    public void toggleTipRobot()
+    {
+//        tipper.set(!tipper.get());
+        
+        if(tipper.get() == DoubleSolenoid.Value.kForward)
+        {
+            tipper.set(DoubleSolenoid.Value.kReverse);
+        }else if(tipper.get() == DoubleSolenoid.Value.kReverse)
+        {
+            tipper.set(DoubleSolenoid.Value.kForward);
+        }
+    }
+    
     public double getEncoderDifference()
     {
 //        return rightEnc.getRate() - leftEnc.getRate();
@@ -204,7 +218,7 @@ public class Drivetrain extends PIDSubsystem {
 //        }else
 //        {
 //            if(this.getPIDController().isEnable()) this.disable();
-            robotDrive.arcadeDrive(move,rotate);
+            robotDrive.arcadeDrive(-move,rotate);
 //        }
     }
     public void tankDrive(double leftStick, double rightStick)

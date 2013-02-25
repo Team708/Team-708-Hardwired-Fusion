@@ -5,59 +5,39 @@
 package edu.wpi.first.wpilibj.templates.commands.Climbing;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
  *
- * @author Robotics
+ * @author Connor
  */
-public class MoveToHome extends CommandBase {
+public class ToggleLiftRobot extends CommandBase {
     
-    private static final double movementSpeed = .5;
-    
-    private boolean leftArmDone = false;
-    private boolean rightArmDone = false;
-    
-    public MoveToHome() {
+    public ToggleLiftRobot() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        super("MoveToHome");
+        super("Toggle Lift Robot");
         requires(leftArm);
         requires(rightArm);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        leftArm.stop();
-        rightArm.stop();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(leftArm.getEncoderCounts() < leftArm.HOME_COUNTS)
-        {
-            leftArm.setMotorSpeed(movementSpeed);
-        }else{
-            leftArmDone = true;
-        }
-        
-        if(rightArm.getEncoderCounts() < rightArm.HOME_COUNTS)
-        {
-            rightArm.setMotorSpeed(movementSpeed);
-        }else
-        {
-            rightArmDone = true;
-        }
+        Climber.toggleLiftRobot();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return leftArmDone && rightArmDone;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        leftArm.stop();
-        rightArm.stop();
     }
 
     // Called when another command which requires one or more of the same

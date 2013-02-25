@@ -17,7 +17,7 @@ public class LevelRobot extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         super("Level Robot");
-        requires(drivetrain);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time

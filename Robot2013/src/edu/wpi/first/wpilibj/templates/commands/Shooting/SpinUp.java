@@ -27,22 +27,25 @@ public class SpinUp extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         //run image processing to calculate distance to current target
-        visionProcessor.processData();
+//        visionProcessor.processData();
+//        
+//        if(visionProcessor.hasTarget())
+//        {
+//        
+//            /*Gets distance from the camera, and uses that to retrieve from the table
+//             the correct RPMs to set the speed of the shooter to. (Assuming Vision
+//             Processor has a .getRPM command)*/
+//            shooter.setSpeed(visionProcessor.getRPM());
+//        }
         
-        if(visionProcessor.hasTarget())
-        {
-        
-            /*Gets distance from the camera, and uses that to retrieve from the table
-             the correct RPMs to set the speed of the shooter to. (Assuming Vision
-             Processor has a .getRPM command)*/
-            shooter.setSpeed(visionProcessor.getRPM());
-        }
+        shooter.setPWM(1.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-            //check whether shooter is done spinning up
-            return shooter.isAtSpeed() || !visionProcessor.hasTarget();
+        //check whether shooter is done spinning up
+//        return shooter.isAtSpeed() || !visionProcessor.hasTarget();
+        return true;
     }
 
     // Called once after isFinished returns true

@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
- *
+ * Retracts the climber lifting piston to lower the back end of
+ * the robot onto the pyramid.
  * @author Connor Willison
  */
 public class LowerRobot extends CommandBase {
@@ -19,7 +20,7 @@ public class LowerRobot extends CommandBase {
         super("Lower Robot");
         requires(rightArm);
         requires(leftArm);
-        requires(drivetrain);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time

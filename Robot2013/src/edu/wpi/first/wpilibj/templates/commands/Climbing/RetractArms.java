@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
- * Lowers the arms to the start position.
+ * Lowers the arms to their lowest point, ensuring that
+ * the limit switches are pressed.
  * @author Connor Willison
  */
 public class RetractArms extends CommandBase {
@@ -24,7 +25,7 @@ public class RetractArms extends CommandBase {
         
         requires(leftArm);
         requires(rightArm);
-        requires(drivetrain);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time

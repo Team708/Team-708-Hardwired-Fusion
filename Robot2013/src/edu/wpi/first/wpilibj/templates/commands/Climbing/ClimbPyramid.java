@@ -6,7 +6,8 @@ package edu.wpi.first.wpilibj.templates.commands.Climbing;
  */
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.templates.subsystems.Climber;
+import edu.wpi.first.wpilibj.templates.commands.Wait;
+import edu.wpi.first.wpilibj.templates.commands.WaitForButtonPress;
 
 /**
  * This command is called to make the robot climb the pyramid
@@ -27,9 +28,9 @@ public class ClimbPyramid extends CommandGroup {
         
         //pseudo code for climb process:
         
-        //extend first fingers
+        //extend arms
         //tip robot onto pyramid
-        //retract first fingers
+        //partially retract arms
         //lift robot
         //do full strokes until at first "bump"
         //lower robot
@@ -42,21 +43,48 @@ public class ClimbPyramid extends CommandGroup {
         //stroke until engaged on third rung
         //perform a partial stroke to lift robot off of second rung
         
-
-        addSequential(new MoveTo(Climber.EXTENDED_COUNTS - Climber.HOME_COUNTS));
+        addSequential(new ExtendArms());
         addSequential(new ResetClimberEncoders());
-        addSequential(new MoveTo(-Climber.EXTENDED_COUNTS));
+        addSequential(new WaitForButtonPress());
+        addSequential(new TipRobot());
+        addSequential(new Wait(2.0));
+        addSequential(new WaitForButtonPress());
+//        addSequential(new MoveTo(-400));
+//        addSequential(new WaitForButtonPress());
+        
+        addSequential(new RetractArms());
         addSequential(new ResetClimberEncoders());
-
-        for(int i = 0; i< 4; i++)
-        {
-            addSequential(new MoveTo(Climber.EXTENDED_COUNTS));
-            addSequential(new MoveTo(0));
-            addSequential(new ResetClimberEncoders());
-        }
+        addSequential(new WaitForButtonPress()); //10 pt climb
+        addSequential(new LiftRobot());
+        addSequential(new WaitForButtonPress());
         
-//        addSequential(new GoHome());
+         //retract the tip piston here so that air pressure
+        //has had time to build up after extending lift piston
+        addParallel(new LevelRobot());
         
-//        addSequential(new MoveTo(900));
+        //first extend/retract
+//        addSequential(new ExtendArms());
+//        addSequential(new ResetClimberEncoders());
+//        addSequential(new WaitForButtonPress());
+//        addSequential(new RetractArms());
+//        addSequential(new ResetClimberEncoders());
+//        addSequential(new WaitForButtonPress());
+//        
+//        //2nd extend/retract
+//        addSequential(new ExtendArms());
+//        addSequential(new ResetClimberEncoders());
+//        addSequential(new WaitForButtonPress());
+//        addSequential(new RetractArms());
+//        addSequential(new ResetClimberEncoders());
+//        addSequential(new WaitForButtonPress());
+//        
+//        //3rd extend to reach 2nd rung
+//        addSequential(new ExtendArms());
+//        addSequential(new ResetClimberEncoders());
+//        addSequential(new WaitForButtonPress());
+//        addSequential(new RetractArms());
+//        addSequential(new ResetClimberEncoders());
+//        addSequential(new WaitForButtonPress());
+        
     }
 }

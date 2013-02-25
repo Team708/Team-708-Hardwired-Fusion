@@ -8,19 +8,17 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
- * Uses the climber lifting piston to push up the back end of the robot
- * while on the pyramid.
- * @author Connor Willison
+ *
+ * @author Connor
  */
-public class LiftRobot extends CommandBase {
+public class ToggleExtendClimber extends CommandBase {
     
-    public LiftRobot() {
+    public ToggleExtendClimber() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        
-        super("Lift Robot");
-        requires(rightArm);
+        super("Toggle Extend Climber");
         requires(leftArm);
+        requires(rightArm);
 //        requires(drivetrain);
     }
 
@@ -30,7 +28,7 @@ public class LiftRobot extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Climber.liftRobot();
+        Climber.toggleExtendClimber();
     }
 
     // Make this return true when this Command no longer needs to run execute()

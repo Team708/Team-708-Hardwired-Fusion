@@ -2,19 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands;
+package edu.wpi.first.wpilibj.templates.commands.Climbing;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
- * @author Connor Willison
+ * @author Connor
  */
-public class DebugVision extends CommandBase {
+public class ToggleTipRobot extends CommandBase {
     
-    public DebugVision() {
-        super("Debug Vision");
-        requires(visionProcessor);
+    public ToggleTipRobot() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+        super("ToggleTipRobot");
+        requires(leftArm);
+        requires(rightArm);
     }
 
     // Called just before this Command runs the first time
@@ -23,12 +26,12 @@ public class DebugVision extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        visionProcessor.processData();
+        drivetrain.toggleTipRobot();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

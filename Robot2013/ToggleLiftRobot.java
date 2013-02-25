@@ -2,26 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.Climbing;
-
-import edu.wpi.first.wpilibj.templates.commands.CommandBase;
-import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
- * Uses the climber lifting piston to push up the back end of the robot
- * while on the pyramid.
- * @author Connor Willison
+ *
+ * @author Robotics
  */
-public class LiftRobot extends CommandBase {
+public class ToggleLiftRobot extends CommandBase {
     
-    public LiftRobot() {
+    public ToggleLiftRobot() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        
-        super("Lift Robot");
-        requires(rightArm);
-        requires(leftArm);
-//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -30,12 +20,11 @@ public class LiftRobot extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Climber.liftRobot();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

@@ -64,6 +64,7 @@ public class Shooter extends Subsystem{
         
         taskTimer = new Timer();
         taskTimer.scheduleAtFixedRate(bangBangController,0,20);
+
         
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system
@@ -84,7 +85,7 @@ public class Shooter extends Subsystem{
     }
     
     public void setSpeed(double wheelSpeedRPMs) {
-        if (wheelSpeedRPMs == 0)
+        if (wheelSpeedRPMs == 0.0)
         {
 //            this.setSetpoint(0.0);
 //            //Disables PID
@@ -181,10 +182,10 @@ public class Shooter extends Subsystem{
             {
                 if(getSpeedRPMs() <= goalRPMs)
                 {
-                    setSpeed(accelerationSpeed);
+                    setPWM(accelerationSpeed);
                 }else
                 {
-                    setSpeed(deccelerationSpeed);
+                    setPWM(deccelerationSpeed);
                 }
             }
         }

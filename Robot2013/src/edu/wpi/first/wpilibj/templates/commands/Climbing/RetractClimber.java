@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.subsystems.Climber;
 
 /**
- *
+ * Uses the climber pistons to move the climber back over the
+ * robot's frame.
  * @author Connor Willison
  */
 public class RetractClimber extends CommandBase {
@@ -19,7 +20,7 @@ public class RetractClimber extends CommandBase {
         super("Retract Climber");
         requires(rightArm);
         requires(leftArm);
-        requires(drivetrain);
+//        requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
