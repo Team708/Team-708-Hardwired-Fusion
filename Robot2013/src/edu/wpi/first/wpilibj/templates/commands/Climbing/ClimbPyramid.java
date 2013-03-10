@@ -43,20 +43,24 @@ public class ClimbPyramid extends CommandGroup {
         //stroke until engaged on third rung
         //perform a partial stroke to lift robot off of second rung
         
-        addSequential(new ExtendArms());
-        addSequential(new ResetClimberEncoders());
-        addSequential(new WaitForButtonPress());
+        
+        //addSequential(new WaitForButtonPress());
         addSequential(new TipRobot());
         addSequential(new Wait(2.0));
-        addSequential(new WaitForButtonPress());
+        //addSequential(new WaitForButtonPress());
+        
+        //extend arms after tipping so that fingers do not get stuck
+        addSequential(new ExtendArms());
+        addSequential(new ResetClimberEncoders());
 //        addSequential(new MoveTo(-400));
 //        addSequential(new WaitForButtonPress());
         
-        addSequential(new RetractArms());
-        addSequential(new ResetClimberEncoders());
-        addSequential(new WaitForButtonPress()); //10 pt climb
+//        addSequential(new RetractArms());
+        addSequential(new MoveTo(-800));
+//        addSequential(new ResetClimberEncoders());
+        //addSequential(new WaitForButtonPress()); //10 pt climb
         addSequential(new LiftRobot());
-        addSequential(new WaitForButtonPress());
+        //addSequential(new WaitForButtonPress());
         
          //retract the tip piston here so that air pressure
         //has had time to build up after extending lift piston

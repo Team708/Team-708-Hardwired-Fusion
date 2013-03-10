@@ -23,7 +23,7 @@ public class ExtendFeeder extends CommandBase{
 
     protected void execute() {
         //fire only if there is a target
-        if(visionProcessor.hasTarget())
+        //if(visionProcessor.hasTarget())
             shooter.extendSolenoid();
     }
 

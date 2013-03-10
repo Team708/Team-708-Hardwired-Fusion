@@ -33,7 +33,11 @@ public class Shooter extends Subsystem{
     //bang-bang speed controller constants
     private static final double accelerationSpeed = 1.0;
     private static final double deccelerationSpeed = 0.0;
-    private static final double toleranceRPMs = 100;
+    private static final double toleranceRPMs = 50;
+    
+    public static final double shooterPreferredRPM = 3250;
+    private double shooterRPM = shooterPreferredRPM;
+    private double RPMIncrement = 200;
     
     //bang-bang controller variables
     private BangBangSpeedController bangBangController;
@@ -117,6 +121,14 @@ public class Shooter extends Subsystem{
         vic3.set(speed);
     }
     
+    /**
+     * Spin the shooter to the current RPM setting.
+     */
+    public void setSpeed()
+    {
+        setSpeed(shooterRPM);
+    }
+    
     public void extendSolenoid()
     {
         feederSolenoid.set(feederExtended);
@@ -151,6 +163,19 @@ public class Shooter extends Subsystem{
         return shooterEncoder.getRate() * 60;
     }
     
+    public void increaseRPM()
+    {
+        shooterRPM += RPMIncrement;
+    }
+    
+    public void decreaseRPM()
+    {
+        if(shooterRPM >= RPMIncrement)
+        {
+            shooterRPM -= RPMIncrement;
+        }
+    }
+    
 //    protected void usePIDOutput(double output) {
 //        // Use output to drive your system, like a motor
 //        // e.g. yourMotor.set(output);
@@ -166,9 +191,9 @@ public class Shooter extends Subsystem{
     
     public void sendToDash()
     {
-//        SmartDashboard.putNumber("ShooterRPM",returnPIDInput());
 //        SmartDashboard.putNumber("ShooterPIDOutput",pidOutput);
-        SmartDashboard.putNumber("ShooterRPM", getSpeedRPMs());
+        SmartDashboard.putNumber("GoalShooterRPM",shooterRPM);
+        SmartDashboard.putNumber("CurrentShooterRPM", getSpeedRPMs());
         SmartDashboard.putBoolean("FeederPiston", feederSolenoid.get());
     }
     

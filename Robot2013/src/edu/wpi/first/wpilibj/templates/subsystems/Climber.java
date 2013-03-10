@@ -33,7 +33,10 @@ public class Climber extends Subsystem
     
     //length in inches of one stroke on the climber
     public static final int EXTENDED_COUNTS = 1280;
-    public static final int HOME_COUNTS = 350;
+    
+    //changed due to encoder malfunction
+//    public static final int HOME_COUNTS = 350;
+    public static final int HOME_COUNTS = 230;
     
     private static final DoubleSolenoid.Value LIFTER_EXTENDED = DoubleSolenoid.Value.kReverse;
     private static final DoubleSolenoid.Value LIFTER_RETRACTED = DoubleSolenoid.Value.kForward;

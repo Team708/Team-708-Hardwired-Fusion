@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.templates.commands.Climbing.ToggleLiftRobot;
 import edu.wpi.first.wpilibj.templates.commands.Climbing.ToggleTipRobot;
 import edu.wpi.first.wpilibj.templates.commands.Driving.Shift;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.ManualFeed;
+import edu.wpi.first.wpilibj.templates.commands.Shooting.ManualSpinUp;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.RetractFeeder;
-import edu.wpi.first.wpilibj.templates.commands.Shooting.TeleopPrepareToShoot;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -115,7 +115,8 @@ public class OI {
         
         //uses vision processing to aim and spin up
         Button prepareToShootButton = new JoystickButton(operatorGamepad,prepareToShootButtonNumber);
-        prepareToShootButton.whenPressed(new TeleopPrepareToShoot());
+//        prepareToShootButton.whenPressed(new TeleopPrepareToShoot());
+        prepareToShootButton.whenPressed(new ManualSpinUp());
         
         Button manualFeedButton = new JoystickButton(operatorGamepad,Gamepad.button_R_Shoulder);
         manualFeedButton.whenPressed(new ManualFeed());
@@ -174,8 +175,8 @@ public class OI {
     
     public boolean isShooterOverrideButtonHeld()
     {
-//	return operatorGamepad.getButton(shooterOverrideButtonNumber);
-        return false;
+	return operatorGamepad.getButton(Gamepad.button_L_Shoulder);
+//        return false;
     }
     
     public boolean isShooterJoystickControlButtonHeld()
@@ -197,6 +198,16 @@ public class OI {
     public boolean isPrepareToShootButtonHeld()
     {
         return operatorGamepad.getButton(prepareToShootButtonNumber);
+    }
+    
+    public boolean isDecreaseShooterSpeedButtonPressed()
+    {
+        return operatorGamepad.getAxis(Gamepad.dpadAxis) < 0.0;
+    }
+    
+    public boolean isIncreaseShooterSpeedButtonPressed()
+    {
+        return operatorGamepad.getAxis(Gamepad.dpadAxis) > 0.0;
     }
     
 //    private boolean climberIndependentButtonState = false;

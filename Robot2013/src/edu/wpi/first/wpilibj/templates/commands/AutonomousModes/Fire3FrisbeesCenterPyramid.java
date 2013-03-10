@@ -6,6 +6,7 @@
 package edu.wpi.first.wpilibj.templates.commands.AutonomousModes;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.Aim;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.Shoot;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.SpinDown;
@@ -17,9 +18,9 @@ import edu.wpi.first.wpilibj.templates.commands.Wait;
  * then fires all frisbees.
  * @author Connor Willison
  */
-public class Fire3Frisbees extends CommandGroup {
+public class Fire3FrisbeesCenterPyramid extends CommandGroup {
     
-    public Fire3Frisbees() {
+    public Fire3FrisbeesCenterPyramid() {
         
         //insert code to maneuver robot before first shot here.
         
@@ -33,11 +34,18 @@ public class Fire3Frisbees extends CommandGroup {
         addSequential(new SpinUp());
         addSequential(new Wait(3.0));
         
-        for(int iterations = 0; iterations < 3; iterations++)
+        for(int iterations = 0; iterations < 10; iterations++)
         {
             addSequential(new Shoot());
         }
         
         addSequential(new SpinDown());
+    }
+    
+    public void end()
+    {
+        super.end();
+        
+        CommandBase.shooter.setPWM(0.0);
     }
 }

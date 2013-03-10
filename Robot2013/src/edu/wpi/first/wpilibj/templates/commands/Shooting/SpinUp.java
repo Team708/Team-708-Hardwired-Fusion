@@ -5,6 +5,7 @@
 package edu.wpi.first.wpilibj.templates.commands.Shooting;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
 
 /**
  * Spins up the shooter for a shot.
@@ -38,14 +39,19 @@ public class SpinUp extends CommandBase {
 //            shooter.setSpeed(visionProcessor.getRPM());
 //        }
         
-        shooter.setPWM(1.0);
+//        shooter.setSpeed(Shooter.shooterPreferredRPM);
+        
+        //change to speed set by operator
+        shooter.setSpeed();
+        
+//        shooter.setPWM(1.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         //check whether shooter is done spinning up
-//        return shooter.isAtSpeed() || !visionProcessor.hasTarget();
-        return true;
+        return shooter.isAtSpeed(); //|| !visionProcessor.hasTarget();
+//        return true;
     }
 
     // Called once after isFinished returns true

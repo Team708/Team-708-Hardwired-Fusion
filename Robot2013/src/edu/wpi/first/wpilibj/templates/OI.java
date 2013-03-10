@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.templates.commands.Climbing.RetractArms;
 import edu.wpi.first.wpilibj.templates.commands.Climbing.ToggleLiftRobot;
 import edu.wpi.first.wpilibj.templates.commands.Climbing.ToggleTipRobot;
 import edu.wpi.first.wpilibj.templates.commands.Driving.Shift;
+import edu.wpi.first.wpilibj.templates.commands.Shooting.DecreaseShooterSpeed;
+import edu.wpi.first.wpilibj.templates.commands.Shooting.IncreaseShooterSpeed;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.ManualFeed;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.RetractFeeder;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.TeleopPrepareToShoot;
@@ -123,6 +125,12 @@ public class OI {
         
         Button operatorAbortButton = new JoystickButton(operatorGamepad,Gamepad.button_Back);
         operatorAbortButton.whenPressed(new AbortCommands());
+        
+        Button increaseShooterSpeedButton = new AxisButton(operatorGamepad,Gamepad.dpadAxis,true);
+        increaseShooterSpeedButton.whenPressed(new IncreaseShooterSpeed());
+        
+        Button decreaseShooterSpeedButton = new AxisButton(operatorGamepad,Gamepad.dpadAxis,false);
+        decreaseShooterSpeedButton.whenPressed(new DecreaseShooterSpeed());
 
 //        Button manualSpinUpButton = new JoystickButton(operatorGamepad,shooterOverrideButtonNumber);
 //        manualSpinUpButton.whenPressed(new ManualSpinUp());
