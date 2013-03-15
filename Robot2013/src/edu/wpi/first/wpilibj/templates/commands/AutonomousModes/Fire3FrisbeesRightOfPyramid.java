@@ -31,6 +31,7 @@ public class Fire3FrisbeesRightOfPyramid extends CommandGroup {
 //        
 //        addSequential(new DriveForDistance(-3.0,.7,0.0));
         
+        addSequential(new Aim());
         addSequential(new Fire3Frisbees());
     }
     
