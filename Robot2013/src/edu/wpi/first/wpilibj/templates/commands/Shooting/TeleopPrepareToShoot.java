@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 public class TeleopPrepareToShoot extends CommandGroup {
     
     public TeleopPrepareToShoot() {
-        addSequential(new Aim());
+        //addSequential(new Aim());
         addSequential(new SpinUp());
     }
     

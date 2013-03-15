@@ -25,7 +25,7 @@ public class Fire3Frisbees extends CommandGroup {
          * longest, but after the robot has aimed and spun up the
          * second and third shots should be quick.
          */
-        addSequential(new Aim());
+        //addSequential(new Aim());
         addSequential(new SpinUp());
         addSequential(new Wait(3.0));
         
