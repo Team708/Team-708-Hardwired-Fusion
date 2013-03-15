@@ -24,7 +24,7 @@ public class Fire3FrisbeesCenterPyramid extends CommandGroup {
     
     public Fire3FrisbeesCenterPyramid() {
 //        addSequential(new ResetDrivetrainEncoders());
-        addSequential(new DriveForDistance(-4.0,.7,0.0));
+        addSequential(new DriveForDistance(-3.0,.7,0.0));
         
         addSequential(new Fire3Frisbees());
         

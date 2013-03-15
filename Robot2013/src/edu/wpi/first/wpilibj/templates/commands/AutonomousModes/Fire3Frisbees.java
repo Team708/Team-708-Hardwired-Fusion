@@ -29,7 +29,7 @@ public class Fire3Frisbees extends CommandGroup {
         addSequential(new SpinUp());
         addSequential(new Wait(3.0));
         
-        for(int iterations = 0; iterations < 4; iterations++)
+        for(int iterations = 0; iterations < 6; iterations++)
         {
             addSequential(new Shoot());
         }

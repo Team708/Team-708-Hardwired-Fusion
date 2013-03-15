@@ -32,6 +32,7 @@ public class TurnUntilTargetFound extends CommandGroup{
     
     public boolean isFinished()
     {
+        CommandBase.visionProcessor.processData();
         //stop when target is found
         return super.isFinished() || CommandBase.visionProcessor.hasTarget();
     }
