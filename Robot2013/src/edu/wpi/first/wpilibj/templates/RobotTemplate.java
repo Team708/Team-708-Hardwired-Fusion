@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.commands.AutonomousModes.Fire3FrisbeesCenterPyramid;
 import edu.wpi.first.wpilibj.templates.commands.AutonomousModes.Fire3FrisbeesLeftOfPyramid;
 import edu.wpi.first.wpilibj.templates.commands.AutonomousModes.Fire3FrisbeesRightOfPyramid;
+import edu.wpi.first.wpilibj.templates.commands.AutonomousModes.RotationTest;
 import edu.wpi.first.wpilibj.templates.commands.Climbing.ResetClimberEncoders;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.Driving.ResetDrivetrainEncoders;
@@ -110,6 +111,7 @@ public class RobotTemplate extends IterativeRobot {
         autoChooser.addDefault("Center of Pyramid", new Fire3FrisbeesCenterPyramid());
         autoChooser.addObject("Left of Pyramid", new Fire3FrisbeesLeftOfPyramid());
         autoChooser.addObject("Right Of Pyramid", new Fire3FrisbeesRightOfPyramid());
+        autoChooser.addObject("Rotation Test", new RotationTest());
 //        autoChooser.addObject("Locker Pod Test", new DriveAroundLockerPods(6));
 //        autoChooser.addObject("Drive Meter Stick", new DriveForDistance(50.0,1.0,0.0));
 //        autoChooser.addObject("Chase Target", new ChaseTarget());

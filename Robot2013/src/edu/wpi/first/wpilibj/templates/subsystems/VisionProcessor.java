@@ -47,7 +47,8 @@ public class VisionProcessor extends Subsystem{
     private double lower_left_y = 0;
     private double blob_count = 0;
     
-    private static final double aspectRatioTolerance = .3;
+    private static final double aspectRatioTolerance = .4
+            ;
     private int imageWidthPx = 320;
     
     //daisy says to set this to 43.5 deg
