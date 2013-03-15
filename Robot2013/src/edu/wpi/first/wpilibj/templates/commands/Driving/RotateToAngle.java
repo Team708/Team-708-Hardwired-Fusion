@@ -16,16 +16,16 @@ public class RotateToAngle extends CommandBase{
     private static final double rotationToleranceDeg = 3.0;
     private boolean finished = false;
     
-    public RotateToAngle(double angle,double rotationSpeed)
+    public RotateToAngle(double angle,double positiveRotationSpeed)
     {
         this.angle = angle;
-        this.rotationSpeed = rotationSpeed;
+        this.rotationSpeed = positiveRotationSpeed;
         
         requires(drivetrain);
     }
     
     protected void initialize() {
-        drivetrain.resetEncoders();
+        drivetrain.resetAngle();
     }
 
     protected void execute() {

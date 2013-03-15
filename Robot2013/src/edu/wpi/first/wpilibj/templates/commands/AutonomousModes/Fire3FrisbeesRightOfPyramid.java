@@ -27,7 +27,7 @@ public class Fire3FrisbeesRightOfPyramid extends CommandGroup {
         
         //rotate right to face targets
 //        addSequential(new RotateToAngle(80,.8));
-        addSequential(new TurnUntilTargetFound(.7,80,60));
+        addSequential(new TurnUntilTargetFound(true));
         
 //        addSequential(new DriveForDistance(-3.0,.7,0.0));
         

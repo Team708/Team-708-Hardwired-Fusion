@@ -4,71 +4,36 @@
  */
 package edu.wpi.first.wpilibj.templates.commands.Shooting;
 
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.templates.commands.Driving.RotateToAngle;
 
 /**
  *
  * @author Robotics
  */
-public class TurnUntilTargetFound extends CommandBase {
+public class TurnUntilTargetFound extends CommandGroup{
     
-    private double rotation;
-    private double maxRotation;
-    private double minRotation;
+    private static final double rotationSpeed = .7;
+    private static final double maxAngle = 80;
+    private static final double minAngle = 20;
     
-    private boolean turningBack = false;
-    private boolean doneTurning = false;
-    
-    public TurnUntilTargetFound(double rotation,double maxRotation, double minRotation) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        super("Turn Until Target");
-        
-        this.rotation = rotation;
-        this.maxRotation = maxRotation;
-        this.minRotation = minRotation;
-    }
-
-    // Called just before this Command runs the first time
-    protected void initialize() {
-        drivetrain.resetAngle();
-        turningBack = false;
-        doneTurning = false;
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-        if(!turningBack){
-            drivetrain.arcadeDrive(0.0, rotation);
-            
-            if(drivetrain.getAngle() > maxRotation)
-            {
-                turningBack = true;
-            }
-        }
-        else{
-            drivetrain.arcadeDrive(0.0, -rotation);
-            
-            if(drivetrain.getAngle() < minRotation)
-            {
-                doneTurning = true;
-            }
+    public TurnUntilTargetFound(boolean rotateRight)
+    {
+        if(rotateRight)
+        {
+            addSequential(new RotateToAngle(maxAngle,rotationSpeed));
+            addSequential(new RotateToAngle(-minAngle,rotationSpeed));
+        }else{
+            addSequential(new RotateToAngle(-maxAngle,rotationSpeed));
+            addSequential(new RotateToAngle(minAngle,rotationSpeed));
         }
     }
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return visionProcessor.hasTarget() || doneTurning;
+    
+    public boolean isFinished()
+    {
+        //stop when target is found
+        return super.isFinished() || CommandBase.visionProcessor.hasTarget();
     }
-
-    // Called once after isFinished returns true
-    protected void end() {
-        drivetrain.arcadeDrive(0.0,0.0);
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-        this.end();
-    }
+   
 }
