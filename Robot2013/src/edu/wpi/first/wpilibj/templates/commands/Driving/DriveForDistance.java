@@ -31,9 +31,9 @@ public class DriveForDistance extends CommandBase{
     protected void execute() {
         
         //Averages distance and compares it to the target distance
-        if (((drivetrain.getRightEncDistance() + drivetrain.getLeftEncDistance())/2.0) < distance)
+        if (Math.abs((drivetrain.getRightEncDistance() + drivetrain.getLeftEncDistance())/2.0) < Math.abs(distance))
         {
-            drivetrain.arcadeDrive(speed, rotation);
+            drivetrain.arcadeDrive(speed * ((distance > 0)?1:-1), rotation);
         }
         else
         {

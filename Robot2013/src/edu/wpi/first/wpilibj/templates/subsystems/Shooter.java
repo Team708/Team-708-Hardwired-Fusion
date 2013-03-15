@@ -32,7 +32,7 @@ public class Shooter extends Subsystem{
     
     //bang-bang speed controller constants
     private static final double accelerationSpeed = 1.0;
-    private static final double deccelerationSpeed = 0.0;
+    private static final double deccelerationSpeed = .1;
     private static final double toleranceRPMs = 50;
     
     public static final double shooterPreferredRPM = 3250;

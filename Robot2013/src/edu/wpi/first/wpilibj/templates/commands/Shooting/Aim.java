@@ -4,6 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates.commands.Shooting;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
@@ -16,11 +17,16 @@ public class Aim extends CommandBase {
     private static final double rotationSpeed = .6;
     private double rotation;
     private boolean linedUp;
+    private Timer lostTargetTimer;
+    
+    private static final double targetLostTolerance = 1.0;
     
     public Aim() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         super("Aim");
+        lostTargetTimer = new Timer();
+        lostTargetTimer.start();
         requires(drivetrain);
         requires(visionProcessor);
     }
@@ -29,6 +35,7 @@ public class Aim extends CommandBase {
     protected void initialize() {
         rotation = 0;
         linedUp = false;
+        lostTargetTimer.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,6 +45,8 @@ public class Aim extends CommandBase {
         //to line up with the target.
         if (visionProcessor.hasTarget())
         {
+            lostTargetTimer.reset(); 
+            
             if (visionProcessor.getDifferencePx() > rotationTolerancePx)
             {
                 rotation = rotationSpeed;
@@ -55,8 +64,11 @@ public class Aim extends CommandBase {
             drivetrain.arcadeDrive(0.0, rotation);
         }else
         {
-            //stop aiming because target was lost
-            linedUp = true;
+            if(lostTargetTimer.get() > targetLostTolerance)
+            {
+                //stop aiming because target was lost
+                linedUp = true;
+            }
         }
         
     }

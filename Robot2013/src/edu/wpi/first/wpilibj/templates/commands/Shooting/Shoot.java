@@ -17,9 +17,9 @@ public class Shoot extends CommandGroup {
     public Shoot()
     {
         addSequential(new ExtendFeeder());
-        addSequential(new Wait(.5));        //wait for flicker to respond
+        addSequential(new Wait(.35));        //wait for flicker to respond
         addSequential(new RetractFeeder());
-        addSequential(new Wait(.5));         //wait for frisbee to leave the launcher so shooter doesn't jam
+        addSequential(new Wait(.35));         //wait for frisbee to leave the launcher so shooter doesn't jam
 //        addSequential(new Wait(.5));
 //        addSequential(new SpinDown());
     }

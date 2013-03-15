@@ -7,11 +7,11 @@ package edu.wpi.first.wpilibj.templates.commands.AutonomousModes;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.Driving.DriveForDistance;
-import edu.wpi.first.wpilibj.templates.commands.Driving.RotateToAngle;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.Aim;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.Shoot;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.SpinDown;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.SpinUp;
+import edu.wpi.first.wpilibj.templates.commands.Shooting.TurnUntilTargetFound;
 import edu.wpi.first.wpilibj.templates.commands.Wait;
 
 /**
@@ -26,7 +26,10 @@ public class Fire3FrisbeesLeftOfPyramid extends CommandGroup {
         addSequential(new DriveForDistance(-12,.7,0.0));
         
         //rotate right to face targets
-        addSequential(new RotateToAngle(-80,.8));
+//        addSequential(new RotateToAngle(-80,.8));
+        addSequential(new TurnUntilTargetFound(-.7,-80,-60));
+        
+//        addSequential(new DriveForDistance(-3.0,.7,0.0));
         
         /*
          * Go through the aim/spin up/fire cycle three times,
@@ -38,7 +41,7 @@ public class Fire3FrisbeesLeftOfPyramid extends CommandGroup {
         addSequential(new SpinUp());
         addSequential(new Wait(3.0));
         
-        for(int iterations = 0; iterations < 10; iterations++)
+        for(int iterations = 0; iterations < 4; iterations++)
         {
             addSequential(new Shoot());
         }
@@ -50,6 +53,6 @@ public class Fire3FrisbeesLeftOfPyramid extends CommandGroup {
     {
         super.end();
         
-        CommandBase.shooter.setPWM(0.0);
+        CommandBase.shooter.setSpeed(0.0);
     }
 }

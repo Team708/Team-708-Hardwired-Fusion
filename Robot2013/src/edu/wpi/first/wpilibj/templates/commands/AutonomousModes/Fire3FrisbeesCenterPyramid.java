@@ -7,6 +7,8 @@ package edu.wpi.first.wpilibj.templates.commands.AutonomousModes;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.templates.commands.Driving.DriveForDistance;
+import edu.wpi.first.wpilibj.templates.commands.Driving.ResetDrivetrainEncoders;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.Aim;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.Shoot;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.SpinDown;
@@ -23,6 +25,8 @@ public class Fire3FrisbeesCenterPyramid extends CommandGroup {
     public Fire3FrisbeesCenterPyramid() {
         
         //insert code to maneuver robot before first shot here.
+//        addSequential(new ResetDrivetrainEncoders());
+        addSequential(new DriveForDistance(-2.0,.7,0.0));
         
         /*
          * Go through the aim/spin up/fire cycle three times,
@@ -34,7 +38,7 @@ public class Fire3FrisbeesCenterPyramid extends CommandGroup {
         addSequential(new SpinUp());
         addSequential(new Wait(3.0));
         
-        for(int iterations = 0; iterations < 10; iterations++)
+        for(int iterations = 0; iterations < 4; iterations++)
         {
             addSequential(new Shoot());
         }
@@ -46,6 +50,6 @@ public class Fire3FrisbeesCenterPyramid extends CommandGroup {
     {
         super.end();
         
-        CommandBase.shooter.setPWM(0.0);
+        CommandBase.shooter.setSpeed(0.0);
     }
 }
