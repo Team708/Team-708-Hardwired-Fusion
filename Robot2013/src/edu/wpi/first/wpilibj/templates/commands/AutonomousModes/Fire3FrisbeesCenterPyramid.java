@@ -28,22 +28,8 @@ public class Fire3FrisbeesCenterPyramid extends CommandGroup {
 //        addSequential(new ResetDrivetrainEncoders());
         addSequential(new DriveForDistance(-2.0,.7,0.0));
         
-        /*
-         * Go through the aim/spin up/fire cycle three times,
-         * once for each frisbee. The first cycle should take the
-         * longest, but after the robot has aimed and spun up the
-         * second and third shots should be quick.
-         */
-        addSequential(new Aim());
-        addSequential(new SpinUp());
-        addSequential(new Wait(3.0));
+        addSequential(new Fire3Frisbees());
         
-        for(int iterations = 0; iterations < 4; iterations++)
-        {
-            addSequential(new Shoot());
-        }
-        
-        addSequential(new SpinDown());
     }
     
     public void end()
