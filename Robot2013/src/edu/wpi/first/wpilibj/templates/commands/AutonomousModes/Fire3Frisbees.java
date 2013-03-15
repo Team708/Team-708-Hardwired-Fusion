@@ -5,6 +5,7 @@
 package edu.wpi.first.wpilibj.templates.commands.AutonomousModes;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.Aim;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.Shoot;
 import edu.wpi.first.wpilibj.templates.commands.Shooting.SpinDown;
@@ -34,5 +35,12 @@ public class Fire3Frisbees extends CommandGroup {
         }
         
         addSequential(new SpinDown());
+    }
+    
+    public void end()
+    {
+        super.end();
+        
+        CommandBase.shooter.setSpeed(0.0);
     }
 }

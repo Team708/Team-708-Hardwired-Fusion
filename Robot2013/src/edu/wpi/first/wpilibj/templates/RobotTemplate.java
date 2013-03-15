@@ -110,7 +110,7 @@ public class RobotTemplate extends IterativeRobot {
 
     private void queueAutonomousCommands() {
         autoChooser.addDefault("Center of Pyramid", new Fire3FrisbeesCenterPyramid());
-        autoChooser.addObject("Left of Pyramid", new Fire3FrisbeesLeftOfPyramid());
+        autoChooser.addObject("Left of Pyramid", new Fire3Frisbees());
         autoChooser.addObject("Right Of Pyramid", new Fire3FrisbeesRightOfPyramid());
         autoChooser.addObject("Just Fire 3 Frisbees", new Fire3Frisbees());
         autoChooser.addObject("Rotation Test", new RotationTest());

@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.templates.commands.Driving.RotateToAngle;
  */
 public class TurnUntilTargetFound extends CommandGroup{
     
-    private static final double rotationSpeed = .7;
-    private static final double maxAngle = 80;
+    private static final double rotationSpeed = .8;
+    private static final double maxAngle = 90;
     private static final double minAngle = 20;
     
     public TurnUntilTargetFound(boolean rotateRight)

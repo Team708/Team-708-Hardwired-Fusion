@@ -23,10 +23,8 @@ import edu.wpi.first.wpilibj.templates.commands.Wait;
 public class Fire3FrisbeesCenterPyramid extends CommandGroup {
     
     public Fire3FrisbeesCenterPyramid() {
-        
-        //insert code to maneuver robot before first shot here.
 //        addSequential(new ResetDrivetrainEncoders());
-        addSequential(new DriveForDistance(-2.0,.7,0.0));
+        addSequential(new DriveForDistance(-4.0,.7,0.0));
         
         addSequential(new Fire3Frisbees());
         
