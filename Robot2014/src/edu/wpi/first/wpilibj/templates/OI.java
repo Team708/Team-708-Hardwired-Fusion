@@ -1,6 +1,9 @@
 
 package edu.wpi.first.wpilibj.templates;
 
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.templates.commands.SwitchDriveTrains;
 import utilclasses.Gamepad;
 
 /**
@@ -18,7 +21,7 @@ public class OI {
     // Another type of button you can create is a DigitalIOButton, which is
     // a button or switch hooked up to the cypress module. These are useful if
     // you want to build a customized operator interface.
-    // Button button = new DigitalIOButton(1);
+    //Button button = new DigitalIOButton(1);
     
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to
@@ -40,6 +43,16 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     
+    //initialize Gamepad
+    
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
+    
+    //Initialize drivetrain switch button
+    public static final Button switchDriveTrains = new JoystickButton(driverGamepad, Gamepad.button_A);
+    
+    public OI() 
+    {
+        switchDriveTrains.whenPressed(new SwitchDriveTrains());
+    }
 }
 
