@@ -26,8 +26,9 @@ public class Drive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        // Changes how the joysticks are read according to what driveMode is set to
         if (drivetrain.getDriveMode().equals("halo")) {
-            drivetrain.haloDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_X));
+            drivetrain.haloDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),- OI.driverGamepad.getAxis(Gamepad.rightStick_X));
         } else if (drivetrain.getDriveMode().equals("tank")) {
             drivetrain.tankDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_Y));
         }

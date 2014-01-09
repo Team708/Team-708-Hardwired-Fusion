@@ -7,8 +7,10 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
 import edu.wpi.first.wpilibj.templates.commands.Drive;
+
 /**
  *
+ * @author Connor Willison, Pat Walls, Nam Tran
  */
 public class Drivetrain extends Subsystem {
     
@@ -16,11 +18,12 @@ public class Drivetrain extends Subsystem {
     private final SpeedController rightMotor;
     private final RobotDrive driver;
     
+    // Determines the drive controls
     private String driveMode = "halo";
 
     public void initDefaultCommand() 
     {
-        // Set the default command for a subsystem here.
+        // Drives the robot in either halo or tank controls
          setDefaultCommand(new Drive());
     }
     
@@ -35,10 +38,12 @@ public class Drivetrain extends Subsystem {
     }
     
     /**
-     * Use joystick values to do skidsteer/tank drive.
+     * Use joystick values to do skid-steer/tank drive.
      * @param leftAxis
      * @param rightAxis 
      */
+    
+    // Drives with L and R stick controlling one side of the wheels
     public void tankDrive(double leftAxis, double rightAxis)
     {
         driver.tankDrive(leftAxis, rightAxis);
@@ -49,15 +54,19 @@ public class Drivetrain extends Subsystem {
      * @param leftAxis
      * @param rightAxis 
      */
+    
+    // Drives with L stick as Forward/Back, R stick as Left/Right
     public void haloDrive (double leftAxis, double rightAxis)
     {
         driver.arcadeDrive(leftAxis, rightAxis);
     }
     
+    // Used to get what drive mode the robot is set to
     public String getDriveMode() {
         return driveMode;
     }
     
+    // Used to change what the drive mode should be
     public void setDriveMode(String newMode) {
         driveMode = newMode;
     }
