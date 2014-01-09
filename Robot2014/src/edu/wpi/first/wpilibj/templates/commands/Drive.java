@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 package edu.wpi.first.wpilibj.templates.commands;
 
@@ -6,11 +11,11 @@ import utilclasses.Gamepad;
 
 /**
  *
- * @author Connor
+ * @author Connor Willison, Pat Walls, Nam Tran
  */
-public class TankDriveCommand extends CommandBase {
+public class Drive extends CommandBase {
     
-    public TankDriveCommand() {
+    public Drive() {
         // Use requires() here to declare subsystem dependencies
         requires(drivetrain);
     }
@@ -21,9 +26,13 @@ public class TankDriveCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.tankDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_Y));
+        if (drivetrain.getDriveMode().equals("halo")) {
+            drivetrain.haloDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_X));
+        } else if (drivetrain.getDriveMode().equals("tank")) {
+            drivetrain.tankDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_Y));
+        }
     }
-
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
@@ -31,13 +40,13 @@ public class TankDriveCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.tankDrive(0.0,0.0);
+        drivetrain.haloDrive(0.0,0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
         end();
-        
     }
+    
 }

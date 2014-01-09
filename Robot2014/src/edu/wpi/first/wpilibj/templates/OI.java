@@ -3,7 +3,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.templates.commands.SwitchDriveTrains;
+import edu.wpi.first.wpilibj.templates.commands.ToggleDriveMode;
 import utilclasses.Gamepad;
 
 /**
@@ -48,11 +48,11 @@ public class OI {
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
     
     //Initialize drivetrain switch button
-    public static final Button switchDriveTrains = new JoystickButton(driverGamepad, Gamepad.button_A);
+    public static final Button toggleDriveMode = new JoystickButton(driverGamepad, Gamepad.button_A);
     
     public OI() 
     {
-        switchDriveTrains.whenPressed(new SwitchDriveTrains());
+        toggleDriveMode.whenPressed(new ToggleDriveMode());
     }
 }
 

@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
-import edu.wpi.first.wpilibj.templates.commands.TankDriveCommand;
-import edu.wpi.first.wpilibj.templates.commands.HaloDriveCommand;
+import edu.wpi.first.wpilibj.templates.commands.Drive;
 /**
  *
  */
@@ -16,27 +15,13 @@ public class Drivetrain extends Subsystem {
     private final SpeedController leftMotor;
     private final SpeedController rightMotor;
     private final RobotDrive driver;
+    
+    private String driveMode = "halo";
 
     public void initDefaultCommand() 
     {
         // Set the default command for a subsystem here.
-         setDefaultCommand(new HaloDriveCommand());
-    }
-    
-    public void toggleDrivetrain()
-    {
-         if(this.getDefaultCommand() instanceof TankDriveCommand) 
-        {
-            setDefaultCommand(new HaloDriveCommand());
-        }
-         else if (this.getDefaultCommand() instanceof HaloDriveCommand)
-        {
-            setDefaultCommand(new TankDriveCommand());
-        }
-         else
-        {
-             //How on earth did you even do this you monster?
-        }
+         setDefaultCommand(new Drive());
     }
     
     /*
@@ -68,5 +53,12 @@ public class Drivetrain extends Subsystem {
     {
         driver.arcadeDrive(leftAxis, rightAxis);
     }
-
+    
+    public String getDriveMode() {
+        return driveMode;
+    }
+    
+    public void setDriveMode(String newMode) {
+        driveMode = newMode;
+    }
 }

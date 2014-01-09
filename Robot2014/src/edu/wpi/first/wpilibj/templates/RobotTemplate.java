@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
-import edu.wpi.first.wpilibj.templates.commands.TankDriveCommand;
+import edu.wpi.first.wpilibj.templates.commands.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,7 +32,7 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = new TankDriveCommand();
+        autonomousCommand = new Drive();
 
         // Initialize all subsystems
         CommandBase.init();
