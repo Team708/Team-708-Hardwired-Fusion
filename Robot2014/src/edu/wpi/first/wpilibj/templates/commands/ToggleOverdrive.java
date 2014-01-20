@@ -1,40 +1,36 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
 /**
  *
- * @author Nam Tran
- * 
+ * @author Robotics
  */
-public class ToggleDriveMode extends CommandBase {
-
-    public ToggleDriveMode() {
+public class ToggleOverdrive extends CommandBase {
+    
+    public ToggleOverdrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        // If driveMode is set to one drive control, then it changes to the other
-        if (drivetrain.getDriveMode().equals("halo")) {
-            drivetrain.setDriveMode("tank");
-        } else if (drivetrain.getDriveMode().equals("tank")) {
-            drivetrain.setDriveMode("halo");
+        if (drivetrain.getOverdrive()) {
+            drivetrain.setOverdrive(false);
+        } else if (!drivetrain.getOverdrive()) {
+            drivetrain.setOverdrive(true);
         } else {}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

@@ -32,6 +32,12 @@ public class Drive extends CommandBase {
         } else if (drivetrain.getDriveMode().equals("tank")) {
             drivetrain.tankDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_Y));
         }
+        
+        if (!drivetrain.getOverdrive()) {
+            
+        } else {
+            
+        }
     }
     
     // Make this return true when this Command no longer needs to run execute()

@@ -3,7 +3,9 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.templates.commands.LaunchBall;
 import edu.wpi.first.wpilibj.templates.commands.ToggleDriveMode;
+import edu.wpi.first.wpilibj.templates.commands.ToggleOverdrive;
 import utilclasses.Gamepad;
 
 /**
@@ -44,15 +46,34 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
     
     //initialize Gamepad
-    
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
+    public static final Gamepad operatorGamepad = new Gamepad(RobotMap.operatorGamepad);
     
-    //Initialize drivetrain switch button
+    /*
+     * Driver buttons
+     */
+    
+    //Initialises drivetrain mode switch button
     public static final Button toggleDriveMode = new JoystickButton(driverGamepad, Gamepad.button_A);
+    
+    // Initialises drivetrain overdrive toggle button
+    public static final Button toggleOverdrive = new JoystickButton(driverGamepad, Gamepad.button_R_Shoulder);
+    
+    /*
+     * Operator buttons
+     */
+    
+    //Initialises button that launches ball from catapult
+    public static final Button launchBall = new JoystickButton(operatorGamepad, Gamepad.button_R_Shoulder);
     
     public OI() 
     {
+        // Driver button actions
         toggleDriveMode.whenPressed(new ToggleDriveMode());
+        toggleOverdrive.whenPressed(new ToggleOverdrive());
+        
+        // Operator button actions
+        launchBall.whenPressed(new LaunchBall());
     }
 }
 

@@ -8,14 +8,36 @@ package edu.wpi.first.wpilibj.templates;
  */
 public class RobotMap {
     /*
-    * Motor/PWM Ports:
-    */
-    public static final int leftMotor = 1;
-    public static final int rightMotor = 2;
+     * Motor/PWM Ports:
+     */
+    
+    //Drivetrain
+    public static final int leftMotor1 = 1;
+    public static final int leftMotor2 = 2;
+    public static final int rightMotor1 = 3;
+    public static final int rightMotor2 = 4;
+    
+    //Catapult
+    public static final int catapultMotor = 5;
+    
+    /*
+     * Digital Inputs
+     */
+    
+    //Drivetrain
+    public static final int leftEncoder = 1;
+    public static final int rightEncoder = 2;
+    
+    //Catapult
+    public static final int potentiometerA = 3;
+    public static final int potentiometerB = 4;
+    
     /*
      * Joystick Ports:
-    */
+     */
     public static final int driverGamepad = 1;
+    public static final int operatorGamepad = 2;
+    
     
     
     // If you are using multiple modules, make sure to define both the port
