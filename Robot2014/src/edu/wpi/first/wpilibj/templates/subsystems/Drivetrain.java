@@ -13,12 +13,19 @@ import edu.wpi.first.wpilibj.templates.commands.Drive;
  */
 public class Drivetrain extends Subsystem {
 
-    private final SpeedController leftMotor;
-    private final SpeedController rightMotor;
+    // Creates the motor controllers for the drivetrain
+    private final SpeedController leftMotor1;
+    private final SpeedController leftMotor2;
+    private final SpeedController rightMotor1;
+    private final SpeedController rightMotor2;
     private final RobotDrive driver;
+    private final RobotDrive overDriver;
     
     // Determines the drive controls
     private String driveMode = "halo";
+    
+    // States if in "overdrive" mode or not
+    private boolean overdrive = false;
 
     public void initDefaultCommand() {
         // Drives the robot in either halo or tank controls
@@ -29,9 +36,12 @@ public class Drivetrain extends Subsystem {
      * Constructor - run once when Drivetrain object is created.
      */
     public Drivetrain() {
-        leftMotor = new Jaguar(RobotMap.leftMotor);     //create left motor controller object
-        rightMotor = new Jaguar(RobotMap.rightMotor);   //create right motor controller object
-        driver = new RobotDrive(leftMotor, rightMotor);
+        leftMotor1 = new Jaguar(RobotMap.leftMotor1);     //create left motor controller object
+        leftMotor2 = new Jaguar(RobotMap.leftMotor2);
+        rightMotor1 = new Jaguar(RobotMap.rightMotor1);   //create right motor controller object
+        rightMotor2 = new Jaguar(RobotMap.rightMotor2);
+        driver = new RobotDrive(leftMotor1, rightMotor1); //create driver stuff
+        overDriver = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
     }
 
     /**
@@ -61,10 +71,12 @@ public class Drivetrain extends Subsystem {
                 }
             }
         }
-
-
-
-        driver.tankDrive(leftAxis, rightAxis);
+        
+        if (!overdrive) {
+            driver.tankDrive(leftAxis, rightAxis);
+        } else {
+            overDriver.tankDrive(leftAxis, rightAxis);
+        }
     }
 
     /**
@@ -76,7 +88,11 @@ public class Drivetrain extends Subsystem {
     
     // Drives with L stick as Forward/Back, R stick as Left/Right
     public void haloDrive(double leftAxis, double rightAxis) {
-        driver.arcadeDrive(leftAxis, rightAxis);
+        if (!overdrive) {
+            driver.arcadeDrive(leftAxis, rightAxis);
+        } else {
+            overDriver.arcadeDrive(leftAxis, rightAxis);
+        }
     }
 
     // Used to get what drive mode the robot is set to
@@ -87,5 +103,15 @@ public class Drivetrain extends Subsystem {
     // Used to change what the drive mode should be
     public void setDriveMode(String newMode) {
         driveMode = newMode;
+    }
+    
+    // Used to get if the drivetrain is in overdrive
+    public boolean getOverdrive() {
+        return overdrive;
+    }
+    
+    // Used to change the state of overdrive for the drivetrain
+    public void setOverdrive(boolean overdriveState) {
+        overdrive = overdriveState;
     }
 }
