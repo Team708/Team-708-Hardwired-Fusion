@@ -1,22 +1,15 @@
 Robot Specs:
 
-
-
 	Key:
-
 		part(#) (Notes) = The # of "part" in a subsystem, and notes about their function
 		a "?" in the place of # indicates a currently unknown number of "part" is needed for the subsystem
 		a "?" after everything else indicates that inclusion of "part" is uncertain
-
 
 	Drive train:
 	
 		Tank/Halo
 		Encoders(2)
-		Jags(4) (1 jag break, 1 jag coast)
-
-
-
+		Jags(6) (1 jag break, 1 jag coast)
 
 	Shooting mechanism:
 
@@ -27,8 +20,6 @@ Robot Specs:
 		Encoders(?)?
 		Sensor(1) (To check if ball is loaded)
 
-
-
 	Ball Pickup mechanism:
 
 		Spike(1)
@@ -36,11 +27,7 @@ Robot Specs:
 		Motor(?)?
 		Limit Swithes(?)?
 
-
-
 Autonomous goals:
-
-
 
 	Find target
 		Is active?

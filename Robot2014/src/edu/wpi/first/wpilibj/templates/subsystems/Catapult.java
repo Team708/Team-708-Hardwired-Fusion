@@ -5,6 +5,7 @@
 package edu.wpi.first.wpilibj.templates.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogChannel;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -31,13 +32,18 @@ public class Catapult extends Subsystem {
     
     // Sensors
     private AnalogChannel potentiometer;
+    private DigitalInput maxSwitch;
+    private DigitalInput minSwitch;
     
     // Motor Controller
     private SpeedController catapultMotor;
     
     public Catapult() {
         catapultMotor = new Victor(RobotMap.catapultMotor);
-        potentiometer = new AnalogChannel(RobotMap.potentiometerA, RobotMap.potentiometerB);
+        
+        maxSwitch = new DigitalInput(RobotMap.maxSwitch);
+        minSwitch = new DigitalInput(RobotMap.minSwitch);
+        potentiometer = new AnalogChannel(RobotMap.potentiometer);
     }
     
     // Default Command for the catapult

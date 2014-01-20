@@ -29,8 +29,9 @@ public class RobotMap {
     public static final int rightEncoder = 2;
     
     //Catapult
-    public static final int potentiometerA = 3;
-    public static final int potentiometerB = 4;
+    public static final int maxSwitch = 3;
+    public static final int minSwitch = 4;
+    public static final int potentiometer = 5;
     
     /*
      * Joystick Ports:
