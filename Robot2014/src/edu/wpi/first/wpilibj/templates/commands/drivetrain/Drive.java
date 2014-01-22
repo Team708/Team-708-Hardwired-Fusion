@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-package edu.wpi.first.wpilibj.templates.commands;
+package edu.wpi.first.wpilibj.templates.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.templates.OI;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import utilclasses.Gamepad;
 
 /**

@@ -2,15 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands;
+package edu.wpi.first.wpilibj.templates.commands.intake;
+
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
  * @author Robotics
  */
-public class ToggleOverdrive extends CommandBase {
+public class ExtendIntake extends CommandBase {
     
-    public ToggleOverdrive() {
+    public ExtendIntake() {
+        requires(catapult);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -21,11 +24,10 @@ public class ToggleOverdrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (drivetrain.getOverdrive()) {
-            drivetrain.setOverdrive(false);
-        } else if (!drivetrain.getOverdrive()) {
-            drivetrain.setOverdrive(true);
-        } else {}
+        if (!intake.isExtended()) {
+            // TODO: Add code to extend the intake
+            intake.changeState();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

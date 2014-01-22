@@ -1,11 +1,12 @@
 package edu.wpi.first.wpilibj.templates.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
-import edu.wpi.first.wpilibj.templates.commands.Drive;
+import edu.wpi.first.wpilibj.templates.commands.drivetrain.Drive;
 
 /**
  *
@@ -20,6 +21,10 @@ public class Drivetrain extends Subsystem {
     private final SpeedController rightMotor2;
     private final RobotDrive driver;  
     private final RobotDrive overDriver;
+    
+    // Creates sensors for the drivetrain
+    private final Encoder rightEncoder;
+    private final Encoder leftEncoder;
     
     // Determines the drive controls
     private String driveMode = "halo";
@@ -38,8 +43,13 @@ public class Drivetrain extends Subsystem {
     public Drivetrain() {
         leftMotor1 = new Jaguar(RobotMap.leftMotor1);     //create left motor controller object
         leftMotor2 = new Jaguar(RobotMap.leftMotor2);
+        
         rightMotor1 = new Jaguar(RobotMap.rightMotor1);   //create right motor controller object
         rightMotor2 = new Jaguar(RobotMap.rightMotor2);
+        
+        leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB);
+        rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB);
+        
         driver = new RobotDrive(leftMotor1, rightMotor1); //create driver stuff
         overDriver = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
     }
@@ -113,5 +123,11 @@ public class Drivetrain extends Subsystem {
     // Used to change the state of overdrive for the drivetrain
     public void setOverdrive(boolean overdriveState) {
         overdrive = overdriveState;
+    }
+    
+    // Resets the values of encoders to 0
+    public void resetEncoders() {
+        leftEncoder.reset();
+        rightEncoder.reset();
     }
 }

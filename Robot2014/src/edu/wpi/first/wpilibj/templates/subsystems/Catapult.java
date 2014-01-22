@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
-import edu.wpi.first.wpilibj.templates.commands.LaunchBall;
+import edu.wpi.first.wpilibj.templates.commands.catapult.LaunchBall;
 
 /**
  *
@@ -82,5 +82,13 @@ public class Catapult extends Subsystem {
     
     public void stop() {
         catapultMotor.set(0.0);
+    }
+    
+    public boolean isMaxPosition() {
+        return maxSwitch.get();
+    }
+    
+    public boolean isMinPosition() {
+        return minSwitch.get();
     }
 }

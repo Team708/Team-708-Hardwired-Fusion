@@ -3,9 +3,9 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.templates.commands.LaunchBall;
-import edu.wpi.first.wpilibj.templates.commands.ToggleDriveMode;
-import edu.wpi.first.wpilibj.templates.commands.ToggleOverdrive;
+import edu.wpi.first.wpilibj.templates.commands.catapult.LaunchBall;
+import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleDriveMode;
+import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleOverdrive;
 import utilclasses.Gamepad;
 
 /**

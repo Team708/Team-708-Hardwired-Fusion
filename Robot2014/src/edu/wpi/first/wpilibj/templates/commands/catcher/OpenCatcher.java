@@ -2,15 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands;
+package edu.wpi.first.wpilibj.templates.commands.catcher;
+
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
  * @author Robotics
  */
-public class ExtendIntake extends CommandBase {
+public class OpenCatcher extends CommandBase {
     
-    public ExtendIntake() {
+    public OpenCatcher() {
+        requires(catcher);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -21,6 +24,10 @@ public class ExtendIntake extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (!catcher.isOpen()) {
+            // TODO: Add code to open the catcher
+            catcher.changeState();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

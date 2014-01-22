@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Catcher extends Subsystem {
     
+    private boolean isOpen = false;
+    
     public Catcher() {
         
     }
@@ -19,5 +21,17 @@ public class Catcher extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public boolean isOpen() {
+        return isOpen;
+    }
+    
+    public void changeState() {
+        if (isOpen) {
+            isOpen = false;
+        } else if (!isOpen) {
+            isOpen = true;
+        } else {}
     }
 }

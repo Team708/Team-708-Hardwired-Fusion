@@ -2,7 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands;
+package edu.wpi.first.wpilibj.templates.commands.catcher;
+
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
@@ -11,6 +13,7 @@ package edu.wpi.first.wpilibj.templates.commands;
 public class CloseCatcher extends CommandBase {
     
     public CloseCatcher() {
+        requires(catcher);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -21,6 +24,10 @@ public class CloseCatcher extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (catcher.isOpen()) {
+            // TODO: Add code to close the catcher
+            catcher.changeState();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
