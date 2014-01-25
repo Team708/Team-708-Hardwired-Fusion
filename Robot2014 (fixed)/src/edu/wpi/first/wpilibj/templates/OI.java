@@ -3,8 +3,9 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.templates.commands.ToggleSwagSpeed;
-import edu.wpi.first.wpilibj.templates.commands.ToggleDriveMode;
+import edu.wpi.first.wpilibj.templates.commands.catapult.ToggleCatapultState;
+import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleDriveMode;
+import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleSwagSpeed;
 import utilclasses.Gamepad;
 
 /**
@@ -44,20 +45,25 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     
-    //initialize Gamepad
-    
+    //initialize Gamepads
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
+    public static final Gamepad operatorGamepad = new Gamepad(RobotMap.operatorGamepad);
     
     //Initialize drivetrain switch button
     public static final Button toggleDriveMode = new JoystickButton(driverGamepad, Gamepad.button_A);
     
     //Switch to swag speed
-    public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, Gamepad.button_B);
+    public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, Gamepad.button_R_Shoulder);
+    
+    //Switches what the catapult should be doing
+    public static final Button toggleCatapultState = new JoystickButton(operatorGamepad, Gamepad.button_R_Shoulder);
     
     public OI() 
     {
         toggleDriveMode.whenPressed(new ToggleDriveMode());
         toggleSwagSpeed.whenPressed(new ToggleSwagSpeed());
+        toggleCatapultState.whenPressed(new ToggleCatapultState());
+        
     }
 }
 

@@ -2,17 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands;
+package edu.wpi.first.wpilibj.templates.commands.catapult;
+
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
- * @author Matt Foley, Nam Tran, Pat Walls
+ * @author Robotics
  */
-public class ToggleSwagSpeed extends CommandBase {
+public class ToggleCatapultState extends CommandBase {
     
-    public ToggleSwagSpeed() {
+    public ToggleCatapultState() {
         // Use requires() here to declare subsystem dependencies
-        requires(drivetrain);
+        // eg. requires(chassis);
+        requires(testCatapult);
     }
 
     // Called just before this Command runs the first time
@@ -21,16 +24,17 @@ public class ToggleSwagSpeed extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (drivetrain.isSwagMode()) {
-            drivetrain.setSwagMode(false);
-        } else if (!drivetrain.isSwagMode()) {
-            drivetrain.setSwagMode(true);
-        } else {}
+        if (testCatapult.getState() == 3) {
+            testCatapult.setState(0);
+        } else {
+            testCatapult.setState(testCatapult.getState() + 1);
+        }
+        System.out.println(testCatapult.getState());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
