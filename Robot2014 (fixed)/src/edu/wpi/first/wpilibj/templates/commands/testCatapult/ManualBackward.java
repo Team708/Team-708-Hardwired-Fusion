@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.catapult;
+package edu.wpi.first.wpilibj.templates.commands.testCatapult;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
  *
  * @author Robotics
  */
-public class ManualFling extends CommandBase {
+public class ManualBackward extends CommandBase {
     
-    public ManualFling() {
+    public ManualBackward() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(testCatapult);
@@ -24,20 +24,12 @@ public class ManualFling extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (testCatapult.getState() == 0) {
-            testCatapult.stop();
-        } else if (testCatapult.getState() == 1) {
-            testCatapult.forward();
-        } else if (testCatapult.getState() == 2) {
-            testCatapult.stop();
-        } else if (testCatapult.getState() == 3) {
-            testCatapult.backward();
-        }
+        testCatapult.setState(3);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

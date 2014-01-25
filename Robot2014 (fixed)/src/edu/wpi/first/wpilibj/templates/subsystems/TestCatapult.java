@@ -6,7 +6,7 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.templates.commands.catapult.ManualFling;
+import edu.wpi.first.wpilibj.templates.commands.testCatapult.Fling;
 
 /**
  *
@@ -29,15 +29,15 @@ public class TestCatapult extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-        setDefaultCommand(new ManualFling());
+        setDefaultCommand(new Fling());
     }
     
     public void forward() {
-        testMotor.set(-1.0);
+        testMotor.set(1.0);
     }
     
     public void backward() {
-        testMotor.set(1.0);
+        testMotor.set(-0.50);
     }
     
     public void stop() {

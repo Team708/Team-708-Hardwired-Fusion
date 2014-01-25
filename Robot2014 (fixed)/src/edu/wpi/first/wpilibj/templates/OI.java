@@ -3,7 +3,10 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.templates.commands.catapult.ToggleCatapultState;
+import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualBackward;
+import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualForward;
+import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualStop;
+import edu.wpi.first.wpilibj.templates.commands.testCatapult.ToggleCatapultState;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleDriveMode;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleSwagSpeed;
 import utilclasses.Gamepad;
@@ -49,21 +52,43 @@ public class OI {
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
     public static final Gamepad operatorGamepad = new Gamepad(RobotMap.operatorGamepad);
     
+    /*
+     * Driver Buttons
+     */
+    
     //Initialize drivetrain switch button
     public static final Button toggleDriveMode = new JoystickButton(driverGamepad, Gamepad.button_A);
     
     //Switch to swag speed
     public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, Gamepad.button_R_Shoulder);
     
+    /*
+     * Operator Buttons
+     */
+    
     //Switches what the catapult should be doing
     public static final Button toggleCatapultState = new JoystickButton(operatorGamepad, Gamepad.button_R_Shoulder);
     
+    //Makes arm go forward
+    public static final Button manualForward = new JoystickButton(operatorGamepad, Gamepad.button_Y);
+    
+    //Makes the arm go backward
+    public static final Button manualBackward = new JoystickButton(operatorGamepad, Gamepad.button_A);
+    
+    //Makes the arm stop
+    public static final Button manualStop = new JoystickButton(operatorGamepad, Gamepad.button_B);
+    
     public OI() 
     {
+        // Driver
         toggleDriveMode.whenPressed(new ToggleDriveMode());
         toggleSwagSpeed.whenPressed(new ToggleSwagSpeed());
-        toggleCatapultState.whenPressed(new ToggleCatapultState());
         
+        // Operator
+        toggleCatapultState.whenPressed(new ToggleCatapultState());
+        manualForward.whenPressed(new ManualForward());
+        manualBackward.whenPressed(new ManualBackward());
+        manualStop.whenPressed(new ManualStop());
     }
 }
 

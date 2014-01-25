@@ -12,14 +12,14 @@ public class RobotMap {
     */
     
     // Drivetrain
-    public static final int leftMotor1 = 1;
+    public static final int leftMotor1 = 5;
     public static final int leftMotor2 = 2;
     public static final int rightMotor2 = 3;
     public static final int rightMotor1 = 4;
     
     
     // Catapult
-    public static final int catapultMotor = 5;
+    public static final int catapultMotor = 1;
     
     /*
      * Sensors
