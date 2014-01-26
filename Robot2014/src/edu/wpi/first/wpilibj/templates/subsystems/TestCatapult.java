@@ -6,6 +6,7 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.templates.RobotMap;
 import edu.wpi.first.wpilibj.templates.commands.testCatapult.Fling;
 
 /**
@@ -20,10 +21,17 @@ public class TestCatapult extends Subsystem {
     private final Jaguar testMotor;
     
     // State of catapult
-    private int state = 0;
+    private final int STOPPED = 0;
+    private final int FORWARD = 1;
+    private final int BACKWARD = 2;
+    private int state = STOPPED;
+    
+    // Motor Speeds
+    private final double FORWARD_SPEED = 1.0;
+    private final double BACKWARD_SPEED = -0.50;
     
     public TestCatapult() {
-        testMotor = new Jaguar(1);
+        testMotor = new Jaguar(RobotMap.catapultMotor);
     }
     
     public void initDefaultCommand() {
@@ -33,11 +41,11 @@ public class TestCatapult extends Subsystem {
     }
     
     public void forward() {
-        testMotor.set(1.0);
+        testMotor.set(FORWARD_SPEED);
     }
     
     public void backward() {
-        testMotor.set(-0.50);
+        testMotor.set(BACKWARD_SPEED);
     }
     
     public void stop() {
@@ -50,5 +58,17 @@ public class TestCatapult extends Subsystem {
     
     public int getState() {
         return state;
+    }
+    
+    public int getForward() {
+        return FORWARD;
+    }
+    
+    public int getBackward() {
+        return BACKWARD;
+    }
+    
+    public int getStopped() {
+        return STOPPED;
     }
 }

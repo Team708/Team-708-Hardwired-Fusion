@@ -1,133 +1,124 @@
+
 package edu.wpi.first.wpilibj.templates.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
+//import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.Drive;
-
 /**
  *
- * @author Connor Willison, Pat Walls, Nam Tran
  */
 public class Drivetrain extends Subsystem {
-
-    // Creates the motor controllers for the drivetrain
+    
+    // Creates speed controllers
     private final SpeedController leftMotor1;
     private final SpeedController leftMotor2;
     private final SpeedController rightMotor1;
     private final SpeedController rightMotor2;
-    private final RobotDrive driver;  
-    private final RobotDrive overDriver;
     
-    // Creates sensors for the drivetrain
-    private final Encoder rightEncoder;
-    private final Encoder leftEncoder;
+    // Creates drivers (one for two motors running, one for three running)
+    private final RobotDrive driver;
+    private final RobotDrive swagDriver;
     
-    // Determines the drive controls
-    private String driveMode = "halo";
+    // Drivetrain Modes
+    private boolean haloDrive = true;
+    private boolean swagMode = false;
     
-    // States if in "overdrive" mode or not
-    private boolean overdrive = false;
+    // Dead-zones for the joysticks
+    private final double MIN_DEAD_ZONE = -0.25;
+    private final double MAX_DEAD_ZONE = 0.25;
 
-    public void initDefaultCommand() {
-        // Drives the robot in either halo or tank controls
-        setDefaultCommand(new Drive());
+    public void initDefaultCommand() 
+    {
+        // Set the default command for a subsystem here.
+         setDefaultCommand(new Drive());
     }
-
+    
     /*
-     * Constructor - run once when Drivetrain object is created.
-     */
-    public Drivetrain() {
-        leftMotor1 = new Jaguar(RobotMap.leftMotor1);     //create left motor controller object
-        leftMotor2 = new Jaguar(RobotMap.leftMotor2);
+    * Constructor - run once when Drivetrain object is created.
+    */
+    public Drivetrain()
+    {
+        // Creates left motor controllers
+        leftMotor1 = new Victor(RobotMap.leftMotor1);
+        leftMotor2 = new Victor(RobotMap.leftMotor2);
         
-        rightMotor1 = new Jaguar(RobotMap.rightMotor1);   //create right motor controller object
-        rightMotor2 = new Jaguar(RobotMap.rightMotor2);
+        // Creates right motor controllers
+        rightMotor1 = new Victor(RobotMap.rightMotor1);
+        rightMotor2 = new Victor(RobotMap.rightMotor2);
         
-        leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB);
-        rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB);
+        // Creates normal drive mode using two motor controllers (2 motors on each side)
+        driver = new RobotDrive(leftMotor1,rightMotor1);
         
-        driver = new RobotDrive(leftMotor1, rightMotor1); //create driver stuff
-        overDriver = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+        // Creates drive mode using four motor controllers (3 motors on each side)
+        swagDriver = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
     }
-
+    
+    /*
+     * Normal drive modes
+     */
+    
     /**
      * Use joystick values to do skid-steer/tank drive.
-     *
      * @param leftAxis
-     * @param rightAxis
+     * @param rightAxis 
      */
-    
-    // Drives with L and R stick controlling one side of the wheels
-    public void tankDrive(double leftAxis, double rightAxis) {
-        if (leftAxis > -1 && leftAxis < 1) {
-            if (leftAxis != 0) {
-                if (leftAxis > 0) {
-                    leftAxis = 0.50;
-                } else {
-                    leftAxis = -0.50;
-                }
-            }
-        }
-        if (rightAxis > -1 && rightAxis < 1) {
-            if (rightAxis != 0) {
-                if (rightAxis > 0) {
-                    rightAxis = 0.50;
-                } else {
-                    rightAxis = -0.50;
-                }
-            }
-        }
-        
-        if (!overdrive) {
-            driver.tankDrive(leftAxis, rightAxis);
-        } else {
-            overDriver.tankDrive(leftAxis, rightAxis);
-        }
+    public void tankDrive(double leftAxis, double rightAxis)
+    {
+        driver.tankDrive(leftAxis, rightAxis);
     }
-
+    
     /**
      * Use joystick values to do Halo drive.
-     *
      * @param leftAxis
-     * @param rightAxis
+     * @param rightAxis 
+     */
+    public void haloDrive (double leftAxis, double rightAxis)
+    {
+        System.out.println(leftAxis + " , " + rightAxis);
+        driver.arcadeDrive(leftAxis, rightAxis);
+    }
+    
+    /*
+     * Swag Drive modes
      */
     
-    // Drives with L stick as Forward/Back, R stick as Left/Right
-    public void haloDrive(double leftAxis, double rightAxis) {
-        if (!overdrive) {
-            driver.arcadeDrive(leftAxis, rightAxis);
-        } else {
-            overDriver.arcadeDrive(leftAxis, rightAxis);
-        }
+    /**
+     * Use joystick values to do skid-steer/tank drive.
+     * @param leftAxis
+     * @param rightAxis 
+     */
+    public void tankSwagDrive (double leftAxis, double rightAxis)
+    {
+        swagDriver.tankDrive(leftAxis, rightAxis);
+    }
+    
+    /**
+     * Use joystick values to do Halo drive.
+     * @param leftAxis
+     * @param rightAxis 
+     */
+    public void haloSwagDrive (double leftAxis, double rightAxis)
+    {
+        swagDriver.arcadeDrive(leftAxis, rightAxis);
     }
 
-    // Used to get what drive mode the robot is set to
-    public String getDriveMode() {
-        return driveMode;
+    public boolean isSwagMode() {
+        return swagMode;
+    }
+    
+    public void setSwagMode(boolean newMode) {
+        swagMode = newMode;
     }
 
-    // Used to change what the drive mode should be
-    public void setDriveMode(String newMode) {
-        driveMode = newMode;
+    public boolean isHaloDrive() {
+        return haloDrive;
     }
     
-    // Used to get if the drivetrain is in overdrive
-    public boolean getOverdrive() {
-        return overdrive;
-    }
-    
-    // Used to change the state of overdrive for the drivetrain
-    public void setOverdrive(boolean overdriveState) {
-        overdrive = overdriveState;
-    }
-    
-    // Resets the values of encoders to 0
-    public void resetEncoders() {
-        leftEncoder.reset();
-        rightEncoder.reset();
+    public void setIsHaloDrive(boolean newMode) {
+        haloDrive = newMode;
     }
 }

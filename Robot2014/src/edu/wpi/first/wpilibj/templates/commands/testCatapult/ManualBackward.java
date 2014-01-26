@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.drivetrain;
+package edu.wpi.first.wpilibj.templates.commands.testCatapult;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
@@ -10,11 +10,12 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
  *
  * @author Robotics
  */
-public class ToggleOverdrive extends CommandBase {
+public class ManualBackward extends CommandBase {
     
-    public ToggleOverdrive() {
+    public ManualBackward() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(testCatapult);
     }
 
     // Called just before this Command runs the first time
@@ -23,16 +24,18 @@ public class ToggleOverdrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (drivetrain.getOverdrive()) {
-            drivetrain.setOverdrive(false);
-        } else if (!drivetrain.getOverdrive()) {
-            drivetrain.setOverdrive(true);
-        } else {}
+        if(testCatapult.getState() == testCatapult.getForward() || testCatapult.getState() == testCatapult.getBackward()) {
+            testCatapult.setState(testCatapult.getStopped());
+        } else if(testCatapult.getState() == testCatapult.getStopped()) {
+            testCatapult.setState(testCatapult.getBackward());
+        } else {
+            testCatapult.setState(testCatapult.getStopped());
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

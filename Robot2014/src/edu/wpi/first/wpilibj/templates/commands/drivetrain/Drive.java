@@ -27,17 +27,18 @@ public class Drive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        // Changes how the joysticks are read according to what driveMode is set to
-        if (drivetrain.getDriveMode().equals("halo")) {
-            drivetrain.haloDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),- OI.driverGamepad.getAxis(Gamepad.rightStick_X));
-        } else if (drivetrain.getDriveMode().equals("tank")) {
-            drivetrain.tankDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_Y));
-        }
-        
-        if (!drivetrain.getOverdrive()) {
-            
+        if(!drivetrain.isSwagMode()) {
+            if (drivetrain.isHaloDrive()) {
+                drivetrain.haloDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),-OI.driverGamepad.getAxis(Gamepad.rightStick_X));
+            } else {
+                drivetrain.tankDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_Y));
+            }
         } else {
-            
+             if (drivetrain.isHaloDrive()) {
+                drivetrain.haloSwagDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),-OI.driverGamepad.getAxis(Gamepad.rightStick_X));
+            } else {
+                drivetrain.tankSwagDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_Y));
+            }
         }
     }
     
@@ -48,7 +49,19 @@ public class Drive extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.haloDrive(0.0,0.0);
+        if (!drivetrain.isSwagMode()) {
+            if (drivetrain.isHaloDrive()) {
+                drivetrain.haloDrive(0.0,0.0);
+            } else {
+                drivetrain.tankDrive(0.0, 0.0);
+            }
+        } else {
+            if (drivetrain.isHaloDrive()) {
+                drivetrain.haloSwagDrive(0.0,0.0);
+            } else {
+                drivetrain.tankSwagDrive(0.0, 0.0);
+            }
+        }
     }
 
     // Called when another command which requires one or more of the same
@@ -56,5 +69,4 @@ public class Drive extends CommandBase {
     protected void interrupted() {
         end();
     }
-    
 }

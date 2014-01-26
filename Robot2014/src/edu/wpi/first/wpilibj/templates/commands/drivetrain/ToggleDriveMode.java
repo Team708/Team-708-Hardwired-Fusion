@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 /**
  *
  * @author Nam Tran
- * 
  */
 public class ToggleDriveMode extends CommandBase {
 
@@ -26,12 +25,7 @@ public class ToggleDriveMode extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        // If driveMode is set to one drive control, then it changes to the other
-        if (drivetrain.getDriveMode().equals("halo")) {
-            drivetrain.setDriveMode("tank");
-        } else if (drivetrain.getDriveMode().equals("tank")) {
-            drivetrain.setDriveMode("halo");
-        } else {}
+        drivetrain.setIsHaloDrive(!drivetrain.isHaloDrive());
     }
 
     // Make this return true when this Command no longer needs to run execute()

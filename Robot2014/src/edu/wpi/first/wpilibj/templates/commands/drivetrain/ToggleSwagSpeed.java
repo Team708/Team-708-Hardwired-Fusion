@@ -2,20 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.catcher;
+package edu.wpi.first.wpilibj.templates.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
- * @author Robotics
+ * @author Matt Foley, Nam Tran, Pat Walls
  */
-public class CloseCatcher extends CommandBase {
+public class ToggleSwagSpeed extends CommandBase {
     
-    public CloseCatcher() {
-        requires(catcher);
+    public ToggleSwagSpeed() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -24,15 +22,12 @@ public class CloseCatcher extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (catcher.isOpen()) {
-            // TODO: Add code to close the catcher
-            catcher.changeState();
-        }
+        drivetrain.setSwagMode(!drivetrain.isSwagMode());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

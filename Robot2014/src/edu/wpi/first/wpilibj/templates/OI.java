@@ -3,9 +3,10 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.templates.commands.catapult.LaunchBall;
+import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualBackward;
+import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualForward;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleDriveMode;
-import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleOverdrive;
+import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleSwagSpeed;
 import utilclasses.Gamepad;
 
 /**
@@ -45,35 +46,40 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     
-    //initialize Gamepad
+    //initialize Gamepads
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
     public static final Gamepad operatorGamepad = new Gamepad(RobotMap.operatorGamepad);
     
     /*
-     * Driver buttons
+     * Driver Buttons
      */
     
-    //Initialises drivetrain mode switch button
+    //Initialize drivetrain switch button
     public static final Button toggleDriveMode = new JoystickButton(driverGamepad, Gamepad.button_A);
     
-    // Initialises drivetrain overdrive toggle button
-    public static final Button toggleOverdrive = new JoystickButton(driverGamepad, Gamepad.button_R_Shoulder);
+    //Switch to swag speed
+    public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, Gamepad.button_R_Shoulder);
     
     /*
-     * Operator buttons
+     * Operator Buttons
      */
     
-    //Initialises button that launches ball from catapult
-    public static final Button launchBall = new JoystickButton(operatorGamepad, Gamepad.button_R_Shoulder);
+    //Makes arm go forward or stop
+    public static final Button manualForward = new JoystickButton(operatorGamepad, Gamepad.button_R_Shoulder);
+    
+    //Makes the arm go backward or stop
+    public static final Button manualBackward = new JoystickButton(operatorGamepad, Gamepad.button_L_Shoulder);
     
     public OI() 
     {
-        // Driver button actions
+        // Driver
         toggleDriveMode.whenPressed(new ToggleDriveMode());
-        toggleOverdrive.whenPressed(new ToggleOverdrive());
+        toggleSwagSpeed.whenPressed(new ToggleSwagSpeed());
         
-        // Operator button actions
-        launchBall.whenPressed(new LaunchBall());
+        // Operator
+        //toggleCatapultState.whenPressed(new ToggleCatapultState());
+        manualForward.whenPressed(new ManualForward());
+        manualBackward.whenPressed(new ManualBackward());
     }
 }
 

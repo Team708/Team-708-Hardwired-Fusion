@@ -2,31 +2,35 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.drivetrain;
+package edu.wpi.first.wpilibj.templates.commands.testCatapult;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.templates.subsystems.TestCatapult;
 
 /**
  *
- * @author Matt Foley, Nam Tran, Pat Walls
+ * @author Robotics
  */
-public class ToggleSwagSpeed extends CommandBase {
+public class ManualForward extends CommandBase {
     
-    public ToggleSwagSpeed() {
+    public ManualForward() {
         // Use requires() here to declare subsystem dependencies
-        requires(drivetrain);
+        // eg. requires(chassis);
+        requires(testCatapult);
     }
-
+    
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (drivetrain.isSwagMode()) {
-            drivetrain.setSwagMode(false);
+        if(testCatapult.getState() == testCatapult.getForward() || testCatapult.getState() == testCatapult.getBackward()) {
+            testCatapult.setState(testCatapult.getStopped());
+        } else if(testCatapult.getState() == testCatapult.getForward()){
+            testCatapult.setState(testCatapult.getForward());
         } else {
-            drivetrain.setSwagMode(true);
+            testCatapult.setState(testCatapult.getStopped());
         }
     }
 
