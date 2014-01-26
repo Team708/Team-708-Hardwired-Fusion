@@ -3,6 +3,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.templates.commands.drivetrain.FollowBall;
 import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualBackward;
 import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualForward;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleDriveMode;
