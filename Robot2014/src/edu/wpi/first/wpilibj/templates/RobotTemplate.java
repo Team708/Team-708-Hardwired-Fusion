@@ -48,6 +48,8 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        sendStats();
     }
 
     public void teleopInit() {
@@ -63,6 +65,14 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
+        sendStats();
+    }
+    
+    public void disabledPeriodic()
+    {
+        CommandBase.visionProcessor.processData();
+        sendStats();
     }
     
     /**
@@ -70,5 +80,10 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    private void sendStats()
+    {
+        CommandBase.visionProcessor.sendToDash();
     }
 }

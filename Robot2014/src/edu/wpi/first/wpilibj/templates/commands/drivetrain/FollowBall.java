@@ -65,7 +65,7 @@ public class FollowBall extends CommandBase {
                 movement = 0;
             }
 
-            drivetrain.haloDrive(movement, rotation);
+            drivetrain.haloDrive(-movement, rotation);
         }else{
             drivetrain.haloDrive(0.0,0.0);
         }

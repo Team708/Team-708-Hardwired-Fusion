@@ -230,5 +230,8 @@ public class VisionProcessor extends Subsystem{
         SmartDashboard.putNumber("Pixel Difference:", this.getDifferencePx());
 //        SmartDashboard.putNumber("Aspect Ratio:", this.getAspectRatio());
         SmartDashboard.putNumber("Blob Count:", this.getBlobCount());
+        SmartDashboard.putNumber("center x:",center_x);
+        SmartDashboard.putNumber("radius:",radius);
+        SmartDashboard.putBoolean("ball:",hasBall);
     }
 }
