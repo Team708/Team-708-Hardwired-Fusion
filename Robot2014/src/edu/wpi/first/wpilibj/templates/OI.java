@@ -46,6 +46,13 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     
+    /*
+     * Define Button Constants
+     */
+    private static final int toggleDriveModeButtonNumber = Gamepad.button_A;
+    private static final int holdToFollowBallButtonNumber = Gamepad.button_B;
+    private static final int toggleSwagSpeedButtonNumber = Gamepad.button_R_Shoulder;
+    
     //initialize Gamepads
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
     public static final Gamepad operatorGamepad = new Gamepad(RobotMap.operatorGamepad);
@@ -55,10 +62,13 @@ public class OI {
      */
     
     //Initialize drivetrain switch button
-    public static final Button toggleDriveMode = new JoystickButton(driverGamepad, Gamepad.button_A);
+    public static final Button toggleDriveMode = new JoystickButton(driverGamepad, toggleDriveModeButtonNumber);
     
     //Switch to swag speed
-    public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, Gamepad.button_R_Shoulder);
+    public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, toggleSwagSpeedButtonNumber);
+    
+    //Follow the ball while this button is held
+    public static final Button holdToFollowBallButton = new JoystickButton(driverGamepad,holdToFollowBallButtonNumber);
     
     /*
      * Operator Buttons
@@ -75,11 +85,23 @@ public class OI {
         // Driver
         toggleDriveMode.whenPressed(new ToggleDriveMode());
         toggleSwagSpeed.whenPressed(new ToggleSwagSpeed());
+        holdToFollowBallButton.whenPressed(new FollowBall());
         
         // Operator
         //toggleCatapultState.whenPressed(new ToggleCatapultState());
         manualForward.whenPressed(new ManualForward());
         manualBackward.whenPressed(new ManualBackward());
     }
+    /*
+     * Is Button Pressed Query Methods
+     */
+    public static boolean isHoldToFollowButtonPressed()
+    {
+        return driverGamepad.getButton(holdToFollowBallButtonNumber);
+    }
+    
+    /*
+     * Nam add hold to swag button method
+     */
 }
 
