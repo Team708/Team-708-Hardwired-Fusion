@@ -4,16 +4,36 @@
  */
 package utilclasses;
 
-import edu.wpi.first.wpilibj.AnalogModule;
+import edu.wpi.first.wpilibj.AnalogChannel;
 
 /**
  *
- * @author Pat Walls
+ * @author Nam Tran
  */
 public class Potentiometer {
     
-    public Potentiometer() {
-        
+    private AnalogChannel potentiometer;
+    
+    // Stuff based on potentiometer for finding the scaling factor in getAngle()
+    private final int MIN_POTENTIOMETER_VOLTAGE = 0;
+    private final int MAX_POTENTIOMETER_VOLTAGE = 5;
+    private final int MIN_POTENTIOMETER_ANGLE = 0;
+    private int maxPotentiometerAngle = 360;
+    
+    public Potentiometer(int pwmPort, int maxRotationAngle) {
+        potentiometer = new AnalogChannel(pwmPort);
+        maxPotentiometerAngle = maxRotationAngle;
     }
     
+    public double getAngle() {
+        // Finds the scaling factor for the voltage
+        double scalingFactor = 
+                (maxPotentiometerAngle - MIN_POTENTIOMETER_ANGLE) /
+                (MAX_POTENTIOMETER_VOLTAGE - MIN_POTENTIOMETER_VOLTAGE); 
+        
+        double voltage = potentiometer.getVoltage();
+        double offset = 0.0;
+        
+        return (scalingFactor * voltage) + offset;
+    }
 }
