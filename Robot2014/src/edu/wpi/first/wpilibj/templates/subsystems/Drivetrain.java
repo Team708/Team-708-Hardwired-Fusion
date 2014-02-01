@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.Drive;
+import edu.wpi.first.wpilibj.Encoder;
 /**
  *
  */

@@ -5,9 +5,13 @@
 package edu.wpi.first.wpilibj.templates.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Jaguar;
+//import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.templates.RobotMap;
 import edu.wpi.first.wpilibj.templates.commands.testCatapult.Fling;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.DigitalInput;
+import utilclasses.Potentiometer;
 
 /**
  *
@@ -18,7 +22,7 @@ public class TestCatapult extends Subsystem {
     // here. Call these from Commands.
     
     // Creates motor
-    private final Jaguar testMotor;
+    private final Talon testMotor;
     
     // State of catapult
     private final int STOPPED = 0;
@@ -31,7 +35,7 @@ public class TestCatapult extends Subsystem {
     private final double BACKWARD_SPEED = -0.50;
     
     public TestCatapult() {
-        testMotor = new Jaguar(RobotMap.catapultMotor);
+        testMotor = new Talon(RobotMap.catapultMotor);
     }
     
     public void initDefaultCommand() {
