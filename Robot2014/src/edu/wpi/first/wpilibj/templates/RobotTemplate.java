@@ -71,7 +71,7 @@ public class RobotTemplate extends IterativeRobot {
     
     public void disabledPeriodic()
     {
-//        CommandBase.visionProcessor.processData();
+        CommandBase.visionProcessor.processData();
         sendStats();
     }
     
@@ -84,6 +84,6 @@ public class RobotTemplate extends IterativeRobot {
     
     private void sendStats()
     {
-//        CommandBase.visionProcessor.sendToDash();
+        CommandBase.visionProcessor.sendToDash();
     }
 }
