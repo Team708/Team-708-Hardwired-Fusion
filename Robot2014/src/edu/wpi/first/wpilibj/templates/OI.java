@@ -3,7 +3,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.templates.commands.drivetrain.FollowBall;
+//import edu.wpi.first.wpilibj.templates.commands.drivetrain.FollowBall;
 import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualBackward;
 import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualForward;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleDriveMode;
@@ -86,7 +86,7 @@ public class OI {
         // Driver
         toggleDriveMode.whenPressed(new ToggleDriveMode());
         toggleSwagSpeed.whenPressed(new ToggleSwagSpeed());
-        holdToFollowBallButton.whenPressed(new FollowBall());
+//        holdToFollowBallButton.whenPressed(new FollowBall());
         
         // Operator
         //toggleCatapultState.whenPressed(new ToggleCatapultState());

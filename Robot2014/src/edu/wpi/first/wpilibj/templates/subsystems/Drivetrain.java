@@ -3,7 +3,7 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Talon;
 //import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
@@ -43,12 +43,12 @@ public class Drivetrain extends Subsystem {
     public Drivetrain()
     {
         // Creates left motor controllers
-        leftMotor1 = new Victor(RobotMap.leftMotor1);
-        leftMotor2 = new Victor(RobotMap.leftMotor2);
+        leftMotor1 = new Talon(RobotMap.leftMotor1);
+        leftMotor2 = new Talon(RobotMap.leftMotor2);
         
         // Creates right motor controllers
-        rightMotor1 = new Victor(RobotMap.rightMotor1);
-        rightMotor2 = new Victor(RobotMap.rightMotor2);
+        rightMotor1 = new Talon(RobotMap.rightMotor1);
+        rightMotor2 = new Talon(RobotMap.rightMotor2);
         
         // Creates normal drive mode using two motor controllers (2 motors on each side)
         driver = new RobotDrive(leftMotor1,rightMotor1);
@@ -78,7 +78,6 @@ public class Drivetrain extends Subsystem {
      */
     public void haloDrive (double leftAxis, double rightAxis)
     {
-        System.out.println(leftAxis + " , " + rightAxis);
         driver.arcadeDrive(leftAxis, rightAxis);
     }
     
