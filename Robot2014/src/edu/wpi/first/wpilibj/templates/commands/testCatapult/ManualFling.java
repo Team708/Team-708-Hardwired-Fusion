@@ -8,13 +8,14 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
- * @author robot
+ * @author Robotics
  */
-public class Fling extends CommandBase {
+public class ManualFling extends CommandBase {
     
-    public Fling() {
+    public ManualFling() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(testCatapult);
     }
 
     // Called just before this Command runs the first time
@@ -26,19 +27,9 @@ public class Fling extends CommandBase {
         if (testCatapult.getState() == testCatapult.getStopped()) {
             testCatapult.stop();
         } else if (testCatapult.getState() == testCatapult.getForward()) {
-            if (!testCatapult.getUpperSwitch()) {
-                testCatapult.forward();
-            } else {
-                testCatapult.stop();
-                testCatapult.setState(testCatapult.getStopped());
-            }
-        } else if (testCatapult.getState() == testCatapult.getBackward()) {
-            if (!testCatapult.getLowerSwitch () ) {
-                testCatapult.backward();
-            } else {
-                testCatapult.stop();
-                testCatapult.setState(testCatapult.getStopped());
-            }
+            testCatapult.forward();
+        }else if (testCatapult.getState() == testCatapult.getBackward()) {
+            testCatapult.backward();
         }
     }
 

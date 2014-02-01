@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 //import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.templates.RobotMap;
-import edu.wpi.first.wpilibj.templates.commands.testCatapult.Fling;
+import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualFling;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import utilclasses.Potentiometer;
@@ -24,6 +24,14 @@ public class TestCatapult extends Subsystem {
     // Creates motor
     private final Talon testMotor;
     
+    // Sensors
+    private final Encoder catapultEncoder;
+    private final DigitalInput catapultLowerSwitch; 
+    private final DigitalInput catapultUpperSwitch; 
+    private final Potentiometer catapultPotentiometer;   
+    
+    private final int potentiometerRotations = 1;
+   
     // State of catapult
     private final int STOPPED = 0;
     private final int FORWARD = 1;
@@ -36,12 +44,16 @@ public class TestCatapult extends Subsystem {
     
     public TestCatapult() {
         testMotor = new Talon(RobotMap.catapultMotor);
+        catapultEncoder = new Encoder(RobotMap.catapultEncoderA, RobotMap.catapultEncoderB);
+        catapultLowerSwitch = new DigitalInput(RobotMap.catapultLowerSwitch);
+        catapultUpperSwitch = new DigitalInput(RobotMap.catapultUpperSwitch); 
+        catapultPotentiometer = new Potentiometer(RobotMap.catapultpotentiometer, potentiometerRotations);
     }
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-        setDefaultCommand(new Fling());
+        setDefaultCommand(new ManualFling());
     }
     
     public void forward() {
@@ -74,5 +86,21 @@ public class TestCatapult extends Subsystem {
     
     public int getStopped() {
         return STOPPED;
+    }
+    
+    public boolean getLowerSwitch () {
+        return catapultLowerSwitch.get();
+    } 
+    
+    public boolean getUpperSwitch () {
+        return catapultUpperSwitch.get(); 
+    } 
+    
+    
+    public double getCatapultAngle () {
+        return catapultPotentiometer.getAngle();
+    } 
+    public double getCatapultSpeed () {
+        return catapultEncoder.getRate ();  
     }
 }
