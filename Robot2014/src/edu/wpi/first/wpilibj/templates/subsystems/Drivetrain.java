@@ -1,4 +1,3 @@
-
 package edu.wpi.first.wpilibj.templates.subsystems;
 
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -8,7 +7,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.Drive;
-import edu.wpi.first.wpilibj.Encoder;
+//import edu.wpi.first.wpilibj.Encoder;
 /**
  *
  */
@@ -26,8 +25,11 @@ public class Drivetrain extends Subsystem {
     
     // Drivetrain Modes
     private boolean haloDrive = true;
-    private boolean swagMode = false;
-    
+//    private boolean swagMode = false;
+    public final int NORMAL = 0;
+    public final int SWAG = 2;
+    public final int CRAWL = 1;
+    private int state = NORMAL;
     // Dead-zones for the joysticks
     private final double MIN_DEAD_ZONE = -0.25;
     private final double MAX_DEAD_ZONE = 0.25;
@@ -69,7 +71,7 @@ public class Drivetrain extends Subsystem {
      */
     public void tankDrive(double leftAxis, double rightAxis)
     {
-        driver.tankDrive(leftAxis, rightAxis);
+        driver.tankDrive(0.65 * leftAxis, 0.65 * rightAxis);
     }
     
     /**
@@ -105,13 +107,29 @@ public class Drivetrain extends Subsystem {
     {
         swagDriver.arcadeDrive(leftAxis, rightAxis);
     }
-
-    public boolean isSwagMode() {
-        return swagMode;
+    
+    public void tankCrawlDrive (double leftAxis, double rightAxis)
+    {
+        driver.tankDrive(0.35 * leftAxis, 0.35 * rightAxis);
     }
     
-    public void setSwagMode(boolean newMode) {
-        swagMode = newMode;
+    public void haloCrawlDrive (double leftAxis, double rightAxis)
+    {
+        driver.arcadeDrive(0.35 * leftAxis, 0.35 * rightAxis);
+    }
+
+//    public boolean isSwagMode() {
+//        return swagMode;
+//    }
+    public int getState() {
+        return state;
+    }
+    
+//    public void setSwagMode(boolean newMode) {
+//        swagMode = newMode;
+//    }
+    public void setDriveMode(int newMode){
+        state = newMode;
     }
 
     public boolean isHaloDrive() {
@@ -120,5 +138,9 @@ public class Drivetrain extends Subsystem {
     
     public void setIsHaloDrive(boolean newMode) {
         haloDrive = newMode;
+    }
+    
+    public void setState(int newState) {
+        state = newState;
     }
 }
