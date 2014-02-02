@@ -2,27 +2,26 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.drivetrain;
-
-import edu.wpi.first.wpilibj.templates.commands.CommandBase;
-
+package edu.wpi.first.wpilibj.templates.commands.catapult;
+import  edu.wpi.first.wpilibj.templates.commands.CommandBase; 
 /**
  *
- * @author Matt Foley, Nam Tran, Pat Walls
+ * @author robot
  */
-public class ToggleSwagSpeed extends CommandBase {
+public class Backward extends CommandBase {
     
-    public ToggleSwagSpeed() {
+    public Backward() {
         // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        catapult.setState (catapult.Backward()); 
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.setMode(drivetrain.SWAG);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,7 +31,6 @@ public class ToggleSwagSpeed extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.setMode(drivetrain.NORMAL);
     }
 
     // Called when another command which requires one or more of the same

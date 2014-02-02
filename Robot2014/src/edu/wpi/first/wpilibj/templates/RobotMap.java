@@ -19,18 +19,32 @@ public class RobotMap {
     
     
     // Catapult
-    public static final int catapultMotor = 5;
+    public static final int catapultMotor1 = 5;
+    public static final int catapultMotor2 = 6;
     
     /*
-     * Sensors
+     * Digital Inputs
      */
     
+    // Drivetrain
+    public static final int leftEncoderA = 1;
+    public static final int leftEncoderB = 2;
+    
+    public static final int rightEncoderA = 3;
+    public static final int rightEncoderB = 4;
+    
     // Catapult
-    public static final int catapultpotentiometer = 1;
-    public static final int catapultEncoderA = 2;
-    public static final int catapultEncoderB = 3;
-    public static final int catapultLowerSwitch= 4; 
-    public static final int catapultUpperSwitch = 5; 
+    public static final int catapultEncoderA = 6;
+    public static final int catapultEncoderB = 7;
+    public static final int catapultLowerSwitch= 8; 
+    public static final int catapultUpperSwitch = 9; 
+    
+    /*
+     * Analog
+     */
+    
+    //Catapult
+    public static final int catapultPotentiometer = 1;
     
     /*
      * Joystick Ports:

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.testCatapult;
+package edu.wpi.first.wpilibj.templates.commands.catapult;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.templates.commands.CommandBase;
  *
  * @author Robotics
  */
-public class ManualBackward extends CommandBase {
+public class ManualFling extends CommandBase {
     
-    public ManualBackward() {
+    public ManualFling() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(testCatapult);
+        requires(catapult);
     }
 
     // Called just before this Command runs the first time
@@ -24,18 +24,19 @@ public class ManualBackward extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(testCatapult.getState() == testCatapult.getForward() || testCatapult.getState() == testCatapult.getBackward()) {
-            testCatapult.setState(testCatapult.getStopped());
-        } else if(testCatapult.getState() == testCatapult.getStopped()) {
-            testCatapult.setState(testCatapult.getBackward());
-        } else {
-            testCatapult.setState(testCatapult.getStopped());
+        if (catapult.getState() == catapult.Stopped()) {
+            catapult.stop();
+        } else if (catapult.getState() == catapult.Forward()) {
+            catapult.goForward();
+        }else if (catapult.getState() == catapult.Backward()) {
+            catapult.goBackward();
         }
+        System.out.println(catapult.getState());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

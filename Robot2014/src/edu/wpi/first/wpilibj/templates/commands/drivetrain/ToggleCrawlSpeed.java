@@ -22,7 +22,7 @@ public class ToggleCrawlSpeed extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.setState(drivetrain.CRAWL);
+        drivetrain.setMode(drivetrain.CRAWL);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,7 +32,7 @@ public class ToggleCrawlSpeed extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.setState(drivetrain.NORMAL);
+        drivetrain.setMode(drivetrain.NORMAL);
     }
 
     // Called when another command which requires one or more of the same

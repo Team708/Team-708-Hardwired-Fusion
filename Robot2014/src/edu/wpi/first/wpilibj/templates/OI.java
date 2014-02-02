@@ -4,8 +4,9 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 //import edu.wpi.first.wpilibj.templates.commands.drivetrain.FollowBall;
-import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualBackward;
-import edu.wpi.first.wpilibj.templates.commands.testCatapult.ManualForward;
+import edu.wpi.first.wpilibj.templates.commands.catapult.ManualBackward;
+import edu.wpi.first.wpilibj.templates.commands.catapult.ManualForward;
+import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleCrawlSpeed;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleDriveMode;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleSwagSpeed;
 import utilclasses.Gamepad;
@@ -50,9 +51,17 @@ public class OI {
     /*
      * Define Button Constants
      */
+    
+    // Driver
     private static final int toggleDriveModeButtonNumber = Gamepad.button_A;
     private static final int holdToFollowBallButtonNumber = Gamepad.button_B;
+//    private static final int holdToSwagButtonNumber = Gamepad.button_L_Shoulder;
+    private static final int toggleCrawlSpeedButtonNumber = Gamepad.button_L_Shoulder;
     private static final int toggleSwagSpeedButtonNumber = Gamepad.button_R_Shoulder;
+    
+    // Operator
+    private static final int manualForwardButtonNumber = Gamepad.button_R_Shoulder;
+    private static final int manualBackwardButtonNumber = Gamepad.button_L_Shoulder;
     
     //initialize Gamepads
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
@@ -68,6 +77,9 @@ public class OI {
     //Switch to swag speed
     public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, toggleSwagSpeedButtonNumber);
     
+    //Switch to crawl speed
+    public static final Button toggleCrawlSpeed = new JoystickButton(driverGamepad, toggleCrawlSpeedButtonNumber);
+    
     //Follow the ball while this button is held
     public static final Button holdToFollowBallButton = new JoystickButton(driverGamepad,holdToFollowBallButtonNumber);
     
@@ -76,16 +88,17 @@ public class OI {
      */
     
     //Makes arm go forward or stop
-    public static final Button manualForward = new JoystickButton(operatorGamepad, Gamepad.button_R_Shoulder);
+    public static final Button manualForward = new JoystickButton(operatorGamepad, manualForwardButtonNumber);
     
     //Makes the arm go backward or stop
-    public static final Button manualBackward = new JoystickButton(operatorGamepad, Gamepad.button_L_Shoulder);
+    public static final Button manualBackward = new JoystickButton(operatorGamepad, manualBackwardButtonNumber);
     
     public OI() 
     {
         // Driver
         toggleDriveMode.whenPressed(new ToggleDriveMode());
-        toggleSwagSpeed.whenPressed(new ToggleSwagSpeed());
+        toggleSwagSpeed.whileHeld(new ToggleSwagSpeed());
+        toggleCrawlSpeed.whileHeld(new ToggleCrawlSpeed());
 //        holdToFollowBallButton.whenPressed(new FollowBall());
         
         // Operator
@@ -101,8 +114,8 @@ public class OI {
         return driverGamepad.getButton(holdToFollowBallButtonNumber);
     }
     
-    /*
-     * Nam add hold to swag button method
-     */
+//    public static boolean isHoldToSwagButtonPressed() {
+//        return driverGamepad.getButton(holdToSwagButtonNumber);
+//    }
 }
 

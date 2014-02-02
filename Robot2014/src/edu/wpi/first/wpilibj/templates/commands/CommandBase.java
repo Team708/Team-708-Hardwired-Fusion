@@ -3,9 +3,8 @@ package edu.wpi.first.wpilibj.templates.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.OI;
-//import edu.wpi.first.wpilibj.templates.subsystems.Catapult;
+import edu.wpi.first.wpilibj.templates.subsystems.Catapult;
 import edu.wpi.first.wpilibj.templates.subsystems.Drivetrain;
-import edu.wpi.first.wpilibj.templates.subsystems.TestCatapult;
 import edu.wpi.first.wpilibj.templates.subsystems.VisionProcessor;
 
 /**
@@ -18,9 +17,8 @@ public abstract class CommandBase extends Command {
 
     public static OI oi;
     // Create a single static instance of all of your subsystems
-//    public static Catapult catapult = new Catapult();
     public static Drivetrain drivetrain = new Drivetrain();
-    public static TestCatapult testCatapult = new TestCatapult();
+    public static Catapult catapult = new Catapult();
     public static VisionProcessor visionProcessor = new VisionProcessor();
 
     public static void init() {
@@ -33,7 +31,8 @@ public abstract class CommandBase extends Command {
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(drivetrain);
-//        SmartDashboard.putData(catapult);
+        SmartDashboard.putData(catapult);
+        SmartDashboard.putData(visionProcessor);
     }
 
     public CommandBase(String name) {

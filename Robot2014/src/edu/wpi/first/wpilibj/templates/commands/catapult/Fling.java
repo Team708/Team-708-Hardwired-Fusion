@@ -2,20 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.testCatapult;
+package edu.wpi.first.wpilibj.templates.commands.catapult;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
- * @author Robotics
+ * @author robot
  */
-public class ManualFling extends CommandBase {
+public class Fling extends CommandBase {
     
-    public ManualFling() {
+    public Fling() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(testCatapult);
     }
 
     // Called just before this Command runs the first time
@@ -24,18 +23,28 @@ public class ManualFling extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (testCatapult.getState() == testCatapult.getStopped()) {
-            testCatapult.stop();
-        } else if (testCatapult.getState() == testCatapult.getForward()) {
-            testCatapult.forward();
-        }else if (testCatapult.getState() == testCatapult.getBackward()) {
-            testCatapult.backward();
+        if (catapult.getState() == catapult.Stopped()) {
+            catapult.stop();
+        } else if (catapult.getState() == catapult.Forward()) {
+            if (!catapult.getUpperSwitch()) {
+                catapult.goForward();
+            } else {
+                catapult.stop();
+                catapult.setState(catapult.Stopped());
+            }
+        } else if (catapult.getState() == catapult.Backward()) {
+            if (!catapult.getLowerSwitch () ) {
+                catapult.goBackward();
+            } else {
+                catapult.stop();
+                catapult.setState(catapult.Stopped());
+            }
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

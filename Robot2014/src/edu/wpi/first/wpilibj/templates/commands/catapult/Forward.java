@@ -2,36 +2,30 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.wpi.first.wpilibj.templates.commands.testCatapult;
+package edu.wpi.first.wpilibj.templates.commands.catapult;
 
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
-import edu.wpi.first.wpilibj.templates.subsystems.TestCatapult;
+
 
 /**
  *
- * @author Robotics
+ * @author robot
  */
-public class ManualForward extends CommandBase {
+public class Forward extends CommandBase {
     
-    public ManualForward() {
+    public Forward() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(testCatapult);
+        requires(catapult);
     }
-    
+
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(testCatapult.getState() == testCatapult.getForward() || testCatapult.getState() == testCatapult.getBackward()) {
-            testCatapult.setState(testCatapult.getStopped());
-        } else if(testCatapult.getState() == testCatapult.getForward()){
-            testCatapult.setState(testCatapult.getForward());
-        } else {
-            testCatapult.setState(testCatapult.getStopped());
-        }
+        catapult.setState (catapult.Forward());
     }
 
     // Make this return true when this Command no longer needs to run execute()
