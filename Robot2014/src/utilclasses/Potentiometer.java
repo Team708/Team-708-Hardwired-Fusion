@@ -18,7 +18,7 @@ public class Potentiometer {
     private final int MIN_POTENTIOMETER_VOLTAGE = 0;
     private final int MAX_POTENTIOMETER_VOLTAGE = 5;
     private final int MIN_POTENTIOMETER_ANGLE = 0;
-    private int maxPotentiometerAngle = 360;
+    private int maxPotentiometerAngle;
     
     public Potentiometer(int pwmPort, int numberOfRotations) {
         potentiometer = new AnalogChannel(pwmPort);
