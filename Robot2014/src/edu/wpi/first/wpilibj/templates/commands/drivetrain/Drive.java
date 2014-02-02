@@ -27,7 +27,7 @@ public class Drive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.haloDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),OI.driverGamepad.getAxis(Gamepad.rightStick_X));
+        drivetrain.haloDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),-OI.driverGamepad.getAxis(Gamepad.rightStick_X));
     }
     
     // Make this return true when this Command no longer needs to run execute()
@@ -37,16 +37,11 @@ public class Drive extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        if (drivetrain.isHaloDrive()) {
             drivetrain.haloDrive(0.0,0.0);
-        } else {
-            drivetrain.tankDrive(0.0, 0.0);
-        }
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        end();
     }
 }

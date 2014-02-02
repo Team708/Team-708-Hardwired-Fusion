@@ -25,7 +25,7 @@ public class ToggleDriveMode extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.setIsHaloDrive(!drivetrain.isHaloDrive());
+//        drivetrain.setIsHaloDrive(!drivetrain.isHaloDrive());
     }
 
     // Make this return true when this Command no longer needs to run execute()

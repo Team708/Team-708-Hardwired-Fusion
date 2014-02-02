@@ -31,7 +31,6 @@ public class ManualFling extends CommandBase {
         }else if (catapult.getState() == catapult.Backward()) {
             catapult.goBackward();
         }
-        System.out.println(catapult.getState());
     }
 
     // Make this return true when this Command no longer needs to run execute()

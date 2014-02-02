@@ -4,6 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates.commands.drivetrain;
 
+import edu.wpi.first.wpilibj.templates.OI;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
@@ -27,7 +28,7 @@ public class ToggleSwagSpeed extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return !OI.isHoldToSwagSpeedButtonPressed();
     }
 
     // Called once after isFinished returns true

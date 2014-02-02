@@ -1,7 +1,6 @@
 package edu.wpi.first.wpilibj.templates.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -29,16 +28,15 @@ public class Drivetrain extends Subsystem {
     private final RobotDrive swagDriver;
     
     // Drivetrain Modes
-    private boolean haloDrive = true;
+//    private boolean haloDrive = true;
     public final int NORMAL = 0;
     public final int SWAG = 1;
     public final int CRAWL = 2;
     private int mode = NORMAL;
-    private boolean thirdMotorEnabled = false;
     
     // Scaling for drive modes
-    private final double[] scalarFB = {1.00, 1.00, 1.00};
-    private final double[] scalarLR = {1.00, 1.00, 1.00};
+    private final double[] scalarFB = {0.75, 1.00, 0.50};
+    private final double[] scalarLR = {0.75, 0.00, 0.50};
 
     public void initDefaultCommand() 
     {
@@ -79,16 +77,16 @@ public class Drivetrain extends Subsystem {
      * @param leftAxis
      * @param rightAxis 
      */
-    public void tankDrive(double leftAxis, double rightAxis)
-    {
-        if (thirdMotorEnabled) {
-            // Driver for three motors on
-            swagDriver.tankDrive((scalarFB[SWAG] * leftAxis), (scalarFB[SWAG] * rightAxis));
-        } else {
-            // Driver for two motors on
-            driver.tankDrive((scalarFB[mode] * leftAxis), (scalarFB[mode] * rightAxis));
-        }
-    }
+//    public void tankDrive(double leftAxis, double rightAxis)
+//    {
+//        if (mode == SWAG) {
+//            // Driver for three motors on
+//            swagDriver.tankDrive((scalarFB[SWAG] * leftAxis), (scalarFB[SWAG] * rightAxis));
+//        } else {
+//            // Driver for two motors on
+//            driver.tankDrive((scalarFB[mode] * leftAxis), (scalarFB[mode] * rightAxis));
+//        }
+//    }
     
     /**
      * Use joystick values to do Halo drive.
@@ -97,12 +95,12 @@ public class Drivetrain extends Subsystem {
      */
     public void haloDrive (double leftAxis, double rightAxis)
     {
-        if (thirdMotorEnabled) {
+        if (!(mode == SWAG)) {
             // Driver for three motors on
-            swagDriver.arcadeDrive((scalarFB[SWAG] * leftAxis), (scalarLR[SWAG] * rightAxis));
+            driver.arcadeDrive((scalarFB[mode] * leftAxis), (scalarLR[mode] * rightAxis));
         } else {
             // Driver for two motors on
-            driver.arcadeDrive((scalarFB[mode] * leftAxis), (scalarLR[mode] * rightAxis));
+            swagDriver.arcadeDrive((scalarFB[SWAG] * leftAxis), (scalarLR[SWAG] * rightAxis));
         }
     }
     
@@ -110,32 +108,21 @@ public class Drivetrain extends Subsystem {
         return mode;
     }
 
-    public boolean isHaloDrive() {
-        return haloDrive;
-    }
+//    public boolean isHaloDrive() {
+//        return haloDrive;
+//    }
     
-    public void setIsHaloDrive(boolean newMode) {
-        haloDrive = newMode;
-    }
+//    public void setIsHaloDrive(boolean newMode) {
+//        haloDrive = newMode;
+//    }
     
     public void setMode(int newMode) {
-        if (!(newMode >= NORMAL && newMode <= CRAWL)) {return;}
-        
         mode = newMode;
         
-        if (mode == SWAG) {
-            thirdMotorEnabled = true;
-        } else {
+        if (!(mode == SWAG)) {
             leftMotor2.set(0.0);
             rightMotor2.set(0.0);
-            thirdMotorEnabled = false;
         }
-//        currentScalarFB = scalarFB[mode];
-//        currentScalarLR = scalarLR[mode];
-    }
-    
-    public boolean isThirdMotorEnabled() {
-        return thirdMotorEnabled;
     }
     
 //    public void drive(Gamepad gamepad) {

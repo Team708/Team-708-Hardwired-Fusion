@@ -4,10 +4,11 @@
  */
 package edu.wpi.first.wpilibj.templates.commands.drivetrain;
 
+import edu.wpi.first.wpilibj.templates.OI;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 /**
  *
- * @author Robotics
+ * @author Nam Tran, Jillan Wang
  */
 public class ToggleCrawlSpeed extends CommandBase {
     
@@ -22,12 +23,13 @@ public class ToggleCrawlSpeed extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        // Added check to allow SWAG to override
         drivetrain.setMode(drivetrain.CRAWL);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return !OI.isHoldToCrawlSpeedButtonPressed();
     }
 
     // Called once after isFinished returns true

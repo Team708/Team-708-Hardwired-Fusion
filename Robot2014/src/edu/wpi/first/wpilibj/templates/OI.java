@@ -3,7 +3,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-//import edu.wpi.first.wpilibj.templates.commands.drivetrain.FollowBall;
+import edu.wpi.first.wpilibj.templates.commands.drivetrain.FollowBall;
 import edu.wpi.first.wpilibj.templates.commands.catapult.ManualBackward;
 import edu.wpi.first.wpilibj.templates.commands.catapult.ManualForward;
 import edu.wpi.first.wpilibj.templates.commands.drivetrain.ToggleCrawlSpeed;
@@ -55,9 +55,8 @@ public class OI {
     // Driver
     private static final int toggleDriveModeButtonNumber = Gamepad.button_A;
     private static final int holdToFollowBallButtonNumber = Gamepad.button_B;
-//    private static final int holdToSwagButtonNumber = Gamepad.button_L_Shoulder;
-    private static final int toggleCrawlSpeedButtonNumber = Gamepad.button_L_Shoulder;
-    private static final int toggleSwagSpeedButtonNumber = Gamepad.button_R_Shoulder;
+    private static final int holdToSwagSpeedButtonNumber = Gamepad.button_R_Shoulder;
+    private static final int holdToCrawlSpeedButtonNumber = Gamepad.button_L_Shoulder;
     
     // Operator
     private static final int manualForwardButtonNumber = Gamepad.button_R_Shoulder;
@@ -72,13 +71,13 @@ public class OI {
      */
     
     //Initialize drivetrain switch button
-    public static final Button toggleDriveMode = new JoystickButton(driverGamepad, toggleDriveModeButtonNumber);
+//    public static final Button toggleDriveMode = new JoystickButton(driverGamepad, toggleDriveModeButtonNumber);
     
     //Switch to swag speed
-    public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, toggleSwagSpeedButtonNumber);
+    public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, holdToSwagSpeedButtonNumber);
     
     //Switch to crawl speed
-    public static final Button toggleCrawlSpeed = new JoystickButton(driverGamepad, toggleCrawlSpeedButtonNumber);
+    public static final Button toggleCrawlSpeed = new JoystickButton(driverGamepad, holdToCrawlSpeedButtonNumber);
     
     //Follow the ball while this button is held
     public static final Button holdToFollowBallButton = new JoystickButton(driverGamepad,holdToFollowBallButtonNumber);
@@ -96,13 +95,12 @@ public class OI {
     public OI() 
     {
         // Driver
-        toggleDriveMode.whenPressed(new ToggleDriveMode());
-        toggleSwagSpeed.whileHeld(new ToggleSwagSpeed());
-        toggleCrawlSpeed.whileHeld(new ToggleCrawlSpeed());
-//        holdToFollowBallButton.whenPressed(new FollowBall());
+//        toggleDriveMode.whenPressed(new ToggleDriveMode());
+        toggleSwagSpeed.whenPressed(new ToggleSwagSpeed());
+        toggleCrawlSpeed.whenPressed(new ToggleCrawlSpeed());
+        holdToFollowBallButton.whenPressed(new FollowBall());
         
         // Operator
-        //toggleCatapultState.whenPressed(new ToggleCatapultState());
         manualForward.whenPressed(new ManualForward());
         manualBackward.whenPressed(new ManualBackward());
     }
@@ -114,8 +112,12 @@ public class OI {
         return driverGamepad.getButton(holdToFollowBallButtonNumber);
     }
     
-//    public static boolean isHoldToSwagButtonPressed() {
-//        return driverGamepad.getButton(holdToSwagButtonNumber);
-//    }
+    public static boolean isHoldToSwagSpeedButtonPressed() {
+        return driverGamepad.getButton(holdToSwagSpeedButtonNumber);
+    }
+    
+    public static boolean isHoldToCrawlSpeedButtonPressed() {
+        return driverGamepad.getButton(holdToCrawlSpeedButtonNumber);
+    }
 }
 
