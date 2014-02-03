@@ -119,7 +119,7 @@ public class Drivetrain extends Subsystem {
     public void setMode(int newMode) {
         mode = newMode;
         
-        if (!(mode == SWAG)) {
+        if (mode != SWAG) {
             leftMotor2.set(0.0);
             rightMotor2.set(0.0);
         }
