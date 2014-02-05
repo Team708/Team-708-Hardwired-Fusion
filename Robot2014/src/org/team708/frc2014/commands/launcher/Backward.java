@@ -1,26 +1,26 @@
-package org.team708.frc2014.commands.catapult;
+package org.team708.frc2014.commands.launcher;
 
-import org.team708.frc2014.commands.CommandBase;
+import  org.team708.frc2014.commands.CommandBase; 
 
 /**
  *
  * @author Kyumin Lee
  */
-public class Fling extends CommandBase {
+public class Backward extends CommandBase {
     
-    public Fling() {
+    public Backward() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(catapult);
+        requires(launcher);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        launcher.setState (launcher.Backward()); 
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        catapult.fling();
     }
 
     // Make this return true when this Command no longer needs to run execute()

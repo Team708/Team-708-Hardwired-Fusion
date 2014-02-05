@@ -28,7 +28,7 @@ public class Drivetrain extends Subsystem {
 //    private boolean haloDrive = true;
     private final int NORMAL = 0;
     private final int SWAG = 1;
-    private final int CRAWL = 2;
+    private final int ANTISWAG = 2;
     private int mode = NORMAL;
     
     // Scaling for drive modes
@@ -72,10 +72,10 @@ public class Drivetrain extends Subsystem {
     public void haloDrive (double leftAxis, double rightAxis)
     {
         if (mode != SWAG) {
-            // Driver for three motors on
+            // Driver for two motors on
             driver.arcadeDrive((scalarFB[mode] * leftAxis), (scalarLR[mode] * rightAxis));
         } else {
-            // Driver for two motors on
+            // Driver for three motors on
             swagDriver.arcadeDrive((scalarFB[SWAG] * leftAxis), (scalarLR[SWAG] * rightAxis));
         }
     }
@@ -101,8 +101,8 @@ public class Drivetrain extends Subsystem {
         return SWAG;
     }
     
-    public int CRAWL() {
-        return CRAWL;
+    public int ANTISWAG() {
+        return ANTISWAG;
     }
     
     public void resetEncoders() {

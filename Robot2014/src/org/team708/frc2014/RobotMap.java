@@ -7,48 +7,42 @@ package org.team708.frc2014;
  * floating around.
  */
 public class RobotMap {
-    /*
-    * Motor/PWM Ports:
-    */
     
-    // Drivetrain
+    // Motor/ PWM Ports -- Drivetrain
     public static final int leftMotor1 = 1;    //normal drive
     public static final int leftMotor2 = 2;    //swag drive enabled
     public static final int rightMotor1 = 3;   //normal drive
     public static final int rightMotor2 = 4;   //swag drive enabled
     
     
-    // Catapult
-    public static final int catapultMotor1 = 5;
-    public static final int catapultMotor2 = 6;
+    // Motor/ PWM Ports -- Launcher
+    public static final int launcherMotor1 = 5; //Forward Motor
+    public static final int launcherMotor2 = 6; //Reversed Motor
     
-    /*
-     * Digital Inputs
-     */
+    // Motor/ PWM Ports -- Intake
+    public static final int intakeMotor = 7; //Intake Motor
     
-    // Drivetrain
-    public static final int leftEncoderA = 1;
-    public static final int leftEncoderB = 2;
+    // Digital Inputs -- Drivetrain
+    public static final int leftEncoderA = 1; //Channel-A for left Encoder
+    public static final int leftEncoderB = 2; //Channel-B for left Encoder
     
-    public static final int rightEncoderA = 3;
-    public static final int rightEncoderB = 4;
+    public static final int rightEncoderA = 3; //Channel-A for right Encoder
+    public static final int rightEncoderB = 4; //Channel-B for right Encoder
     
-    // Catapult
-    public static final int catapultEncoderA = 6;
-    public static final int catapultEncoderB = 7;
-    public static final int catapultLowerSwitch= 8;
-    public static final int catapultUpperSwitch = 9; 
+    // Digital Inputs -- Launcher
+    public static final int launcherEncoderA = 6; //Channel-A for launcher Encoder
+    public static final int launcherEncoderB = 7; //Channel-B for launcher Encoder
+    public static final int launcherLowerSwitch= 8; //Switch for top/max of launcher
+    public static final int launcherUpperSwitch = 9; //Switch for bottom/min of launcher
     
-    /*
-     * Analog
-     */
+    // Analog Sensors -- Launcher
+    public static final int launcherPotentiometer = 1;
     
-    //Catapult
-    public static final int catapultPotentiometer = 1;
+    // Solenoids -- Intake
+    public static final int intakeSolenoidA = 1;
+    public static final int intakeSolenoidB = 2;
     
-    /*
-     * Joystick Ports:
-    */
+    // Joystick Ports
     public static final int driverGamepad = 1;
     public static final int operatorGamepad = 2;
     

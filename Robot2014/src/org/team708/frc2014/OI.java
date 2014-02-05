@@ -3,11 +3,13 @@ package org.team708.frc2014;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.team708.frc2014.commands.catapult.ManualBackward;
-import org.team708.frc2014.commands.catapult.ManualForward;
 import org.team708.frc2014.commands.drivetrain.FollowBall;
-import org.team708.frc2014.commands.drivetrain.ToggleCrawlSpeed;
+import org.team708.frc2014.commands.drivetrain.ToggleAntiswagSpeed;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
+import org.team708.frc2014.commands.intake.DeployIntake;
+import org.team708.frc2014.commands.intake.ManualIntake;
+import org.team708.frc2014.commands.launcher.ManualBackward;
+import org.team708.frc2014.commands.launcher.ManualForward;
 import org.team708.util.Gamepad;
 
 /**
@@ -24,11 +26,13 @@ public class OI {
 //    private static final int toggleDriveModeButtonNumber = Gamepad.button_A;
     private static final int holdToFollowBallButtonNumber = Gamepad.button_B;
     private static final int holdToSwagSpeedButtonNumber = Gamepad.button_R_Shoulder;
-    private static final int holdToCrawlSpeedButtonNumber = Gamepad.button_L_Shoulder;
+    private static final int holdToAntiswagSpeedButtonNumber = Gamepad.button_L_Shoulder;
     
     // Operator
     private static final int manualForwardButtonNumber = Gamepad.button_R_Shoulder;
     private static final int manualBackwardButtonNumber = Gamepad.button_L_Shoulder;
+    private static final int holdToManualIntakeButtonNumber = Gamepad.button_A;
+    private static final int deployIntakeButtonNumber = Gamepad.button_B;
     
     //initialize Gamepads
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
@@ -42,7 +46,7 @@ public class OI {
     public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, holdToSwagSpeedButtonNumber);
     
     //Switch to crawl speed
-    public static final Button toggleCrawlSpeed = new JoystickButton(driverGamepad, holdToCrawlSpeedButtonNumber);
+    public static final Button toggleAntiswagSpeed = new JoystickButton(driverGamepad, holdToAntiswagSpeedButtonNumber);
     
     //Follow the ball while this button is held
     public static final Button holdToFollowBallButton = new JoystickButton(driverGamepad,holdToFollowBallButtonNumber);
@@ -60,17 +64,25 @@ public class OI {
     //Makes the arm go backward or stop
     public static final Button manualBackward = new JoystickButton(operatorGamepad, manualBackwardButtonNumber);
     
+    //Turns on motor for intake and stops when released
+    public static final Button holdToManualIntake = new JoystickButton(operatorGamepad, holdToManualIntakeButtonNumber);
+    
+    //Deploys intake or retracts it back in
+    public static final Button deployIntake = new JoystickButton(operatorGamepad, deployIntakeButtonNumber);
+    
     public OI() 
     {
         // Driver
 //        toggleDriveMode.whenPressed(new ToggleDriveMode());
         toggleSwagSpeed.whenPressed(new ToggleSwagSpeed());
-        toggleCrawlSpeed.whenPressed(new ToggleCrawlSpeed());
+        toggleAntiswagSpeed.whenPressed(new ToggleAntiswagSpeed());
         holdToFollowBallButton.whenPressed(new FollowBall());
         
         // Operator
         manualForward.whenPressed(new ManualForward());
         manualBackward.whenPressed(new ManualBackward());
+        holdToManualIntake.whenPressed(new ManualIntake());
+        deployIntake.whenPressed(new DeployIntake());
     }
     
     //Is Button Pressed Query Methods
@@ -84,8 +96,12 @@ public class OI {
         return driverGamepad.getButton(holdToSwagSpeedButtonNumber);
     }
     
-    public static boolean isHoldToCrawlSpeedButtonPressed() {
-        return driverGamepad.getButton(holdToCrawlSpeedButtonNumber);
+    public static boolean isHoldToAntiswagSpeedButtonPressed() {
+        return driverGamepad.getButton(holdToAntiswagSpeedButtonNumber);
+    }
+    
+    public static boolean isHoldToManualIntakeButtonPressed() {
+        return operatorGamepad.getButton(holdToManualIntakeButtonNumber);
     }
     
         //// CREATING BUTTONS

@@ -1,16 +1,17 @@
-package org.team708.frc2014.commands.catapult;
+package org.team708.frc2014.commands.launcher;
 
 import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Nam Tran, Pat Walls, Jillan Wang
+ * @author Nam Tran
  */
-public class ManualFling extends CommandBase {
+public class ManualBackward extends CommandBase {
     
-    public ManualFling() {
+    public ManualBackward() {
         // Use requires() here to declare subsystem dependencies
-        requires(catapult);
+        // eg. requires(chassis);
+        requires(launcher);
     }
 
     // Called just before this Command runs the first time
@@ -19,12 +20,12 @@ public class ManualFling extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        catapult.manualFling();
+        launcher.setManualMove(launcher.Backward());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

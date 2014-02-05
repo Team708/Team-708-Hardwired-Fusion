@@ -6,24 +6,24 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
-import org.team708.frc2014.commands.catapult.ManualFling;
+import org.team708.frc2014.commands.launcher.ManualFling;
 import org.team708.util.Potentiometer;
 
 /**
  *
  * @author Kyumin Lee, Nam Tran, Pat Walls, Jillan Wang
  */
-public class Catapult extends Subsystem {
+public class Launcher extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     
     // Creates motor controllers
-    private final SpeedController catapultMotor1, catapultMotor2;
+    private final SpeedController launcherMotor1, launcherMotor2;
     
     // Sensors
-    private final Encoder catapultEncoder;
-    private final DigitalInput catapultLowerSwitch, catapultUpperSwitch; 
-    private final Potentiometer catapultPotentiometer;   
+    private final Encoder launcherEncoder;
+    private final DigitalInput launcherLowerSwitch, launcherUpperSwitch; 
+    private final Potentiometer launcherPotentiometer;   
     
     private final int potentiometerRotations = 1;
    
@@ -31,7 +31,7 @@ public class Catapult extends Subsystem {
     private static final double MIN_ARM_ANGLE = 0.0;
     private static final double MAX_ARM_ANGLE = 45.0;
     
-    // State of catapult
+    // State of launcher
     private final int STOPPED = 0;
     private final int FORWARD = 1;
     private final int BACKWARD = 2;
@@ -41,16 +41,16 @@ public class Catapult extends Subsystem {
     private final double FORWARD_SPEED = 1.0;
     private final double BACKWARD_SPEED = 1.0;
     
-    public Catapult() {
+    public Launcher() {
         // Creates motors
-        catapultMotor1 = new Talon(RobotMap.catapultMotor1);
-        catapultMotor2 = new Talon(RobotMap.catapultMotor2);
+        launcherMotor1 = new Talon(RobotMap.launcherMotor1);
+        launcherMotor2 = new Talon(RobotMap.launcherMotor2);
         
         // Creates sensors
-        catapultEncoder = new Encoder(RobotMap.catapultEncoderA, RobotMap.catapultEncoderB);
-        catapultLowerSwitch = new DigitalInput(RobotMap.catapultLowerSwitch);
-        catapultUpperSwitch = new DigitalInput(RobotMap.catapultUpperSwitch); 
-        catapultPotentiometer = new Potentiometer(RobotMap.catapultPotentiometer, potentiometerRotations);
+        launcherEncoder = new Encoder(RobotMap.launcherEncoderA, RobotMap.launcherEncoderB);
+        launcherLowerSwitch = new DigitalInput(RobotMap.launcherLowerSwitch);
+        launcherUpperSwitch = new DigitalInput(RobotMap.launcherUpperSwitch); 
+        launcherPotentiometer = new Potentiometer(RobotMap.launcherPotentiometer, potentiometerRotations);
     }
     
     public void initDefaultCommand() {
@@ -60,18 +60,18 @@ public class Catapult extends Subsystem {
     }
     
     public void goForward() {
-        catapultMotor1.set(FORWARD_SPEED);
-        catapultMotor2.set(-FORWARD_SPEED);
+        launcherMotor1.set(FORWARD_SPEED);
+        launcherMotor2.set(-FORWARD_SPEED);
     }
     
     public void goBackward() {
-        catapultMotor1.set(-BACKWARD_SPEED);
-        catapultMotor2.set(BACKWARD_SPEED);
+        launcherMotor1.set(-BACKWARD_SPEED);
+        launcherMotor2.set(BACKWARD_SPEED);
     }
     
     public void stop() {
-        catapultMotor1.set(0.0);
-        catapultMotor2.set(0.0);
+        launcherMotor1.set(0.0);
+        launcherMotor2.set(0.0);
     }
     
     public void setManualMove(int state) {
@@ -141,17 +141,17 @@ public class Catapult extends Subsystem {
     }
     
     public boolean getLowerSwitch () {
-        return catapultLowerSwitch.get();
+        return launcherLowerSwitch.get();
     } 
     
     public boolean getUpperSwitch () {
-        return catapultUpperSwitch.get(); 
+        return launcherUpperSwitch.get(); 
     }
     
-    public double getCatapultAngle () {
-        return catapultPotentiometer.getAngle();
+    public double getLauncherAngle () {
+        return launcherPotentiometer.getAngle();
     } 
-    public double getCatapultSpeed () {
-        return catapultEncoder.getRate();  
+    public double getLauncherSpeed () {
+        return launcherEncoder.getRate();  
     }
 }

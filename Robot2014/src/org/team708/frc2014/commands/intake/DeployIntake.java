@@ -1,4 +1,8 @@
-package org.team708.frc2014.commands.catapult;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.team708.frc2014.commands.intake;
 
 import org.team708.frc2014.commands.CommandBase;
 
@@ -6,21 +10,21 @@ import org.team708.frc2014.commands.CommandBase;
  *
  * @author Nam Tran
  */
-public class ManualForward extends CommandBase {
+public class DeployIntake extends CommandBase {
     
-    public ManualForward() {
+    public DeployIntake() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(catapult);
+        requires(intake);
     }
-    
+
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        catapult.setManualMove(catapult.Forward());
+        intake.deployIntake();
     }
 
     // Make this return true when this Command no longer needs to run execute()

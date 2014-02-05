@@ -10,9 +10,9 @@ import org.team708.frc2014.commands.CommandBase;
  *
  * @author Nam Tran, Jillan Wang
  */
-public class ToggleCrawlSpeed extends CommandBase {
+public class ToggleAntiswagSpeed extends CommandBase {
     
-    public ToggleCrawlSpeed() {
+    public ToggleAntiswagSpeed() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -23,12 +23,12 @@ public class ToggleCrawlSpeed extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.setMode(drivetrain.CRAWL());
+        drivetrain.setMode(drivetrain.ANTISWAG());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !OI.isHoldToCrawlSpeedButtonPressed();
+        return !OI.isHoldToAntiswagSpeedButtonPressed();
     }
 
     // Called once after isFinished returns true

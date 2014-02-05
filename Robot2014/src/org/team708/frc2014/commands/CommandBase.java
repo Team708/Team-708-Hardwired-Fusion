@@ -3,8 +3,9 @@ package org.team708.frc2014.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.OI;
-import org.team708.frc2014.subsystems.Catapult;
+import org.team708.frc2014.subsystems.Launcher;
 import org.team708.frc2014.subsystems.Drivetrain;
+import org.team708.frc2014.subsystems.Intake;
 import org.team708.frc2014.subsystems.VisionProcessor;
 
 /**
@@ -17,8 +18,9 @@ public abstract class CommandBase extends Command {
 
     public static OI oi;
     // Create a single static instance of all of your subsystems
+    public static Launcher launcher = new Launcher();
     public static Drivetrain drivetrain = new Drivetrain();
-    public static Catapult catapult = new Catapult();
+    public static Intake intake = new Intake();
     public static VisionProcessor visionProcessor = new VisionProcessor();
 
     public static void init() {
@@ -30,8 +32,9 @@ public abstract class CommandBase extends Command {
         oi = new OI();
 
         // Show what command your subsystem is running on the SmartDashboard
+        SmartDashboard.putData(launcher);
         SmartDashboard.putData(drivetrain);
-        SmartDashboard.putData(catapult);
+        SmartDashboard.putData(intake);
         SmartDashboard.putData(visionProcessor);
     }
 
