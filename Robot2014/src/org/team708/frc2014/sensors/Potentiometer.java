@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.util;
+package org.team708.frc2014.sensors;
 
+import org.team708.util.*;
 import edu.wpi.first.wpilibj.AnalogChannel;
 
 /**

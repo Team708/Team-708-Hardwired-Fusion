@@ -9,6 +9,7 @@ package org.team708.frc2014;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -24,13 +25,19 @@ import org.team708.frc2014.commands.drivetrain.Drive;
  */
 public class ZygmontCrazy extends IterativeRobot {
 
-    Command autonomousCommand;
+    Command autonomousCommand;                      //the current autonomous command
+    Timer statsTimer;                               //timer used for Smart Dash statistics
+    private final double sendStatsIntervalSec = .5; //number of seconds between sending stats to SmartDash
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
+        //initialize timer periodic debug messages
+        statsTimer = new Timer();
+        statsTimer.start();
+        
         // instantiate the command used for the autonomous period
         autonomousCommand = new Drive();
 
@@ -82,8 +89,22 @@ public class ZygmontCrazy extends IterativeRobot {
         LiveWindow.run();
     }
     
+    /**
+     * Send debug/driver display statistics to SmartDashboard.
+     */
     private void sendStats()
     {
-        CommandBase.visionProcessor.sendToDash();
+        if(statsTimer.get() >= sendStatsIntervalSec)
+        {
+            statsTimer.reset();
+            
+            /*
+             * Add code for printing various debug variables here:
+             */
+            CommandBase.visionProcessor.sendToDash();
+            
+        }
+        
+        
     }
 }
