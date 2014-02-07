@@ -1,7 +1,7 @@
 package org.team708.frc2014.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.intake.ManualIntake;
@@ -20,10 +20,9 @@ public class Intake extends Subsystem {
     private final DoubleSolenoid.Value RETRACTED = DoubleSolenoid.Value.kForward;
     
     //Motor Controller
-    private final Relay intakeMotor;
-    private final Relay.Value INTAKE_SPEED = Relay.Value.kForward;
-    private final Relay.Value DISPENSE_SPEED = Relay.Value.kReverse;
-    private final Relay.Value STOP = Relay.Value.kOff;
+    private final Talon intakeMotor;
+    private final double INTAKE_SPEED = 1.0;
+    private final double DISPENSE_SPEED = -1.0;
     
     // Booleans to keep track of the state of the intake system
     private boolean isExtended = false;
@@ -33,12 +32,11 @@ public class Intake extends Subsystem {
         // Creates the solenoid for the intake piston
         intakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidA, RobotMap.intakeSolenoidB);
         // Creates the motor for the intake system
-        intakeMotor = new Relay(RobotMap.intakeMotor);
+        intakeMotor = new Talon(RobotMap.intakeMotor);
     }
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new ManualIntake());
     }
     
     // Extends the intake system and sets its state to extended
@@ -74,6 +72,6 @@ public class Intake extends Subsystem {
     
     // Stops the intake motor
     public void stopIntake() {
-        intakeMotor.set(STOP);
+        intakeMotor.set(0.0);
     }
 }

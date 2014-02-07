@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
-import org.team708.frc2014.commands.launcher.ManualFling;
+import org.team708.frc2014.commands.launcher.JoystickFling;
 import org.team708.util.Potentiometer;
 
 /**
@@ -56,7 +56,8 @@ public class Launcher extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-        setDefaultCommand(new ManualFling());
+//        setDefaultCommand(new ManualFling());
+        setDefaultCommand(new JoystickFling());
     }
     
     public void goForward() {
@@ -90,6 +91,11 @@ public class Launcher extends Subsystem {
         }else if (state == BACKWARD) {
             this.goBackward();
         }
+    }
+    
+    public void joystickFling(double axis) {
+        launcherMotor1.set(axis);
+        launcherMotor2.set(-axis);
     }
     
     public void fling() {
