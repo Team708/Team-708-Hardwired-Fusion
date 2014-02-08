@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.drivetrain.Drive;
+import org.team708.frc2014.sensors.UltrasonicSensor;
 
 /**
  * @author Matt Foley, Nam Tran, Pat Walls, Jillan Wang, Connor Willison
@@ -24,6 +25,9 @@ public class Drivetrain extends Subsystem {
     // Creates drivers (one for two motors running, one for three running)
     private final RobotDrive driver, swagDriver;
     
+    //Creates Ultrasonic Sensors
+    private final UltrasonicSensor leftUltrasonic, rightUltrasonic;
+    
     // Drivetrain Modes
 //    private boolean haloDrive = true;
     private final int NORMAL = 0;
@@ -34,6 +38,8 @@ public class Drivetrain extends Subsystem {
     // Scaling for drive modes
     private final double[] scalarFB = {0.75, 1.00, 0.50};
     private final double[] scalarLR = {0.75, 1.00, 0.50};
+    
+    public final double optimumShootingDistance = 96.0;
 
     public void initDefaultCommand() 
     {
@@ -62,6 +68,10 @@ public class Drivetrain extends Subsystem {
         driver = new RobotDrive(leftMotor1,rightMotor1);
         // Creates drive mode using four motor controllers (3 motors on each side)
         swagDriver = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+        
+        //Creates Drivetrain ultrasonic sensors
+        leftUltrasonic = new UltrasonicSensor(RobotMap.drivetrainLeftUltrasonic, UltrasonicSensor.MB1010);
+        rightUltrasonic = new UltrasonicSensor(RobotMap.drivetrainRightUltrasonic, UltrasonicSensor.MB1010);        
     }
     
     /**
@@ -77,6 +87,14 @@ public class Drivetrain extends Subsystem {
         } else {
             // Driver for three motors on
             swagDriver.arcadeDrive((scalarFB[SWAG] * leftAxis), (scalarLR[SWAG] * rightAxis));
+        }
+    }
+    
+    public void driveForwardToTarget() {
+        if(!this.isAtOptimumDistance()) {
+            
+        } else {
+            driver.arcadeDrive(0.0, 0.0);
         }
     }
     
@@ -108,6 +126,15 @@ public class Drivetrain extends Subsystem {
     public void resetEncoders() {
         leftEncoder.reset();
         rightEncoder.reset();
+    }
+    
+    public void setUltrasonicDistance(double lowerDistance, double upperDistance, boolean inverted) {
+        leftUltrasonic.setTriggerBounds(lowerDistance, upperDistance, inverted);
+        rightUltrasonic.setTriggerBounds(lowerDistance, upperDistance, inverted);
+    }
+    
+    public boolean isAtOptimumDistance() {
+        return leftUltrasonic.isTriggered() || rightUltrasonic.isTriggered();
     }
     
 //    /**
