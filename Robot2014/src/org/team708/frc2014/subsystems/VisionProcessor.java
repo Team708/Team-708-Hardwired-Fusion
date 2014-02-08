@@ -35,23 +35,27 @@ public class VisionProcessor extends Subsystem{
     
 //    private int currentTargetType = UNKNOWN_TARGET;
 //    private String currentTargetName = "???";
+    
+    private final double highGoalAspectRatio = 3.73; // High goal aspect ratio (11ft6in/3ft1in) in inches (3.729 repeating)
+    
     private double distanceToTarget = 0.0;
     private int differencePx = 0;
     private final double ballDiameterIn = 24;
     
-//    private double currentAspectRatio = 0.0;
-//    private double upper_left_x = 0;
-//    private double upper_left_y = 0;
-//    private double upper_right_x = 0;
-//    private double upper_right_y = 0;
-//    private double lower_left_x = 0;
-//    private double lower_left_y = 0;
+    private double currentAspectRatio = 0.0;
+    private double upper_left_x = 0;
+    private double upper_left_y = 0;
+    private double upper_right_x = 0;
+    private double upper_right_y = 0;
+    private double lower_left_x = 0;
+    private double lower_left_y = 0;
     private double center_x = 0;
     private double radius = 0;
     private double blob_count = 0;
     private boolean hasBall = false;
+    private boolean isHighGoal = false;
     
-//    private static final double aspectRatioTolerance = .4;
+    private static final double aspectRatioTolerance = .4;
     private final int imageWidthPx = 320;
     
     //daisy says to set this to 43.5 deg
@@ -82,6 +86,10 @@ public class VisionProcessor extends Subsystem{
         return hasBall;
     }
     
+    public boolean isGoalLit() {
+        return isHighGoal;
+    }
+    
     public void processData()
     {
         try{
@@ -89,12 +97,12 @@ public class VisionProcessor extends Subsystem{
              * Receive data from RoboRealm program.
              */
             NetworkTable table = NetworkTable.getTable("vision");
-//            upper_left_x = (double) table.getNumber("p1x");
-//            upper_left_y = (double) table.getNumber("p1y");
-//            upper_right_x = (double)table.getNumber("p2x");
-//            upper_right_y = (double)table.getNumber("p2y");
-//            lower_left_x = (double) table.getNumber("p3x");
-//            lower_left_y = (double) table.getNumber("p3y");
+            upper_left_x = (double) table.getNumber("p1x");
+            upper_left_y = (double) table.getNumber("p1y");
+            upper_right_x = (double)table.getNumber("p2x");
+            upper_right_y = (double)table.getNumber("p2y");
+            lower_left_x = (double) table.getNumber("p3x");
+            lower_left_y = (double) table.getNumber("p3y");
             center_x = (double) table.getNumber("cx");
             radius = (double) table.getNumber("r");
             hasBall = table.getNumber("ball") > 0;
@@ -102,7 +110,7 @@ public class VisionProcessor extends Subsystem{
             
             
             //calculate aspect ratio of observed target
-//            currentAspectRatio = (upper_right_x - upper_left_x) / (upper_left_y - lower_left_y);
+            currentAspectRatio = (upper_right_x - upper_left_x) / (upper_left_y - lower_left_y);
             
 //            double smallest_diff = Double.MAX_VALUE;
 //            double diff = 0.0;
@@ -120,10 +128,12 @@ public class VisionProcessor extends Subsystem{
             
             //make sure that target aspect ratio is within tolerance
             //if it isn't, we really don't have a target
-//            if(Math.abs(currentAspectRatio - aspectRatios[currentTargetType]) > aspectRatioTolerance || blob_count < 1)
-//            {
-//                currentTargetType = UNKNOWN_TARGET;
-//            }
+            if(Math.abs(currentAspectRatio - highGoalAspectRatio) > aspectRatioTolerance || blob_count < 1) {
+                isHighGoal = false;
+            } else {
+                isHighGoal = true;
+            }
+                
 //            
 //            //determine target name
 //            currentTargetName = targetNames[currentTargetType];
