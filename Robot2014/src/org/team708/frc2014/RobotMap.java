@@ -22,6 +22,9 @@ public class RobotMap {
     // Motor/ PWM Ports -- Intake
     public static final int intakeMotor = 7; //Intake Motor
     
+    //Relays -- Intake
+    public static final int compressorRelay = 1;
+    
     // Digital Inputs -- Drivetrain
     public static final int leftEncoderA = 1; //Channel-A for left Encoder
     public static final int leftEncoderB = 2; //Channel-B for left Encoder
@@ -30,10 +33,13 @@ public class RobotMap {
     public static final int rightEncoderB = 4; //Channel-B for right Encoder
     
     // Digital Inputs -- Launcher
-    public static final int launcherEncoderA = 6; //Channel-A for launcher Encoder
-    public static final int launcherEncoderB = 7; //Channel-B for launcher Encoder
-    public static final int launcherLowerSwitch= 8; //Switch for top/max of launcher
-    public static final int launcherUpperSwitch = 9; //Switch for bottom/min of launcher
+    public static final int launcherEncoderA = 5; //Channel-A for launcher Encoder
+    public static final int launcherEncoderB = 6; //Channel-B for launcher Encoder
+    public static final int launcherLowerSwitch= 7; //Switch for top/max of launcher
+    public static final int launcherUpperSwitch = 8; //Switch for bottom/min of launcher
+    
+    //Digital Inputs -- Intake
+    public static final int compressorPressureSwitch = 9;
     
     // Analog Sensors -- Launcher
     public static final int launcherPotentiometer = 1;

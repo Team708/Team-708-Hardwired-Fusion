@@ -1,6 +1,7 @@
 package org.team708.frc2014.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
@@ -18,6 +19,7 @@ public class Intake extends Subsystem {
     private final DoubleSolenoid intakeSolenoid;
     private final DoubleSolenoid.Value EXTENDED = DoubleSolenoid.Value.kReverse;
     private final DoubleSolenoid.Value RETRACTED = DoubleSolenoid.Value.kForward;
+    private final Compressor airCompressor; 
     
     //Motor Controller
     private final Talon intakeMotor;
@@ -31,12 +33,15 @@ public class Intake extends Subsystem {
     public Intake() {
         // Creates the solenoid for the intake piston
         intakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidA, RobotMap.intakeSolenoidB);
+        //Creates the air compressor for the intake system
+        airCompressor = new Compressor(RobotMap.compressorPressureSwitch,RobotMap.compressorRelay);
+        airCompressor.start();  //Starts the air compressor
         // Creates the motor for the intake system
         intakeMotor = new Talon(RobotMap.intakeMotor);
     }
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
+        // Set the default command for a subsystem here. 
     }
     
     // Extends the intake system and sets its state to extended
