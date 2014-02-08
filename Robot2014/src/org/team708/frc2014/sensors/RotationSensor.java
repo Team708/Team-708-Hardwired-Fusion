@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 
-package org.team708.util;
+package org.team708.frc2014.sensors;
+
+import org.team708.util.*;
 
 /**
  * This class represents a sensor that can read in

@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.launcher.JoystickFling;
-import org.team708.util.Potentiometer;
+import org.team708.frc2014.sensors.Potentiometer;
+
 
 /**
  *
