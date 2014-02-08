@@ -39,6 +39,10 @@ public class Drivetrain extends Subsystem {
     private final double[] scalarFB = {0.75, 1.00, 0.50};
     private final double[] scalarLR = {0.75, 1.00, 0.50};
     
+    // Scaling for ultrasonic direction correction
+    private final double ultrasonicScalar = .5;
+    
+    // Variable for optimum distance to shoot
     public final double optimumShootingDistance = 96.0;
 
     public void initDefaultCommand() 
@@ -92,7 +96,8 @@ public class Drivetrain extends Subsystem {
     
     public void driveForwardToTarget() {
         if(!this.isAtOptimumDistance()) {
-            
+            double turnSpeed = (leftUltrasonic.getDistance() - rightUltrasonic.getDistance()) * ultrasonicScalar;
+            driver.arcadeDrive(scalarFB[NORMAL], -turnSpeed);
         } else {
             driver.arcadeDrive(0.0, 0.0);
         }
