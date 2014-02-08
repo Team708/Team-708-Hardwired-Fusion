@@ -25,7 +25,11 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.driveForwardToTarget();
+        if(!drivetrain.isAtOptimumDistance()) {
+            drivetrain.haloDrive(drivetrain.getScalarFB(drivetrain.NORMAL()), -drivetrain.getTurnSpeed());
+        } else {
+            drivetrain.stop();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

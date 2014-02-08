@@ -94,15 +94,6 @@ public class Drivetrain extends Subsystem {
         }
     }
     
-    public void driveForwardToTarget() {
-        if(!this.isAtOptimumDistance()) {
-            double turnSpeed = (leftUltrasonic.getDistance() - rightUltrasonic.getDistance()) * ultrasonicScalar;
-            driver.arcadeDrive(scalarFB[NORMAL], -turnSpeed);
-        } else {
-            driver.arcadeDrive(0.0, 0.0);
-        }
-    }
-    
     public int getMode() {
         return mode;
     }
@@ -128,9 +119,24 @@ public class Drivetrain extends Subsystem {
         return ANTISWAG;
     }
     
+    public double getScalarFB(int index) {
+        return scalarFB[index];
+    }
+    
+    public double getScalarLR(int index) {
+        return scalarLR[index];
+    }
+    
     public void resetEncoders() {
         leftEncoder.reset();
         rightEncoder.reset();
+    }
+    
+    public void stop() {
+        leftMotor1.set(0.0);
+        leftMotor2.set(0.0);
+        rightMotor1.set(0.0);
+        rightMotor2.set(0.0);
     }
     
     public void setUltrasonicDistance(double lowerDistance, double upperDistance, boolean inverted) {
@@ -140,6 +146,10 @@ public class Drivetrain extends Subsystem {
     
     public boolean isAtOptimumDistance() {
         return leftUltrasonic.isTriggered() || rightUltrasonic.isTriggered();
+    }
+    
+    public double getTurnSpeed() {
+        return (leftUltrasonic.getDistance() - rightUltrasonic.getDistance()) * ultrasonicScalar;
     }
     
 //    /**

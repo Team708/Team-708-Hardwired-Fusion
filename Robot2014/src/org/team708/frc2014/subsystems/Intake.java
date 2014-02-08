@@ -56,15 +56,6 @@ public class Intake extends Subsystem {
         isExtended = false;
     }
     
-    // Checks the state of the intake and extends/retracts the intake
-    public void deployIntake() {
-        if (isExtended == false) {
-            this.extendIntake();
-        } else {
-            this.retractIntake();
-        }
-    }
-    
     // Spins to intake the ball
     public void intakeBall() {
         intakeMotor.set(INTAKE_SPEED);
@@ -78,5 +69,13 @@ public class Intake extends Subsystem {
     // Stops the intake motor
     public void stopIntake() {
         intakeMotor.set(0.0);
+    }
+    
+    public boolean isExtended() {
+        return isExtended;
+    }
+    
+    public void setIsExtended(boolean isExtended) {
+        this.isExtended = isExtended;
     }
 }

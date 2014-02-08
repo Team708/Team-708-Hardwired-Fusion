@@ -43,10 +43,10 @@ public class OI {
      */
     
     //Switch to swag speed
-    public static final Button toggleSwagSpeed = new JoystickButton(driverGamepad, holdToSwagSpeedButtonNumber);
+    public static final Button holdToSwagSpeed = new JoystickButton(driverGamepad, holdToSwagSpeedButtonNumber);
     
     //Switch to crawl speed
-    public static final Button toggleAntiswagSpeed = new JoystickButton(driverGamepad, holdToAntiswagSpeedButtonNumber);
+    public static final Button holdToAntiswagSpeed = new JoystickButton(driverGamepad, holdToAntiswagSpeedButtonNumber);
     
     //Follow the ball while this button is held
     public static final Button holdToFollowBallButton = new JoystickButton(driverGamepad,holdToFollowBallButtonNumber);
@@ -74,35 +74,35 @@ public class OI {
     {
         // Driver
 //        toggleDriveMode.whenPressed(new ToggleDriveMode());
-        toggleSwagSpeed.whenPressed(new ToggleSwagSpeed());
-        toggleAntiswagSpeed.whenPressed(new ToggleAntiswagSpeed());
-        holdToFollowBallButton.whenPressed(new FollowBall());
+        holdToSwagSpeed.whileHeld(new ToggleSwagSpeed());
+        holdToAntiswagSpeed.whileHeld(new ToggleAntiswagSpeed());
+        holdToFollowBallButton.whileHeld(new FollowBall());
         
         // Operator
         manualForward.whenPressed(new ManualForward());
         manualBackward.whenPressed(new ManualBackward());
-        holdToManualIntake.whenPressed(new ManualIntake());
+        holdToManualIntake.whileHeld(new ManualIntake());
         deployIntake.whenPressed(new DeployIntake());
     }
     
     //Is Button Pressed Query Methods
     
-    public static boolean isHoldToFollowButtonPressed()
-    {
-        return driverGamepad.getButton(holdToFollowBallButtonNumber);
-    }
-    
-    public static boolean isHoldToSwagSpeedButtonPressed() {
-        return driverGamepad.getButton(holdToSwagSpeedButtonNumber);
-    }
-    
-    public static boolean isHoldToAntiswagSpeedButtonPressed() {
-        return driverGamepad.getButton(holdToAntiswagSpeedButtonNumber);
-    }
-    
-    public static boolean isHoldToManualIntakeButtonPressed() {
-        return operatorGamepad.getButton(holdToManualIntakeButtonNumber);
-    }
+//    public static boolean isHoldToFollowButtonPressed()
+//    {
+//        return driverGamepad.getButton(holdToFollowBallButtonNumber);
+//    }
+//    
+//    public static boolean isHoldToSwagSpeedButtonPressed() {
+//        return driverGamepad.getButton(holdToSwagSpeedButtonNumber);
+//    }
+//    
+//    public static boolean isHoldToAntiswagSpeedButtonPressed() {
+//        return driverGamepad.getButton(holdToAntiswagSpeedButtonNumber);
+//    }
+//    
+//    public static boolean isHoldToManualIntakeButtonPressed() {
+//        return operatorGamepad.getButton(holdToManualIntakeButtonNumber);
+//    }
     
         //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.

@@ -76,48 +76,11 @@ public class Launcher extends Subsystem {
         launcherMotor2.set(0.0);
     }
     
-    public void setManualMove(int state) {
-        if(state == STOPPED) {
-            this.state = state;
-        } else {
-            state = STOPPED;
-        }
-    }
-    
-    public void manualFling() {
-        if (state == STOPPED) {
-            this.stop();
-        } else if (state == FORWARD) {
-            this.goForward();
-        }else if (state == BACKWARD) {
-            this.goBackward();
-        }
-    }
-    
     public void joystickFling(double axis) {
         launcherMotor1.set(axis);
         launcherMotor2.set(-axis);
     }
     
-    public void fling() {
-        if (state == STOPPED) {
-            this.stop();
-        } else if (state == FORWARD) {
-            if (!this.getUpperSwitch()) {
-                this.goForward();
-            } else {
-                this.stop();
-                state = STOPPED;
-            }
-        } else if (state == BACKWARD) {
-            if (!this.getLowerSwitch () ) {
-                this.goBackward();
-            } else {
-                this.stop();
-                state = STOPPED;
-            }
-        }
-    }
     
     public void setState(int newState) {
         state = newState;
@@ -147,11 +110,11 @@ public class Launcher extends Subsystem {
         return MAX_ARM_ANGLE;
     }
     
-    public boolean getLowerSwitch () {
+    public boolean getLowerBound () {
         return launcherLowerSwitch.get();
     } 
     
-    public boolean getUpperSwitch () {
+    public boolean getUpperBound () {
         return launcherUpperSwitch.get(); 
     }
     

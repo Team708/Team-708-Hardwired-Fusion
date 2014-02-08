@@ -73,7 +73,7 @@ public class FollowBall extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !OI.isHoldToFollowButtonPressed();
+        return true;
     }
 
     // Called once after isFinished returns true
@@ -84,5 +84,6 @@ public class FollowBall extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        this.end();
     }
 }

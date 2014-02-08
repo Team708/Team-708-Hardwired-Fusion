@@ -20,7 +20,11 @@ public class ManualForward extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        launcher.setManualMove(launcher.Forward());
+        if(launcher.getState() == launcher.Stopped()) {
+            launcher.setState(launcher.Forward());
+        } else {
+            launcher.setState(launcher.Stopped());
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
