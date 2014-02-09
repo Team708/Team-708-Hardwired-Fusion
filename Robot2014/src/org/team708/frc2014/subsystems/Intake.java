@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.intake.ManualIntake;
+import org.team708.frc2014.sensors.IRSensor;
 
 /**
  *
@@ -30,6 +31,11 @@ public class Intake extends Subsystem {
     private boolean isExtended = false;
     private boolean hasBall = false;
     
+    //Sensors
+    private final IRSensor intakeIR;
+            //Constants for IRSensor distance when we have the ball--CHANGE WHEN WE HAVE ACTUAL DATA
+            private final double hasBallDistance = 2.0;
+    
     public Intake() {
         // Creates the solenoid for the intake piston
         intakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidA, RobotMap.intakeSolenoidB);
@@ -38,6 +44,8 @@ public class Intake extends Subsystem {
         airCompressor.start();  //Starts the air compressor
         // Creates the motor for the intake system
         intakeMotor = new Talon(RobotMap.intakeMotor);
+        // Creates the IR sensor for the intake system
+        intakeIR = new IRSensor(1, IRSensor.GP2Y0A21YK0F);
     }
 
     public void initDefaultCommand() {
@@ -56,6 +64,25 @@ public class Intake extends Subsystem {
         isExtended = false;
     }
     
+<<<<<<< HEAD
+=======
+    // Checks the state of the intake and extends/retracts the intake
+    public void deployIntake() {
+        if (isExtended == false) {
+            this.extendIntake();
+        } else {
+            this.retractIntake();
+        }
+    }
+    // Checks to see if it has the ball
+    public void checkIfBall() {
+        if (intakeIR.getDistance() <= hasBallDistance){
+            hasBall = true;
+        } else {
+            hasBall = false;
+        }
+    }
+>>>>>>> origin/Jialin_Primary
     // Spins to intake the ball
     public void intakeBall() {
         intakeMotor.set(INTAKE_SPEED);

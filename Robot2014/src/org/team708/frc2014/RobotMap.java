@@ -40,6 +40,7 @@ public class RobotMap {
     
     //Digital Inputs -- Intake
     public static final int compressorPressureSwitch = 9;
+    public static final int intakeIRSensor = 10;
     
     //Analog Sensors -- Drivetrain
     public static final int drivetrainLeftUltrasonic = 1;

@@ -7,7 +7,7 @@ package org.team708.frc2014.commands.drivetrain;
 import org.team708.frc2014.commands.CommandBase;
 /**
  *
- * @author Nam Tran, Jillan Wang
+ * @author Nam Tran, Jialin Wang
  */
 public class ToggleAntiswagSpeed extends CommandBase {
     

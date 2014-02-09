@@ -10,7 +10,7 @@ import org.team708.frc2014.commands.drivetrain.Drive;
 import org.team708.frc2014.sensors.UltrasonicSensor;
 
 /**
- * @author Matt Foley, Nam Tran, Pat Walls, Jillan Wang, Connor Willison
+ * @author Matt Foley, Nam Tran, Pat Walls, Jialin Wang, Connor Willison
  */
 public class Drivetrain extends Subsystem {
     
