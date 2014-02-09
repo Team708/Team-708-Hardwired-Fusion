@@ -8,6 +8,7 @@
 package org.team708.frc2014;
 
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -26,6 +27,7 @@ import org.team708.frc2014.commands.drivetrain.Drive;
 public class ZygmontCrazy extends IterativeRobot {
 
     Command autonomousCommand;                      //the current autonomous command
+    Compressor compressor;
     Timer statsTimer;                               //timer used for Smart Dash statistics
     private final double sendStatsIntervalSec = .5; //number of seconds between sending stats to SmartDash
 
@@ -37,6 +39,9 @@ public class ZygmontCrazy extends IterativeRobot {
         //initialize timer periodic debug messages
         statsTimer = new Timer();
         statsTimer.start();
+        
+        compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorRelay);
+        compressor.start();
         
         // instantiate the command used for the autonomous period
         autonomousCommand = new Drive();
