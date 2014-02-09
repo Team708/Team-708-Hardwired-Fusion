@@ -22,14 +22,14 @@ public class Fling extends CommandBase {
     protected void execute() {
         if (launcher.getState() == launcher.Stopped()) {
             launcher.stop();
-        } else if (launcher.getState() == launcher.Forward()) {
+        } else if (launcher.getState() == launcher.Forward() && intake.isExtended()) {
             if (!launcher.getUpperBound()) {
                 launcher.goForward();
             } else {
                 launcher.stop();
                 launcher.setState(launcher.Stopped());
             }
-        } else if (launcher.getState() == launcher.Backward()) {
+        } else if (launcher.getState() == launcher.Backward() && intake.isExtended()) {
             if (!launcher.getLowerBound () ) {
                 launcher.goBackward();
             } else {

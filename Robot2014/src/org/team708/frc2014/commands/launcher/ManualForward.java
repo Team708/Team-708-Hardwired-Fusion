@@ -20,7 +20,7 @@ public class ManualForward extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(launcher.getState() == launcher.Stopped()) {
+        if(launcher.getState() == launcher.Stopped() && intake.isExtended()) {
             launcher.setState(launcher.Forward());
         } else {
             launcher.setState(launcher.Stopped());
