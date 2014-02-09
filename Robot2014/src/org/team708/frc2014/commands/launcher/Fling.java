@@ -20,21 +20,23 @@ public class Fling extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (launcher.getState() == launcher.Stopped()) {
+        if (launcher.getState() == launcher.Stopped() ) {
             launcher.stop();
-        } else if (launcher.getState() == launcher.Forward() && intake.isExtended()) {
-            if (!launcher.getUpperBound()) {
+        } else if (launcher.getState() == launcher.Forward() && intake.isExtended() ) {
+            if (!launcher.getUpperBound() ) {
                 launcher.goForward();
             } else {
                 launcher.stop();
-                launcher.setState(launcher.Stopped());
+                launcher.setState(launcher.Stopped() );
+                launcher.resetEncoder();
             }
-        } else if (launcher.getState() == launcher.Backward() && intake.isExtended()) {
+        } else if (launcher.getState() == launcher.Backward() && intake.isExtended() ) {
             if (!launcher.getLowerBound () ) {
                 launcher.goBackward();
             } else {
                 launcher.stop();
                 launcher.setState(launcher.Stopped());
+                launcher.resetEncoder();
             }
         }
     }

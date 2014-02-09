@@ -35,8 +35,8 @@ public class RobotMap {
     // Digital Inputs -- Launcher
     public static final int launcherEncoderA = 5; //Channel-A for launcher Encoder
     public static final int launcherEncoderB = 6; //Channel-B for launcher Encoder
-    public static final int launcherLowerSwitch= 7; //Switch for top/max of launcher
-    public static final int launcherUpperSwitch = 8; //Switch for bottom/min of launcher
+    public static final int launcherLowerSwitch= 7; //Photogate switch for top/max of launcher
+    public static final int launcherUpperSwitch = 8; //Photogate switch for bottom/min of launcher
     
     //Digital Inputs -- Intake
     public static final int compressorPressureSwitch = 9;

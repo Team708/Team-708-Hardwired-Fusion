@@ -2,21 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.drivetrain;
+package org.team708.frc2014.commands.autonomous;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
  * @author Robotics
  */
-public class DriveForwardToTargetUltrasonic extends CommandBase {
+public class ShootForHotGoal extends CommandBase {
     
-    public DriveForwardToTargetUltrasonic() {
+    private final double firstHalfSeconds = 5.0;
+    
+    public ShootForHotGoal() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(drivetrain);
-        
     }
 
     // Called just before this Command runs the first time
@@ -25,10 +27,8 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(!drivetrain.isAtOptimumDistance()) {
-            drivetrain.haloDrive(drivetrain.getScalarFB(drivetrain.NORMAL()), -drivetrain.getTurnSpeed());
-        } else {
-            drivetrain.stop();
+        if (visionProcessor.isGoalLit()) {
+            launcher.Forward();
         }
     }
 

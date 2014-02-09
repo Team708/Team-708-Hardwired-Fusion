@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.launcher.JoystickFling;
+import org.team708.frc2014.commands.launcher.ManualFling;
 import org.team708.frc2014.sensors.Potentiometer;
 
 
@@ -31,6 +32,7 @@ public class Launcher extends Subsystem {
     // Arm Movement Constants
     private static final double MIN_ARM_ANGLE = 0.0;
     private static final double MAX_ARM_ANGLE = 45.0;
+    private static final double MAX_DISTANCE = 28.0;
     
     // State of launcher
     private final int STOPPED = 0;
@@ -40,7 +42,7 @@ public class Launcher extends Subsystem {
     
     // Motor Speeds
     private final double FORWARD_SPEED = 1.0;
-    private final double BACKWARD_SPEED = 1.0;
+    private final double BACKWARD_SPEED = 0.5;
     
     public Launcher() {
         // Creates motors
@@ -49,8 +51,8 @@ public class Launcher extends Subsystem {
         
         // Creates sensors
         launcherEncoder = new Encoder(RobotMap.launcherEncoderA, RobotMap.launcherEncoderB);
-        launcherLowerSwitch = new DigitalInput(RobotMap.launcherLowerSwitch);
-        launcherUpperSwitch = new DigitalInput(RobotMap.launcherUpperSwitch); 
+        launcherLowerSwitch = new DigitalInput(RobotMap.launcherLowerSwitch); //This is a photogate
+        launcherUpperSwitch = new DigitalInput(RobotMap.launcherUpperSwitch); //This is a photogate
         launcherPotentiometer = new Potentiometer(RobotMap.launcherPotentiometer, potentiometerRotations);
     }
     
@@ -111,17 +113,36 @@ public class Launcher extends Subsystem {
     }
     
     public boolean getLowerBound () {
-        return launcherLowerSwitch.get();
+        //Checks for the encoders reading that the distance is below the min
+        boolean belowMinDistance = (launcherEncoder.getDistance() <= -MAX_DISTANCE);
+        //Returns true if either the photogate or previous statement trips
+        return (launcherLowerSwitch.get() || belowMinDistance);
     } 
     
     public boolean getUpperBound () {
-        return launcherUpperSwitch.get(); 
+        //Checks for the encoders reading that the distance is past the max
+        boolean pastMaxDistance = (launcherEncoder.getDistance() >= MAX_DISTANCE);
+        //Returns true if either the photogate or previous statement trips
+        return (launcherUpperSwitch.get() || pastMaxDistance); 
     }
     
     public double getLauncherAngle () {
         return launcherPotentiometer.getAngle();
     } 
+    
     public double getLauncherSpeed () {
         return launcherEncoder.getRate();  
+    }
+    
+    public double getDistance() {
+        return launcherEncoder.getDistance();
+    }
+    
+    public double getMaxDistance() {
+        return MAX_DISTANCE;
+    }
+    
+    public void resetEncoder() {
+        launcherEncoder.reset();
     }
 }

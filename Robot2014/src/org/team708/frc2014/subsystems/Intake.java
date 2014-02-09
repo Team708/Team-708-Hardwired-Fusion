@@ -63,17 +63,7 @@ public class Intake extends Subsystem {
         intakeSolenoid.set(RETRACTED);
         isExtended = false;
     }
-    
-<<<<<<< HEAD
-=======
-    // Checks the state of the intake and extends/retracts the intake
-    public void deployIntake() {
-        if (isExtended == false) {
-            this.extendIntake();
-        } else {
-            this.retractIntake();
-        }
-    }
+
     // Checks to see if it has the ball
     public void checkIfBall() {
         if (intakeIR.getDistance() <= hasBallDistance){
@@ -82,7 +72,7 @@ public class Intake extends Subsystem {
             hasBall = false;
         }
     }
->>>>>>> origin/Jialin_Primary
+    
     // Spins to intake the ball
     public void intakeBall() {
         intakeMotor.set(INTAKE_SPEED);

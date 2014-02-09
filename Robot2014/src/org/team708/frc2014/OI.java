@@ -96,9 +96,9 @@ public class OI {
 //        return driverGamepad.getButton(holdToSwagSpeedButtonNumber);
 //    }
 //    
-//    public static boolean isHoldToAntiswagSpeedButtonPressed() {
-//        return driverGamepad.getButton(holdToAntiswagSpeedButtonNumber);
-//    }
+    public static boolean isHoldToAntiswagSpeedButtonPressed() {
+        return driverGamepad.getButton(holdToAntiswagSpeedButtonNumber);
+    }
 //    
 //    public static boolean isHoldToManualIntakeButtonPressed() {
 //        return operatorGamepad.getButton(holdToManualIntakeButtonNumber);

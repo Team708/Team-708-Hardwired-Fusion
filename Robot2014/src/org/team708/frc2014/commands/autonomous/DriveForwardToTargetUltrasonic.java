@@ -2,19 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.drivetrain;
+package org.team708.frc2014.commands.autonomous;
 
-import org.team708.frc2014.OI;
 import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Matt Foley, Nam Tran, Pat Walls
+ * @author Robotics
  */
-public class ToggleSwagSpeed extends CommandBase {
+public class DriveForwardToTargetUltrasonic extends CommandBase {
     
-    public ToggleSwagSpeed() {
+    public DriveForwardToTargetUltrasonic() {
         // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+        requires(drivetrain);
+        
     }
 
     // Called just before this Command runs the first time
@@ -23,8 +25,10 @@ public class ToggleSwagSpeed extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (!OI.isHoldToAntiswagSpeedButtonPressed()) {
-            drivetrain.setMode(drivetrain.SWAG());
+        if(!drivetrain.isAtOptimumDistance()) {
+            drivetrain.haloDrive(drivetrain.getScalarFB(drivetrain.NORMAL()), -drivetrain.getTurnSpeed());
+        } else {
+            drivetrain.stop();
         }
     }
 
@@ -35,12 +39,10 @@ public class ToggleSwagSpeed extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.setMode(drivetrain.NORMAL());
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }
