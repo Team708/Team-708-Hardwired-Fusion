@@ -1,10 +1,9 @@
 package org.team708.frc2014.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
-import org.team708.frc2014.commands.intake.ManualIntake;
 import org.team708.frc2014.sensors.IRSensor;
 
 /**
@@ -16,9 +15,9 @@ public class Intake extends Subsystem {
     // here. Call these from Commands.
     
     //Pneumatic Related Things
-    private final DoubleSolenoid intakeSolenoid;
-    private final DoubleSolenoid.Value EXTENDED = DoubleSolenoid.Value.kReverse;
-    private final DoubleSolenoid.Value RETRACTED = DoubleSolenoid.Value.kForward;
+    private final Solenoid intakeSolenoid;
+//    private final DoubleSolenoid.Value EXTENDED = DoubleSolenoid.Value.kReverse;
+//    private final DoubleSolenoid.Value RETRACTED = DoubleSolenoid.Value.kForward;
     
     //Motor Controller
     private final Talon intakeMotor;
@@ -36,11 +35,11 @@ public class Intake extends Subsystem {
     
     public Intake() {
         // Creates the solenoid for the intake piston
-        intakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidA, RobotMap.intakeSolenoidB);
+        intakeSolenoid = new Solenoid(RobotMap.intakeSolenoid);
         // Creates the motor for the intake system
         intakeMotor = new Talon(RobotMap.intakeMotor);
         // Creates the IR sensor for the intake system
-        intakeIR = new IRSensor(1, IRSensor.GP2Y0A21YK0F);
+        intakeIR = new IRSensor(RobotMap.intakeIRSensor, IRSensor.GP2Y0A21YK0F);
     }
 
     public void initDefaultCommand() {
@@ -49,13 +48,13 @@ public class Intake extends Subsystem {
     
     // Extends the intake system and sets its state to extended
     public void extendIntake() {
-        intakeSolenoid.set(EXTENDED);
+        intakeSolenoid.set(true);
         isExtended = true;
     }
     
     // Retracts the intake system and sets its state to not extended
     public void retractIntake() {
-        intakeSolenoid.set(RETRACTED);
+        intakeSolenoid.set(false);
         isExtended = false;
     }
 

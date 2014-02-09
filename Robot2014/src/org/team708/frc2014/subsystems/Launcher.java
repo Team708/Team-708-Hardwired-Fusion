@@ -25,9 +25,9 @@ public class Launcher extends Subsystem {
     // Sensors
     private final Encoder launcherEncoder;
     private final DigitalInput launcherLowerSwitch, launcherUpperSwitch; 
-    private final Potentiometer launcherPotentiometer;   
+//    private final Potentiometer launcherPotentiometer;   
     
-    private final int potentiometerRotations = 1;
+//    private final int potentiometerRotations = 1;
    
     // Arm Movement Constants
     private static final double MIN_ARM_ANGLE = 0.0;
@@ -53,7 +53,7 @@ public class Launcher extends Subsystem {
         launcherEncoder = new Encoder(RobotMap.launcherEncoderA, RobotMap.launcherEncoderB);
         launcherLowerSwitch = new DigitalInput(RobotMap.launcherLowerSwitch); //This is a photogate
         launcherUpperSwitch = new DigitalInput(RobotMap.launcherUpperSwitch); //This is a photogate
-        launcherPotentiometer = new Potentiometer(RobotMap.launcherPotentiometer, potentiometerRotations);
+//        launcherPotentiometer = new Potentiometer(RobotMap.launcherPotentiometer, potentiometerRotations);
     }
     
     public void initDefaultCommand() {
@@ -126,9 +126,9 @@ public class Launcher extends Subsystem {
         return (launcherUpperSwitch.get() || pastMaxDistance); 
     }
     
-    public double getLauncherAngle () {
-        return launcherPotentiometer.getAngle();
-    } 
+//    public double getLauncherAngle () {
+//        return launcherPotentiometer.getAngle();
+//    } 
     
     public double getLauncherSpeed () {
         return launcherEncoder.getRate();  

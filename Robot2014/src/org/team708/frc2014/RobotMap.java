@@ -40,18 +40,19 @@ public class RobotMap {
     
     //Digital Inputs -- Intake
     public static final int compressorPressureSwitch = 9;
-    public static final int intakeIRSensor = 10;
     
     //Analog Sensors -- Drivetrain
     public static final int drivetrainLeftUltrasonic = 1;
     public static final int drivetrainRightUltrasonic = 2;
     
     // Analog Sensors -- Launcher
-    public static final int launcherPotentiometer = 3;
+//    public static final int launcherPotentiometer = 3;
+    
+    //Analog Sensors -- Intake
+    public static final int intakeIRSensor = 3;
     
     // Solenoids -- Intake
-    public static final int intakeSolenoidA = 1;
-    public static final int intakeSolenoidB = 2;
+    public static final int intakeSolenoid = 1;
     
     // Joystick Ports
     public static final int driverGamepad = 1;
