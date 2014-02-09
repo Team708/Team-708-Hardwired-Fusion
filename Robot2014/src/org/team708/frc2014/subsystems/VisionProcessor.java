@@ -149,7 +149,7 @@ public class VisionProcessor extends Subsystem{
             
         }catch(Exception e)
         {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
     
