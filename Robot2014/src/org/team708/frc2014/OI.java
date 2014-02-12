@@ -1,4 +1,5 @@
 
+
 package org.team708.frc2014;
 
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -6,10 +7,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.team708.frc2014.commands.drivetrain.FollowBall;
 import org.team708.frc2014.commands.drivetrain.ToggleAntiswagSpeed;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
-import org.team708.frc2014.commands.intake.DeployIntake;
-import org.team708.frc2014.commands.intake.ManualIntake;
-import org.team708.frc2014.commands.launcher.ManualBackward;
-import org.team708.frc2014.commands.launcher.ManualForward;
+//import org.team708.frc2014.commands.intake.DeployIntake;
+//import org.team708.frc2014.commands.intake.ManualIntake;
+//import org.team708.frc2014.commands.intake.ManualIntakeIn;
+//import org.team708.frc2014.commands.intake.ManualIntakeOut;
+//import org.team708.frc2014.commands.launcher.ManualBackward;
+//import org.team708.frc2014.commands.launcher.ManualForward;
 import org.team708.util.Gamepad;
 
 /**
@@ -33,6 +36,8 @@ public class OI {
     private static final int manualBackwardButtonNumber = Gamepad.button_L_Shoulder;
     private static final int holdToManualIntakeButtonNumber = Gamepad.button_A;
     private static final int deployIntakeButtonNumber = Gamepad.button_B;
+    private static final int manualIntakeOutButtonNumber = Gamepad.button_Y;
+    private static final int manualIntakeInButtonNumber = Gamepad.button_X;
     
     //initialize Gamepads
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
@@ -70,6 +75,10 @@ public class OI {
     //Deploys intake or retracts it back in
     public static final Button deployIntake = new JoystickButton(operatorGamepad, deployIntakeButtonNumber);
     
+    public static final Button manualIntakeOut = new JoystickButton(operatorGamepad, manualIntakeOutButtonNumber);
+    
+    public static final Button manualIntakeIn = new JoystickButton(operatorGamepad, manualIntakeInButtonNumber);
+    
     public OI() 
     {
         // Driver
@@ -79,10 +88,12 @@ public class OI {
         holdToFollowBallButton.whileHeld(new FollowBall());
         
         // Operator
-        manualForward.whenPressed(new ManualForward());
-        manualBackward.whenPressed(new ManualBackward());
-        holdToManualIntake.whileHeld(new ManualIntake());
-        deployIntake.whenPressed(new DeployIntake());
+//        manualForward.whenPressed(new ManualForward());
+//        manualBackward.whenPressed(new ManualBackward());
+//        holdToManualIntake.whileHeld(new ManualIntake());
+//        deployIntake.whenPressed(new DeployIntake());
+//        manualIntakeOut.whenPressed(new ManualIntakeOut());
+//        manualIntakeIn.whenPressed(new ManualIntakeIn());
     }
     
     //Is Button Pressed Query Methods

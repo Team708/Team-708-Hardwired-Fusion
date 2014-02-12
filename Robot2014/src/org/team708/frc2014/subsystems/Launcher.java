@@ -42,7 +42,7 @@ public class Launcher extends Subsystem {
     
     // Motor Speeds
     private final double FORWARD_SPEED = 1.0;
-    private final double BACKWARD_SPEED = 0.5;
+    private final double BACKWARD_SPEED = -0.5;
     
     public Launcher() {
         // Creates motors
@@ -65,11 +65,11 @@ public class Launcher extends Subsystem {
     
     public void goForward() {
         launcherMotor1.set(FORWARD_SPEED);
-        launcherMotor2.set(-FORWARD_SPEED);
+        launcherMotor2.set(FORWARD_SPEED);
     }
     
     public void goBackward() {
-        launcherMotor1.set(-BACKWARD_SPEED);
+        launcherMotor1.set(BACKWARD_SPEED);
         launcherMotor2.set(BACKWARD_SPEED);
     }
     
@@ -79,7 +79,7 @@ public class Launcher extends Subsystem {
     }
     
     public void joystickFling(double axis) {
-        launcherMotor1.set(axis);
+        launcherMotor1.set(-axis);
         launcherMotor2.set(-axis);
     }
     

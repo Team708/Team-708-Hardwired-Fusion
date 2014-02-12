@@ -40,7 +40,7 @@ public class ZygmontCrazy extends IterativeRobot {
         statsTimer = new Timer();
         statsTimer.start();
         
-        compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorRelay);
+        compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorSpike);
         compressor.start();
         
         // instantiate the command used for the autonomous period

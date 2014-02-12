@@ -23,7 +23,7 @@ public class RobotMap {
     public static final int intakeMotor = 7; //Intake Motor
     
     //Relays -- Intake
-    public static final int compressorRelay = 1;
+    public static final int compressorSpike = 1;
     
     // Digital Inputs -- Drivetrain
     public static final int leftEncoderA = 1; //Channel-A for left Encoder
@@ -41,6 +41,9 @@ public class RobotMap {
     //Digital Inputs -- Intake
     public static final int compressorPressureSwitch = 9;
     
+    //Analog Breakout Module
+    public static final int analogBreakout = 1;
+    
     //Analog Sensors -- Drivetrain
     public static final int drivetrainLeftUltrasonic = 1;
     public static final int drivetrainRightUltrasonic = 2;
@@ -51,8 +54,12 @@ public class RobotMap {
     //Analog Sensors -- Intake
     public static final int intakeIRSensor = 3;
     
+    // Solenoid Module
+    public static final int pneumaticBumper = 3;
+    
     // Solenoids -- Intake
-    public static final int intakeSolenoid = 1;
+    public static final int intakeSolenoidA = 1;
+    public static final int intakeSolenoidB = 2;
     
     // Joystick Ports
     public static final int driverGamepad = 1;

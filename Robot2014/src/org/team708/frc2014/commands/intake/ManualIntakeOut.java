@@ -1,30 +1,29 @@
-//package org.team708.frc2014.commands.launcher;
+///*
+// * To change this template, choose Tools | Templates
+// * and open the template in the editor.
+// */
+//package org.team708.frc2014.commands.intake;
 //
 //import org.team708.frc2014.commands.CommandBase;
 //
 ///**
 // *
-// * @author Nam Tran
+// * @author Robotics
 // */
-//public class ManualForward extends CommandBase {
+//public class ManualIntakeOut extends CommandBase {
 //    
-//    public ManualForward() {
+//    public ManualIntakeOut() {
 //        // Use requires() here to declare subsystem dependencies
 //        // eg. requires(chassis);
-//        requires(launcher);
 //    }
-//    
+//
 //    // Called just before this Command runs the first time
 //    protected void initialize() {
 //    }
 //
 //    // Called repeatedly when this Command is scheduled to run
 //    protected void execute() {
-//        if(launcher.getState() == launcher.Stopped() && intake.isExtended()) {
-//            launcher.setState(launcher.Forward());
-//        } else {
-//            launcher.setState(launcher.Stopped());
-//        }
+//        intake.extendIntake();
 //    }
 //
 //    // Make this return true when this Command no longer needs to run execute()
