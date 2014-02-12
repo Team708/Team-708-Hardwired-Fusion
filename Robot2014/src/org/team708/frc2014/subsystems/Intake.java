@@ -35,7 +35,7 @@ public class Intake extends Subsystem {
     
     public Intake() {
         // Creates the solenoid for the intake piston
-        intakeSolenoid = new DoubleSolenoid(RobotMap.pneumaticBumper, RobotMap.intakeSolenoidA, RobotMap.intakeSolenoidB);
+        intakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidA, RobotMap.intakeSolenoidB);
         // Creates the motor for the intake system
         intakeMotor = new Talon(RobotMap.intakeMotor);
         // Creates the IR sensor for the intake system

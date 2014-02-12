@@ -54,9 +54,6 @@ public class RobotMap {
     //Analog Sensors -- Intake
     public static final int intakeIRSensor = 3;
     
-    // Solenoid Module
-    public static final int pneumaticBumper = 3;
-    
     // Solenoids -- Intake
     public static final int intakeSolenoidA = 1;
     public static final int intakeSolenoidB = 2;
