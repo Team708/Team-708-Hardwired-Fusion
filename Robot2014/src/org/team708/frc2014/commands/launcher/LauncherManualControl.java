@@ -1,35 +1,37 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.team708.frc2014.commands.launcher;
 
+import org.team708.frc2014.OI;
 import org.team708.frc2014.commands.CommandBase;
+import org.team708.util.Gamepad;
 
 /**
  *
- * @author Nam Tran
+ * @author Robotics
  */
-public class ManualForward extends CommandBase {
+public class LauncherManualControl extends CommandBase {
     
-    public ManualForward() {
+    public LauncherManualControl() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(launcher);
     }
-    
+
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(launcher.getState() == launcher.Stopped() && intake.isExtended()) {
-            launcher.setState(launcher.Forward());
-        } else {
-            launcher.setState(launcher.Stopped());
-        }
+        launcher.manualControl(-OI.operatorGamepad.getAxis(Gamepad.leftStick_Y));
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

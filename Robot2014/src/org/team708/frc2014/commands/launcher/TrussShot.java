@@ -1,21 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.team708.frc2014.commands.launcher;
 
-import org.team708.frc2014.commands.CommandBase;
+import  org.team708.frc2014.commands.CommandBase; 
 
 /**
  *
- * @author Robotics
+ * @author Kyumin Lee
  */
-public class ForceBackward extends CommandBase {
+public class TrussShot extends CommandBase {
     
-    //Command to override and go forward should we choose to set JoystickFling as default
-    //Otherwise state machines in ManualFling and Fling wouldn't work.
-    
-    public ForceBackward() {
+    public TrussShot() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(launcher);
@@ -23,22 +16,16 @@ public class ForceBackward extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        launcher.setState (launcher.Backward()); 
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(!(launcher.getLowerBound())) {
-            launcher.goBackward();
-        } else {
-            launcher.stop();
-            launcher.resetEncoder();
-            this.end();
-        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
