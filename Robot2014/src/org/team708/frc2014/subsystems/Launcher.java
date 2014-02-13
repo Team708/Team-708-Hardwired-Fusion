@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.launcher.LauncherManualControl;
-import org.team708.frc2014.commands.launcher.ManualFling;
-import org.team708.frc2014.sensors.Potentiometer;
-
 
 /**
  *
@@ -34,7 +31,7 @@ public class Launcher extends Subsystem {
     private final int UPPER_RANGE = 0;
     private final int MIDDLE_RANGE = 1;
     private final int LOW_RANGE = 2;
-    private int currentPosition = 
+    private int currentPosition = MIDDLE_RANGE;
     
     // Motor Speeds
     private final double UPWARD_SPEED = 1.0;
@@ -75,15 +72,15 @@ public class Launcher extends Subsystem {
     }
     
     public void manualControl(double axis) {
-        if(getUpperSwitch() && axis > 0)
-        {
-            launcherMotor1.set(0.0);
-            launcherMotor2.set(0.0);
-        }else
-        {
+//        if(getUpperSwitch() && axis > 0)
+//        {
+//            launcherMotor1.set(0.0);
+//            launcherMotor2.set(0.0);
+//        }else
+//        {
         launcherMotor1.set(axis);
         launcherMotor2.set(axis);
-        }
+//        }
     }
     
     // Returns the upper bound switch

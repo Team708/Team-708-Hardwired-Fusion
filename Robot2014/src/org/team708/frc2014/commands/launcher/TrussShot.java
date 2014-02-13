@@ -16,7 +16,7 @@ public class TrussShot extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        launcher.setState (launcher.Backward()); 
+//        launcher.setState (launcher.Backward()); 
     }
 
     // Called repeatedly when this Command is scheduled to run
