@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.launcher.JoystickFling;
 import org.team708.frc2014.commands.launcher.ManualFling;
@@ -116,33 +117,58 @@ public class Launcher extends Subsystem {
         //Checks for the encoders reading that the distance is below the min
         boolean belowMinDistance = (launcherEncoder.getDistance() <= -MAX_DISTANCE);
         //Returns true if either the photogate or previous statement trips
-        return (launcherLowerSwitch.get() || belowMinDistance);
+        return (this.getLowerSwitch() || belowMinDistance);
     } 
     
     public boolean getUpperBound () {
         //Checks for the encoders reading that the distance is past the max
         boolean pastMaxDistance = (launcherEncoder.getDistance() >= MAX_DISTANCE);
         //Returns true if either the photogate or previous statement trips
-        return (launcherUpperSwitch.get() || pastMaxDistance); 
+        return (this.getUpperSwitch() || pastMaxDistance); 
+    }
+    
+    // Returns the upper bound switch
+    public boolean getUpperSwitch() {
+        // Reverses the state of the switch because it reads "true" when not tripped
+        return !launcherUpperSwitch.get();
+    }
+    
+    // Returns the lower bound switch
+    public boolean getLowerSwitch() {
+        // Reverses the state of the switch because it reads "true" when not tripped
+        return !launcherLowerSwitch.get();
     }
     
 //    public double getLauncherAngle () {
 //        return launcherPotentiometer.getAngle();
 //    } 
     
+    // Gets the rate of the encoder
     public double getLauncherSpeed () {
         return launcherEncoder.getRate();  
     }
     
+    // Gets the distance that the encoder reads
     public double getDistance() {
         return launcherEncoder.getDistance();
     }
     
+    // Getter for the maximum distance for the launcher to move
     public double getMaxDistance() {
         return MAX_DISTANCE;
     }
     
+    // Resets encoder values to zero
     public void resetEncoder() {
         launcherEncoder.reset();
     }
+    
+   public void sendToDash() {
+       SmartDashboard.putNumber("Launcher Encoder", launcherEncoder.getDistance());
+       SmartDashboard.putBoolean("Lower Switch", this.getLowerSwitch());
+       SmartDashboard.putBoolean("Upper Switch", this.getUpperSwitch());
+       SmartDashboard.putBoolean("Upper Bound", this.getUpperBound());
+       SmartDashboard.putBoolean("Lower Bound", this.getLowerBound());
+       SmartDashboard.putNumber("Launcher Mode", state);
+   }
 }

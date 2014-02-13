@@ -107,9 +107,9 @@ public class ZygmontCrazy extends IterativeRobot {
              * Add code for printing various debug variables here:
              */
             CommandBase.visionProcessor.sendToDash();
-            
+            CommandBase.drivetrain.sendToDash();
+            CommandBase.intake.sendToDash();
+            CommandBase.launcher.sendToDash();
         }
-        
-        
     }
 }

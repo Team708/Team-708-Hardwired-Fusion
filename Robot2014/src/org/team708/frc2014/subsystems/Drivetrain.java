@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.drivetrain.Drive;
 import org.team708.frc2014.sensors.UltrasonicSensor;
@@ -150,6 +151,14 @@ public class Drivetrain extends Subsystem {
     
     public double getTurnSpeed() {
         return (leftUltrasonic.getDistance() - rightUltrasonic.getDistance()) * ultrasonicScalar;
+    }
+    
+    public void sendToDash() {
+        SmartDashboard.putNumber("Left Drivetrain Encoder", leftEncoder.get());
+        SmartDashboard.putNumber("Right Drivetrain Encoder", rightEncoder.get());
+        SmartDashboard.putNumber("Left Ultrasonic", leftUltrasonic.getDistance());
+        SmartDashboard.putNumber("Right Ultrasonic", rightUltrasonic.getDistance());
+        SmartDashboard.putNumber("Drivetrain Mode", mode);
     }
     
 //    /**

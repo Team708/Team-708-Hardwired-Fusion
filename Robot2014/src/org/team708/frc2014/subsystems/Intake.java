@@ -3,6 +3,7 @@ package org.team708.frc2014.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.sensors.IRSensor;
 
@@ -16,8 +17,8 @@ public class Intake extends Subsystem {
     
     //Pneumatic Related Things
     private final DoubleSolenoid intakeSolenoid;
-    private final DoubleSolenoid.Value EXTENDED = DoubleSolenoid.Value.kForward;
-    private final DoubleSolenoid.Value RETRACTED = DoubleSolenoid.Value.kReverse;
+    private final DoubleSolenoid.Value EXTENDED = DoubleSolenoid.Value.kReverse;
+    private final DoubleSolenoid.Value RETRACTED = DoubleSolenoid.Value.kForward;
     
     //Motor Controller
     private final Talon intakeMotor;
@@ -88,5 +89,11 @@ public class Intake extends Subsystem {
     
     public void setIsExtended(boolean isExtended) {
         this.isExtended = isExtended;
+    }
+    
+    public void sendToDash() {
+        SmartDashboard.putBoolean("Has Ball", hasBall);
+        SmartDashboard.putNumber("IR Sensor", intakeIR.getDistance());
+        SmartDashboard.putBoolean("Is Extended", isExtended);
     }
 }

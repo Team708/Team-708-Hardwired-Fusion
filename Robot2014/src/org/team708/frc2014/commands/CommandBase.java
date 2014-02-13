@@ -20,7 +20,7 @@ public abstract class CommandBase extends Command {
     // Create a single static instance of all of your subsystems
     public static Launcher launcher = new Launcher();
     public static Drivetrain drivetrain = new Drivetrain();
-//    public static Intake intake = new Intake();
+    public static Intake intake = new Intake();
     public static VisionProcessor visionProcessor = new VisionProcessor();
 
     public static void init() {
