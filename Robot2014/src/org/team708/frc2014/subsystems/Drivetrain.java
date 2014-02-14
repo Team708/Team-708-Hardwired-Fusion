@@ -43,9 +43,13 @@ public class Drivetrain extends Subsystem {
     // Scaling for ultrasonic direction correction
     private final double ultrasonicScalar = .5;
     
-    // Shooting distances
+    // Shooting type constants
     public final int REGULAR = 0;
     public final int PASS_SHOT = 1;
+    
+    // Shooting distances
+    public final int REGULAR_DISTANCE = 96;
+    public final int PASS_SHOT_DISTANCE = 160;
 
     public void initDefaultCommand() 
     {

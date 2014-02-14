@@ -27,6 +27,12 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if(shotType == drivetrain.REGULAR) {
+              drivetrain.setUltrasonicDistance(drivetrain.REGULAR_DISTANCE, drivetrain.REGULAR_DISTANCE, true);
+        } else {
+            drivetrain.setUltrasonicDistance (drivetrain.PASS_SHOT_DISTANCE, drivetrain.PASS_SHOT_DISTANCE, false);
+        }
+        
         if(!drivetrain.isAtOptimumDistance()) {
             drivetrain.haloDrive(drivetrain.getScalarFB(drivetrain.NORMAL()), -drivetrain.getTurnSpeed());
         } else {
