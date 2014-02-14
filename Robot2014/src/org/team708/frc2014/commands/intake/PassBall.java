@@ -2,21 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.autonomous;
+package org.team708.frc2014.commands.intake;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
-import org.team708.frc2014.commands.launcher.LaunchBall;
 
 /**
  *
- * @author Robotics
+ * @author Matt Foley
  */
-public class YoloSwagShot extends CommandGroup {
+public class PassBall extends CommandGroup {
     
-    public YoloSwagShot() {
-        addSequential(new DriveForwardToTargetUltrasonic(0));
-        addSequential(new LaunchBall());
+    public PassBall() {
+        // Brings intake in and the dispense the ball
+        addSequential(new ManualIntakeIn());
+        addSequential(new ManualDispense());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

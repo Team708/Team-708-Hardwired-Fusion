@@ -27,12 +27,12 @@ public class Intake extends Subsystem {
     
     // Booleans to keep track of the state of the intake system
     private boolean isExtended = false;
-    private boolean hasBall = false;
     
     //Sensors
     private final IRSensor intakeIR;
-            //Constants for IRSensor distance when we have the ball--CHANGE WHEN WE HAVE ACTUAL DATA
-            private final double hasBallDistance = 2.0;
+        //Constants for IRSensor distance when we have the ball
+        private final double lowHasBallDistance = 0.0;
+        private final double highHasBallDistance = 4.0;
     
     public Intake() {
         // Creates the solenoid for the intake piston
@@ -60,12 +60,8 @@ public class Intake extends Subsystem {
     }
 
     // Checks to see if it has the ball
-    public void checkIfBall() {
-        if (intakeIR.getDistance() <= hasBallDistance){
-            hasBall = true;
-        } else {
-            hasBall = false;
-        }
+    public boolean checkIfBall() {
+        return (lowHasBallDistance <= intakeIR.getDistance() && intakeIR.getDistance() <= highHasBallDistance);
     }
     
     // Spins to intake the ball
@@ -92,7 +88,7 @@ public class Intake extends Subsystem {
     }
     
     public void sendToDash() {
-        SmartDashboard.putBoolean("Has Ball", hasBall);
+        SmartDashboard.putBoolean("Has Ball", checkIfBall());
         SmartDashboard.putNumber("IR Sensor", intakeIR.getDistance());
         SmartDashboard.putBoolean("Is Extended", isExtended);
     }

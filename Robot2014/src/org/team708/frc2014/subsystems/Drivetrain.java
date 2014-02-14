@@ -43,8 +43,13 @@ public class Drivetrain extends Subsystem {
     // Scaling for ultrasonic direction correction
     private final double ultrasonicScalar = .5;
     
-    // Variable for optimum distance to shoot
-    public final double optimumShootingDistance = 96.0;
+    // Shooting type constants
+    public final int REGULAR = 0;
+    public final int PASS_SHOT = 1;
+    
+    // Shooting distances
+    public final int REGULAR_DISTANCE = 96;
+    public final int PASS_SHOT_DISTANCE = 160;
 
     public void initDefaultCommand() 
     {
@@ -68,6 +73,8 @@ public class Drivetrain extends Subsystem {
         //Creates encoders
         leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB);
         rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB);
+        leftEncoder.start();
+        rightEncoder.start();
         
         // Creates normal drive mode using two motor controllers (2 motors on each side)
         driver = new RobotDrive(leftMotor1,rightMotor1);

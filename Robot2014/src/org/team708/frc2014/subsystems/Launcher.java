@@ -11,7 +11,7 @@ import org.team708.frc2014.commands.launcher.LauncherManualControl;
 
 /**
  *
- * @author Kyumin Lee, Nam Tran, Pat Walls, Jillan Wang
+ * @author Kyumin Lee, Nam Tran, Pat Walls, Jillan Wang, Connor Willison
  */
 public class Launcher extends Subsystem {
     // Put methods for controlling this subsystem
@@ -22,8 +22,8 @@ public class Launcher extends Subsystem {
     
     // Sensors
     private final Encoder launcherEncoder;
-    private final DigitalInput launcherLowerSwitch, launcherUpperSwitch; 
-
+    private final DigitalInput launcherLowerSwitch, launcherUpperSwitch;
+    
     public final int REGULAR_SHOT_ENC_COUNTS = 900;
     public final int TRUSS_SHOT_ENC_COUNTS = 600;
     
@@ -44,6 +44,8 @@ public class Launcher extends Subsystem {
         
         // Creates sensors
         launcherEncoder = new Encoder(RobotMap.launcherEncoderA, RobotMap.launcherEncoderB);
+        launcherEncoder.start();
+        
         launcherLowerSwitch = new DigitalInput(RobotMap.launcherLowerSwitch); //This is a photogate
         launcherUpperSwitch = new DigitalInput(RobotMap.launcherUpperSwitch); //This is a photogate
 //        launcherPotentiometer = new Potentiometer(RobotMap.launcherPotentiometer, potentiometerRotations);
@@ -72,15 +74,16 @@ public class Launcher extends Subsystem {
     }
     
     public void manualControl(double axis) {
-//        if(getUpperSwitch() && axis > 0)
-//        {
-//            launcherMotor1.set(0.0);
-//            launcherMotor2.set(0.0);
-//        }else
-//        {
+        if (getUpperSwitch() && axis > 0) {
+            axis = 0.0;
+        }
+        
+        if (getLowerSwitch() && axis < 0) {
+            axis = 0.0;
+        }
+        
         launcherMotor1.set(axis);
         launcherMotor2.set(axis);
-//        }
     }
     
     // Returns the upper bound switch
@@ -94,7 +97,7 @@ public class Launcher extends Subsystem {
         // Reverses the state of the switch because it reads "true" when not tripped
         return !launcherLowerSwitch.get();
     }
-
+    
     // Gets the distance that the encoder reads
     public double getDistance() {
         return launcherEncoder.getDistance();

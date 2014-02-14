@@ -2,20 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.intake;
+package org.team708.frc2014.commands.drivetrain;
 
 import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Nam Tran
+ * @author Robotics
  */
-public class DeployIntake extends CommandBase {
+public class DriveForwardToTargetUltrasonic extends CommandBase {
     
-    public DeployIntake() {
+    private int shotType;
+    
+    public DriveForwardToTargetUltrasonic(int newShotType) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(intake);
+        requires(drivetrain);
+        shotType = newShotType;
     }
 
     // Called just before this Command runs the first time
@@ -24,10 +27,16 @@ public class DeployIntake extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (!intake.isExtended()) {
-            intake.extendIntake();
+        if(shotType == drivetrain.REGULAR) {
+              drivetrain.setUltrasonicDistance(drivetrain.REGULAR_DISTANCE, drivetrain.REGULAR_DISTANCE, true);
         } else {
-            intake.retractIntake();
+            drivetrain.setUltrasonicDistance (drivetrain.PASS_SHOT_DISTANCE, drivetrain.PASS_SHOT_DISTANCE, false);
+        }
+        
+        if(!drivetrain.isAtOptimumDistance()) {
+            drivetrain.haloDrive(drivetrain.getScalarFB(drivetrain.NORMAL()), -drivetrain.getTurnSpeed());
+        } else {
+            drivetrain.stop();
         }
     }
 

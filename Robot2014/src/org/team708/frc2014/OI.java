@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.team708.frc2014.commands.drivetrain.FollowBall;
 import org.team708.frc2014.commands.drivetrain.ToggleAntiswagSpeed;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
-import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.ManualDispense;
 import org.team708.frc2014.commands.intake.ManualIntake;
 import org.team708.frc2014.commands.intake.ManualIntakeIn;
 import org.team708.frc2014.commands.intake.ManualIntakeOut;
+import org.team708.frc2014.commands.intake.PassBall;
 import org.team708.util.Gamepad;
 
 /**
@@ -35,6 +35,7 @@ public class OI {
     private static final int holdToManualDispenseButtonNumber = Gamepad.button_B;
     private static final int manualIntakeOutButtonNumber = Gamepad.button_Y;
     private static final int manualIntakeInButtonNumber = Gamepad.button_X;
+    private static final int passBallButtonNumber = Gamepad.button_L_Shoulder;
     
     //initialize Gamepads
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
@@ -63,7 +64,7 @@ public class OI {
     //Turns on motor for intake and stops when released
     public static final Button holdToManualIntake = new JoystickButton(operatorGamepad, holdToManualIntakeButtonNumber);
     
-    // Trns on motor for dispensing ball and stops when released
+    // Turns on motor for dispensing ball and stops when released
     public static final Button holdToManualDispense = new JoystickButton(operatorGamepad, holdToManualDispenseButtonNumber);
     
     // Deploys the intake
@@ -71,6 +72,9 @@ public class OI {
     
     // Retracts the intake
     public static final Button manualIntakeIn = new JoystickButton(operatorGamepad, manualIntakeInButtonNumber);
+    
+    // Automatically closes the intake and passes the ball
+    public static final Button passBall = new JoystickButton(operatorGamepad, passBallButtonNumber);
     
     public OI() 
     {
@@ -85,6 +89,7 @@ public class OI {
         holdToManualDispense.whileHeld(new ManualDispense());
         manualIntakeOut.whenPressed(new ManualIntakeOut());
         manualIntakeIn.whenPressed(new ManualIntakeIn());
+        passBall.whenPressed(new PassBall());
     }
     
     //Is Button Pressed Query Methods
