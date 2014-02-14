@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.team708.frc2014.commands.drivetrain.FollowBall;
 import org.team708.frc2014.commands.drivetrain.ToggleAntiswagSpeed;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
-import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.ManualDispense;
 import org.team708.frc2014.commands.intake.ManualIntake;
 import org.team708.frc2014.commands.intake.ManualIntakeIn;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.autonomous;
+package org.team708.frc2014.commands.drivetrain;
 
 import org.team708.frc2014.commands.CommandBase;
 
@@ -12,11 +12,13 @@ import org.team708.frc2014.commands.CommandBase;
  */
 public class DriveForwardToTargetUltrasonic extends CommandBase {
     
-    public DriveForwardToTargetUltrasonic() {
+    private int shotType;
+    
+    public DriveForwardToTargetUltrasonic(int newShotType) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(drivetrain);
-        
+        shotType = newShotType;
     }
 
     // Called just before this Command runs the first time

@@ -2,20 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.intake;
+package org.team708.frc2014.commands.launcher;
 
 import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Nam Tran
+ * @author Robotics
  */
-public class DeployIntake extends CommandBase {
+public class RegularShotDistance extends CommandBase {
     
-    public DeployIntake() {
+    private boolean done = false;
+    
+    public RegularShotDistance() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(intake);
+        requires(launcher);
     }
 
     // Called just before this Command runs the first time
@@ -24,24 +26,27 @@ public class DeployIntake extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (!intake.isExtended()) {
-            intake.extendIntake();
+        if (launcher.getDistance() < launcher.TRUSS_SHOT_ENC_COUNTS) {
+            launcher.goUpward();
         } else {
-            intake.retractIntake();
+            launcher.stop();
+            done = true;
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return done;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        launcher.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        end();
     }
 }

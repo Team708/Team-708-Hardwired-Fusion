@@ -29,7 +29,7 @@ public class LauncherHome extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(!(launcher.getLowerSwitch())) {
+        if(!launcher.getLowerSwitch()) {
             launcher.goDownward();
         } else {
             done = true;
@@ -45,10 +45,12 @@ public class LauncherHome extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        launcher.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        end();
     }
 }
