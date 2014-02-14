@@ -23,9 +23,9 @@ public class ToggleSwagSpeed extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (!OI.isHoldToAntiswagSpeedButtonPressed()) {
+//        if (!OI.isHoldToAntiswagSpeedButtonPressed()) {
             drivetrain.setMode(drivetrain.SWAG());
-        }
+//        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
