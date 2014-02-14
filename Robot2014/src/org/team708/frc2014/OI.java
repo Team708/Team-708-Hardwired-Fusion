@@ -8,6 +8,7 @@ import org.team708.frc2014.commands.drivetrain.FollowBall;
 import org.team708.frc2014.commands.drivetrain.ToggleAntiswagSpeed;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
 import org.team708.frc2014.commands.intake.DeployIntake;
+import org.team708.frc2014.commands.intake.ManualDispense;
 import org.team708.frc2014.commands.intake.ManualIntake;
 import org.team708.frc2014.commands.intake.ManualIntakeIn;
 import org.team708.frc2014.commands.intake.ManualIntakeOut;
@@ -30,10 +31,8 @@ public class OI {
     private static final int holdToAntiswagSpeedButtonNumber = Gamepad.button_L_Shoulder;
     
     // Operator
-    private static final int manualForwardButtonNumber = Gamepad.button_R_Shoulder;
-    private static final int manualBackwardButtonNumber = Gamepad.button_L_Shoulder;
     private static final int holdToManualIntakeButtonNumber = Gamepad.button_A;
-    private static final int deployIntakeButtonNumber = Gamepad.button_B;
+    private static final int holdToManualDispenseButtonNumber = Gamepad.button_B;
     private static final int manualIntakeOutButtonNumber = Gamepad.button_Y;
     private static final int manualIntakeInButtonNumber = Gamepad.button_X;
     
@@ -61,20 +60,16 @@ public class OI {
      * Operator Buttons
      */
     
-    //Makes arm go forward or stop
-    public static final Button manualForward = new JoystickButton(operatorGamepad, manualForwardButtonNumber);
-    
-    //Makes the arm go backward or stop
-    public static final Button manualBackward = new JoystickButton(operatorGamepad, manualBackwardButtonNumber);
-    
     //Turns on motor for intake and stops when released
     public static final Button holdToManualIntake = new JoystickButton(operatorGamepad, holdToManualIntakeButtonNumber);
     
-    //Deploys intake or retracts it back in
-    public static final Button deployIntake = new JoystickButton(operatorGamepad, deployIntakeButtonNumber);
+    // Trns on motor for dispensing ball and stops when released
+    public static final Button holdToManualDispense = new JoystickButton(operatorGamepad, holdToManualDispenseButtonNumber);
     
+    // Deploys the intake
     public static final Button manualIntakeOut = new JoystickButton(operatorGamepad, manualIntakeOutButtonNumber);
     
+    // Retracts the intake
     public static final Button manualIntakeIn = new JoystickButton(operatorGamepad, manualIntakeInButtonNumber);
     
     public OI() 
@@ -87,7 +82,7 @@ public class OI {
         
         // Operator
         holdToManualIntake.whileHeld(new ManualIntake());
-        deployIntake.whenPressed(new DeployIntake());
+        holdToManualDispense.whileHeld(new ManualDispense());
         manualIntakeOut.whenPressed(new ManualIntakeOut());
         manualIntakeIn.whenPressed(new ManualIntakeIn());
     }
