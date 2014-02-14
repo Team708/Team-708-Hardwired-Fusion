@@ -120,6 +120,7 @@ public class ZygmontCrazy extends IterativeRobot {
             CommandBase.launcher.sendToDash();
         }
     }
+    
     private void addAutoChooser() {
         autoChooser.addDefault("YoloSwag Shot", new YoloSwagShot());
         autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
