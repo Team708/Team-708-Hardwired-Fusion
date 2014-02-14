@@ -14,7 +14,10 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.team708.frc2014.commands.CommandBase;
+import org.team708.frc2014.commands.autonomous.OneHotGoalShot;
+import org.team708.frc2014.commands.autonomous.YoloSwagShot;
 import org.team708.frc2014.commands.drivetrain.Drive;
 
 /**
@@ -27,7 +30,8 @@ import org.team708.frc2014.commands.drivetrain.Drive;
 public class ZygmontCrazy extends IterativeRobot {
 
     Command autonomousCommand;                      //the current autonomous command
-    Compressor compressor;
+    SendableChooser autoChooser;                    //Allows autonomous mode selection
+    Compressor compressor;                          //Compressor for pneumatics
     Timer statsTimer;                               //timer used for Smart Dash statistics
     private final double sendStatsIntervalSec = .5; //number of seconds between sending stats to SmartDash
 
@@ -40,17 +44,21 @@ public class ZygmontCrazy extends IterativeRobot {
         statsTimer = new Timer();
         statsTimer.start();
         
+        // Adds a compressor and automatically turns it on
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorSpike);
         compressor.start();
         
-        // instantiate the command used for the autonomous period
-        autonomousCommand = new Drive();
+        // Adds a selection for the autonomous mode chooser
+        autoChooser = new SendableChooser();
+        addAutoChooser();
 
         // Initialize all subsystems
         CommandBase.init();
     }
 
     public void autonomousInit() {
+        // instantiate the command used for the autonomous period
+        autonomousCommand = (Command) autoChooser.getSelected();
         // schedule the autonomous command (example)
         autonomousCommand.start();
     }
@@ -111,5 +119,10 @@ public class ZygmontCrazy extends IterativeRobot {
             CommandBase.intake.sendToDash();
             CommandBase.launcher.sendToDash();
         }
+    }
+    
+    private void addAutoChooser() {
+        autoChooser.addDefault("YoloSwag Shot", new YoloSwagShot());
+        autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
     }
 }
