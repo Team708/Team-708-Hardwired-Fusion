@@ -5,7 +5,6 @@
 package org.team708.frc2014.commands.intake;
 
 import org.team708.frc2014.commands.CommandBase;
-import org.team708.frc2014.subsystems.VisionProcessor;
 
 /**
  *
