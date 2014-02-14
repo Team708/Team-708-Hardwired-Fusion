@@ -27,6 +27,8 @@ public class ManualDispense extends CommandBase {
     protected void execute() {
         if (intake.checkIfBall()) {
             intake.dispenseBall();
+        } else {
+            end();
         }
     }
 
