@@ -5,7 +5,6 @@
 package org.team708.frc2014.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.team708.frc2014.commands.launcher.Forward;
 
 /**
  *
@@ -15,7 +14,7 @@ public class YoloSwagShot extends CommandGroup {
     
     public YoloSwagShot() {
         addSequential(new DriveForwardToTargetUltrasonic());
-        addSequential(new Forward());
+//        addSequential(new Forward());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

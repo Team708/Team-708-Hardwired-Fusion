@@ -28,7 +28,7 @@ public class ShootForHotGoal extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         if (visionProcessor.isGoalLit()) {
-            launcher.Forward();
+//            launcher.Forward();
         }
     }
 

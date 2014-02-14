@@ -5,6 +5,7 @@
 package org.team708.util;
 
 import com.sun.squawk.util.MathUtils;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Miscellaneous math functions.
@@ -55,5 +56,31 @@ public class Math708 {
     public static double lengthSquared(double x,double y)
     {
         return x * x + y * y;
+    }
+    
+    public static boolean AreSameSign(double x, double y)
+    {
+        return (x * y) >= 0;
+    }
+    
+    public static double makeWithin(double x, double low, double high)
+    {
+        return Math.min(high,Math.max(low, x));
+    }
+    
+    /**
+     * Generates a square wave with the given on/off time.
+     * @param timer
+     * @param onTimeSec
+     * @return 
+     */
+    public static boolean squareWave(Timer timer,double onTimeSec,boolean prevValue)
+    {
+        if(timer.get() >= onTimeSec)
+        {
+            timer.reset();
+            return !prevValue;
+        }
+        return prevValue;
     }
 }
