@@ -50,9 +50,9 @@ public class LauncherMoveTo extends CommandBase {
         double scalar = 1.0;
 
         /*
-         * Check if goal has been reached.
+         * Check if goal has been reached or launcher has stopped at a boundary.
          */
-        if (abs_countsDiff <= TOLERANCE_COUNTS) {
+        if (abs_countsDiff <= TOLERANCE_COUNTS || launcher.stoppedAtBoundary()) {
             launcher.stop();
             done = true;
             return;

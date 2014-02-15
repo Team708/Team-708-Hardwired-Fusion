@@ -4,3 +4,6 @@
 /Robot2014/build/
 /Robot2014 (fixed)/build/
 /Robot2014/nbproject/private/
+
+#Ignore .orig files from kdiff3 merges
+*.orig

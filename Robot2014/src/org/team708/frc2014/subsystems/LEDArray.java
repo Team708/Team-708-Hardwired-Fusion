@@ -40,8 +40,13 @@ public class LEDArray extends Subsystem{
         {
             private boolean squareWaveValue = false;
 
+            //initializer block (like a constructor for anonymous class)
+            {
+                requires(CommandBase.ledArray);
+            }
+            
             protected void initialize() {
-//                requires(CommandBase.ledArray);
+
             }
 
             protected void execute() {
