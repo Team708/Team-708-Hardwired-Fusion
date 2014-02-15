@@ -8,17 +8,20 @@ import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Robotics
+ * @author Nam Tran
  */
 public class DriveForwardToTargetUltrasonic extends CommandBase {
     
-    private int shotType;
-    
-    public DriveForwardToTargetUltrasonic(int newShotType) {
+    public DriveForwardToTargetUltrasonic(int shotType) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(drivetrain);
-        shotType = newShotType;
+        
+        if(shotType == drivetrain.REGULAR) {
+              drivetrain.setUltrasonicDistance(drivetrain.REGULAR_DISTANCE, drivetrain.REGULAR_DISTANCE, true);
+        } else {
+            drivetrain.setUltrasonicDistance (drivetrain.PASS_SHOT_DISTANCE, drivetrain.PASS_SHOT_DISTANCE, false);
+        }
     }
 
     // Called just before this Command runs the first time
@@ -27,30 +30,22 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(shotType == drivetrain.REGULAR) {
-              drivetrain.setUltrasonicDistance(drivetrain.REGULAR_DISTANCE, drivetrain.REGULAR_DISTANCE, true);
-        } else {
-            drivetrain.setUltrasonicDistance (drivetrain.PASS_SHOT_DISTANCE, drivetrain.PASS_SHOT_DISTANCE, false);
-        }
-        
-        if(!drivetrain.isAtOptimumDistance()) {
-            drivetrain.haloDrive(drivetrain.getScalarFB(drivetrain.NORMAL), -drivetrain.getTurnSpeed());
-        } else {
-            drivetrain.stop();
-        }
+        drivetrain.haloDrive(drivetrain.normalPercent, -drivetrain.getTurnSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return drivetrain.isAtOptimumDistance();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        drivetrain.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        end();
     }
 }

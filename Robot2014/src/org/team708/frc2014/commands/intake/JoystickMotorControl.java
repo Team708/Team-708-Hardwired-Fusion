@@ -2,16 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.drivetrain;
+package org.team708.frc2014.commands.intake;
 
+import org.team708.frc2014.OI;
 import org.team708.frc2014.commands.CommandBase;
+import org.team708.util.Gamepad;
+
 /**
  *
- * @author Nam Tran, Jialin Wang
+ * @author Nam Tran
  */
-public class ToggleAntiswagSpeed extends CommandBase {
+public class JoystickMotorControl extends CommandBase {
     
-    public ToggleAntiswagSpeed() {
+    public JoystickMotorControl() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -22,7 +25,7 @@ public class ToggleAntiswagSpeed extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.setMode(drivetrain.ANTISWAG);
+        intake.joystickMotorControl(OI.operatorGamepad.getAxis(Gamepad.leftStick_Y));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,12 +35,10 @@ public class ToggleAntiswagSpeed extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.setMode(drivetrain.NORMAL);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }

@@ -5,7 +5,6 @@ package org.team708.frc2014;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.team708.frc2014.commands.drivetrain.FollowBall;
-import org.team708.frc2014.commands.drivetrain.ToggleAntiswagSpeed;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
 import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.ManualDispense;
@@ -25,10 +24,8 @@ public class OI {
      */
     
     // Driver
-//    private static final int toggleDriveModeButtonNumber = Gamepad.button_A;
     private static final int holdToFollowBallButtonNumber = Gamepad.button_B;
     private static final int holdToSwagSpeedButtonNumber = Gamepad.button_R_Shoulder;
-    private static final int holdToAntiswagSpeedButtonNumber = Gamepad.button_L_Shoulder;
     
     // Operator
     private static final int holdToManualIntakeButtonNumber = Gamepad.button_A;
@@ -49,14 +46,8 @@ public class OI {
     //Switch to swag speed
     public static final Button holdToSwagSpeed = new JoystickButton(driverGamepad, holdToSwagSpeedButtonNumber);
     
-    //Switch to crawl speed
-    public static final Button holdToAntiswagSpeed = new JoystickButton(driverGamepad, holdToAntiswagSpeedButtonNumber);
-    
     //Follow the ball while this button is held
     public static final Button holdToFollowBallButton = new JoystickButton(driverGamepad,holdToFollowBallButtonNumber);
-    
-//    //Initialize drivetrain switch button
-//    public static final Button toggleDriveMode = new JoystickButton(driverGamepad, toggleDriveModeButtonNumber);
     
     /*
      * Operator Buttons
@@ -83,9 +74,7 @@ public class OI {
     public OI() 
     {
         // Driver
-//        toggleDriveMode.whenPressed(new ToggleDriveMode());
         holdToSwagSpeed.whileHeld(new ToggleSwagSpeed());
-        holdToAntiswagSpeed.whileHeld(new ToggleAntiswagSpeed());
         holdToFollowBallButton.whileHeld(new FollowBall());
         
         // Operator
@@ -95,25 +84,6 @@ public class OI {
         manualIntakeIn.whenPressed(new RetractIntake());
         passBall.whenPressed(new PassBall());
     }
-    
-    //Is Button Pressed Query Methods
-    
-//    public static boolean isHoldToFollowButtonPressed()
-//    {
-//        return driverGamepad.getButton(holdToFollowBallButtonNumber);
-//    }
-//    
-//    public static boolean isHoldToSwagSpeedButtonPressed() {
-//        return driverGamepad.getButton(holdToSwagSpeedButtonNumber);
-//    }
-//    
-    public static boolean isHoldToAntiswagSpeedButtonPressed() {
-        return driverGamepad.getButton(holdToAntiswagSpeedButtonNumber);
-    }
-//    
-//    public static boolean isHoldToManualIntakeButtonPressed() {
-//        return operatorGamepad.getButton(holdToManualIntakeButtonNumber);
-//    }
     
         //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
