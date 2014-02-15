@@ -8,14 +8,13 @@ import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Nam Tran
+ * @author Robotics
  */
 public class DeployIntake extends CommandBase {
     
     public DeployIntake() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(intake);
     }
 
     // Called just before this Command runs the first time
@@ -24,11 +23,7 @@ public class DeployIntake extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (!intake.isExtended()) {
-            intake.extendIntake();
-        } else {
-            intake.retractIntake();
-        }
+        intake.extendIntake();
     }
 
     // Make this return true when this Command no longer needs to run execute()

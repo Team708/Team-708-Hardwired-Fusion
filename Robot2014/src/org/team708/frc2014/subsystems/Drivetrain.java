@@ -20,8 +20,7 @@ public class Drivetrain extends Subsystem {
     // Creates speed controllers for right side (1 = normal/crawl, 2 = swag)
     private final SpeedController rightMotor1, rightMotor2;
     
-    // Sensors
-    private final Encoder leftEncoder, rightEncoder;
+    private final Encoder leftEncoder, rightEncoder; // Sensors
     
     // Creates drivers (one for two motors running, one for three running)
     private final RobotDrive driver, swagDriver;
@@ -30,21 +29,22 @@ public class Drivetrain extends Subsystem {
     private final UltrasonicSensor leftUltrasonic, rightUltrasonic;
     
     // Drivetrain Modes
-//    private boolean haloDrive = true;
-    private final int NORMAL = 0;
-    private final int SWAG = 1;
-    private final int ANTISWAG = 2;
-    private int mode = NORMAL;
+    private boolean swag = false;
     
     // Scaling for drive modes
-    private final double[] scalarFB = {0.75, 1.00, 0.50};
-    private final double[] scalarLR = {0.75, 1.00, 0.50};
+    public final double normalPercent = 0.85;
+    public final double swagPercent = 1.00;
     
     // Scaling for ultrasonic direction correction
     private final double ultrasonicScalar = .5;
     
-    // Variable for optimum distance to shoot
-    public final double optimumShootingDistance = 96.0;
+    // Shooting type constants
+    public final int REGULAR = 0;
+    public final int PASS_SHOT = 1;
+    
+    // Shooting distances
+    public final int REGULAR_DISTANCE = 96;
+    public final int PASS_SHOT_DISTANCE = 160;
 
     public void initDefaultCommand() 
     {
@@ -68,11 +68,15 @@ public class Drivetrain extends Subsystem {
         //Creates encoders
         leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB);
         rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB);
+        leftEncoder.start();
+        rightEncoder.start();
         
         // Creates normal drive mode using two motor controllers (2 motors on each side)
         driver = new RobotDrive(leftMotor1,rightMotor1);
+        driver.setSafetyEnabled(false);
         // Creates drive mode using four motor controllers (3 motors on each side)
         swagDriver = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+        swagDriver.setSafetyEnabled(false);
         
         //Creates Drivetrain ultrasonic sensors
         leftUltrasonic = new UltrasonicSensor(RobotMap.drivetrainLeftUltrasonic, UltrasonicSensor.MB1010);
@@ -86,46 +90,26 @@ public class Drivetrain extends Subsystem {
      */
     public void haloDrive (double leftAxis, double rightAxis)
     {
-        if (mode != SWAG) {
+        if (swag) {
             // Driver for two motors on
-            driver.arcadeDrive((scalarFB[mode] * leftAxis), (scalarLR[mode] * rightAxis));
+            swagDriver.arcadeDrive((swagPercent * leftAxis), (swagPercent * rightAxis));
         } else {
             // Driver for three motors on
-            swagDriver.arcadeDrive((scalarFB[SWAG] * leftAxis), (scalarLR[SWAG] * rightAxis));
+            driver.arcadeDrive((normalPercent * leftAxis), (normalPercent * rightAxis));
         }
     }
     
-    public int getMode() {
-        return mode;
+    public boolean getSwag() {
+        return swag;
     }
 
-    public void setMode(int newMode) {
-        mode = newMode;
+    public void setSwag(boolean newSwag) {
+        swag = newSwag;
         
-        if (mode != SWAG) {
+        if (!swag) {
             leftMotor2.set(0.0);
             rightMotor2.set(0.0);
         }
-    }
-    
-    public int NORMAL() {
-        return NORMAL;
-    }
-    
-    public int SWAG() {
-        return SWAG;
-    }
-    
-    public int ANTISWAG() {
-        return ANTISWAG;
-    }
-    
-    public double getScalarFB(int index) {
-        return scalarFB[index];
-    }
-    
-    public double getScalarLR(int index) {
-        return scalarLR[index];
     }
     
     public void resetEncoders() {
@@ -158,38 +142,6 @@ public class Drivetrain extends Subsystem {
         SmartDashboard.putNumber("Right Drivetrain Encoder", rightEncoder.get());
         SmartDashboard.putNumber("Left Ultrasonic", leftUltrasonic.getDistance());
         SmartDashboard.putNumber("Right Ultrasonic", rightUltrasonic.getDistance());
-        SmartDashboard.putNumber("Drivetrain Mode", mode);
+        SmartDashboard.putBoolean("Swag Mode", swag);
     }
-    
-//    /**
-//     * Use joystick values to do skid-steer/tank drive.
-//     * @param leftAxis
-//     * @param rightAxis 
-//     */
-//    public void tankDrive(double leftAxis, double rightAxis)
-//    {
-//        if (mode == SWAG) {
-//            // Driver for three motors on
-//            swagDriver.tankDrive((scalarFB[SWAG] * leftAxis), (scalarFB[SWAG] * rightAxis));
-//        } else {
-//            // Driver for two motors on
-//            driver.tankDrive((scalarFB[mode] * leftAxis), (scalarFB[mode] * rightAxis));
-//        }
-//    }
-    
-//    public boolean isHaloDrive() {
-//        return haloDrive;
-//    }
-    
-//    public void setIsHaloDrive(boolean newMode) {
-//        haloDrive = newMode;
-//    }
-    
-//    public void drive(Gamepad gamepad) {
-//        if (this.isHaloDrive()) {
-//            this.haloDrive(gamepad.getAxis(Gamepad.leftStick_Y),gamepad.getAxis(Gamepad.rightStick_X));
-//        } else {
-//            this.tankDrive(gamepad.getAxis(Gamepad.leftStick_Y),gamepad.getAxis(Gamepad.rightStick_Y));
-//        }
-//    }
 }

@@ -4,15 +4,17 @@
  */
 package org.team708.frc2014.commands.intake;
 
+import org.team708.frc2014.OI;
 import org.team708.frc2014.commands.CommandBase;
+import org.team708.util.Gamepad;
 
 /**
  *
- * @author Robotics
+ * @author Nam Tran
  */
-public class ManualIntakeOut extends CommandBase {
+public class JoystickMotorControl extends CommandBase {
     
-    public ManualIntakeOut() {
+    public JoystickMotorControl() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -23,12 +25,12 @@ public class ManualIntakeOut extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        intake.extendIntake();
+        intake.joystickMotorControl(OI.operatorGamepad.getAxis(Gamepad.leftStick_Y));
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

@@ -41,7 +41,10 @@ public class LEDArray extends Subsystem{
             private boolean squareWaveValue = false;
 
             protected void initialize() {
+<<<<<<< HEAD
+=======
 //                requires(CommandBase.ledArray);
+>>>>>>> origin/Experimental
             }
 
             protected void execute() {

@@ -14,7 +14,6 @@ public class RobotMap {
     public static final int rightMotor1 = 3;   //normal drive
     public static final int rightMotor2 = 4;   //swag drive enabled
     
-    
     // Motor/ PWM Ports -- Launcher
     public static final int launcherMotor1 = 5; //Forward Motor
     public static final int launcherMotor2 = 6; //Reversed Motor
@@ -47,9 +46,6 @@ public class RobotMap {
     //Analog Sensors -- Drivetrain
     public static final int drivetrainLeftUltrasonic = 1;
     public static final int drivetrainRightUltrasonic = 2;
-    
-    // Analog Sensors -- Launcher
-//    public static final int launcherPotentiometer = 3;
     
     //Analog Sensors -- Intake
     public static final int intakeIRSensor = 3;

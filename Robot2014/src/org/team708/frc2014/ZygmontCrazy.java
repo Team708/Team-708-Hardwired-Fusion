@@ -14,8 +14,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.team708.frc2014.commands.CommandBase;
-import org.team708.frc2014.commands.drivetrain.Drive;
+import org.team708.frc2014.commands.autonomous.OneHotGoalShot;
+import org.team708.frc2014.commands.autonomous.YoloSwagShot;
+import org.team708.frc2014.commands.intake.RetractIntake;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,9 +30,12 @@ import org.team708.frc2014.commands.drivetrain.Drive;
 public class ZygmontCrazy extends IterativeRobot {
 
     Command autonomousCommand;                      //the current autonomous command
-    Compressor compressor;
+    Compressor compressor;                          //compressor for the pneumatics
+    SendableChooser autoChooser;                    //creates choose object on SmartDashboard
     Timer statsTimer;                               //timer used for Smart Dash statistics
     private final double sendStatsIntervalSec = .5; //number of seconds between sending stats to SmartDash
+    
+    private final boolean debug = true; // Set to false if not using SmartDashboard
 
     /**
      * This function is run when the robot is first started up and should be
@@ -40,17 +46,21 @@ public class ZygmontCrazy extends IterativeRobot {
         statsTimer = new Timer();
         statsTimer.start();
         
+        // Initialises and starts the compressor
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorSpike);
         compressor.start();
         
-        // instantiate the command used for the autonomous period
-        autonomousCommand = new Drive();
-
+        // Initialises the autonomous selection on SmartDashboard
+        autoChooser = new SendableChooser();
+        queueAutonomousCommands();
+        
         // Initialize all subsystems
         CommandBase.init();
     }
 
     public void autonomousInit() {
+        // instantiate the command used for the autonomous period
+        autonomousCommand = ((Command)autoChooser.getSelected());
         // schedule the autonomous command (example)
         autonomousCommand.start();
     }
@@ -99,17 +109,23 @@ public class ZygmontCrazy extends IterativeRobot {
      */
     private void sendStats()
     {
-        if(statsTimer.get() >= sendStatsIntervalSec)
-        {
-            statsTimer.reset();
-            
-            /*
-             * Add code for printing various debug variables here:
-             */
-            CommandBase.visionProcessor.sendToDash();
-            CommandBase.drivetrain.sendToDash();
-            CommandBase.intake.sendToDash();
-            CommandBase.launcher.sendToDash();
+        if (debug) {
+            if(statsTimer.get() >= sendStatsIntervalSec)
+            {
+                statsTimer.reset();
+
+                // Various debug information
+                CommandBase.visionProcessor.sendToDash();
+                CommandBase.drivetrain.sendToDash();
+                CommandBase.intake.sendToDash();
+                CommandBase.launcher.sendToDash();
+            }
         }
+    }
+    
+    // Adds options for autonomous modes
+    private void queueAutonomousCommands() {
+        autoChooser.addDefault("One Ball -- No Hot Goal", new YoloSwagShot());
+        autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
     }
 }

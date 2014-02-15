@@ -26,4 +26,7 @@ public class LauncherHome extends CommandGroup {
         addSequential(new LauncherResetEncoder());                      //re-zero at the bottom
     }
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/Experimental

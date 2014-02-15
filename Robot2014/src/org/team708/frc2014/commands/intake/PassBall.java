@@ -2,25 +2,25 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.autonomous;
+package org.team708.frc2014.commands.intake;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
+import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Robotics
+ * @author Matt Foley
  */
-public class OneHotGoalShot extends CommandGroup {
+public class PassBall extends CommandGroup {
     
-    private final double timeToWait = 5;
-    
-    public OneHotGoalShot() {
-        addSequential(new DriveForwardToTargetUltrasonic(0));
-        addSequential(new ShootForHotGoal());
-        addSequential(new WaitCommand(timeToWait));
-        addSequential(new ShootForHotGoal());
+    public PassBall() {
+        // Brings intake in and the dispense the ball
+        if (CommandBase.intake.isExtended()) {
+            addSequential(new RetractIntake());
+            addSequential(new WaitCommand(0.5));
+        }
+        addSequential(new ManualDispense());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

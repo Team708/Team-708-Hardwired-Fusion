@@ -28,10 +28,18 @@ public class Launcher extends Subsystem {
     // Sensors
     private final Encoder launcherEncoder;
     private final DigitalInput launcherLowerGate, launcherUpperGate;
+<<<<<<< HEAD
 
     //encoder count values for different shot heights
     public static final int REGULAR_SHOT_ENC_COUNTS = 900;
     public static final int TRUSS_SHOT_ENC_COUNTS = 600;
+
+=======
+
+    //encoder count values for different shot heights
+    public static final int REGULAR_SHOT_ENC_COUNTS = 900;
+    public static final int TRUSS_SHOT_ENC_COUNTS = 600;
+>>>>>>> origin/Experimental
     //ranges for different manipulator heights
     private final int UPPER_RANGE = 0;      //above top photogate
     private final int MIDDLE_RANGE = 1;     //between photogates
@@ -50,8 +58,11 @@ public class Launcher extends Subsystem {
 
         // Creates sensors
         launcherEncoder = new Encoder(RobotMap.launcherEncoderA, RobotMap.launcherEncoderB);
+<<<<<<< HEAD
+=======
         launcherEncoder.start();
         
+>>>>>>> origin/Experimental
         launcherLowerGate = new DigitalInput(RobotMap.launcherLowerSwitch); //This is a photogate
         launcherUpperGate = new DigitalInput(RobotMap.launcherUpperSwitch); //This is a photogate
 //        launcherPotentiometer = new Potentiometer(RobotMap.launcherPotentiometer, potentiometerRotations);
@@ -95,6 +106,10 @@ public class Launcher extends Subsystem {
 
     public void manualControl(double axis) {
         move(axis);
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/Experimental
     }
 
     // Returns the upper bound switch
@@ -196,7 +211,11 @@ public class Launcher extends Subsystem {
     private boolean isDownward(double speed) {
         return Math708.AreSameSign(speed, DOWNWARD_SPEED);
     }
+<<<<<<< HEAD
+
+=======
     
+>>>>>>> origin/Experimental
     public void sendToDash() {
         SmartDashboard.putNumber("Launcher Encoder", launcherEncoder.getDistance());
         SmartDashboard.putBoolean("Lower Switch", this.getLowerGate());
