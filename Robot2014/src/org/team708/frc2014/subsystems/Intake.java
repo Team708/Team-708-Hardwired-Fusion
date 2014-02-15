@@ -83,13 +83,14 @@ public class Intake extends Subsystem {
         return isExtended;
     }
     
-    public void setIsExtended(boolean isExtended) {
-        this.isExtended = isExtended;
+    public boolean isDeployed() {
+        return intakeSolenoid.get().equals(EXTENDED);
     }
     
     public void sendToDash() {
         SmartDashboard.putBoolean("Has Ball", checkIfBall());
         SmartDashboard.putNumber("IR Sensor", intakeIR.getDistance());
         SmartDashboard.putBoolean("Is Extended", isExtended);
+        SmartDashboard.putBoolean("Is Deployed", isDeployed());
     }
 }

@@ -3,13 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/zpwalls/Documents/GitHub/Team-708-Hardwired-Fusion/Robot2014/src/edu/wpi/first/wpilibj/templates/commands/CommandBase.java</file>
-            <file>file:/C:/Users/zpwalls/Documents/GitHub/Team-708-Hardwired-Fusion/Robot2014/src/edu/wpi/first/wpilibj/templates/commands/HaloDriveCommand.java</file>
-            <file>file:/C:/Users/zpwalls/Documents/GitHub/Team-708-Hardwired-Fusion/Robot2014/src/edu/wpi/first/wpilibj/templates/commands/TankDriveCommand.java</file>
-            <file>file:/C:/Users/zpwalls/Documents/GitHub/Team-708-Hardwired-Fusion/Robot2014/src/edu/wpi/first/wpilibj/templates/subsystems/Drivetrain.java</file>
-            <file>file:/C:/Users/zpwalls/Documents/GitHub/Team-708-Hardwired-Fusion/Robot2014/src/edu/wpi/first/wpilibj/templates/OI.java</file>
-            <file>file:/C:/Users/zpwalls/Documents/GitHub/Team-708-Hardwired-Fusion/Robot2014/src/utilclasses/Gamepad.java</file>
-            <file>file:/C:/Users/zpwalls/Documents/GitHub/Team-708-Hardwired-Fusion/Robot2014/src/edu/wpi/first/wpilibj/templates/commands/SwitchDriveTrains.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/launcher/LauncherMoveTo.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/launcher/LauncherManualControl.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/subsystems/VisionProcessor.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/autonomous/OneHotGoalShot.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/intake/DeployIntake.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/autonomous/ShootForHotGoal.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/drivetrain/ToggleAntiswagSpeed.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/subsystems/Launcher.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/launcher/LauncherTrussShot.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/CommandBase.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/autonomous/YoloSwagShot.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/util/Math708.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/OI.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/launcher/LauncherMoveToTop.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/subsystems/LEDArray.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/launcher/LauncherMoveToBottom.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/RobotMap.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/launcher/LauncherHome.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/launcher/LauncherResetEncoder.java</file>
+            <file>file:/C:/Users/Connor/Documents/Robotics/FRC/2014/Team-708-Hardwired-Fusion/Robot2014/src/org/team708/frc2014/commands/autonomous/DriveForwardToTargetUltrasonic.java</file>
         </group>
     </open-files>
 </project-private>

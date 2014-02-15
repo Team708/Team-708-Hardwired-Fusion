@@ -6,6 +6,7 @@ import org.team708.frc2014.OI;
 import org.team708.frc2014.subsystems.Launcher;
 import org.team708.frc2014.subsystems.Drivetrain;
 import org.team708.frc2014.subsystems.Intake;
+import org.team708.frc2014.subsystems.LEDArray;
 import org.team708.frc2014.subsystems.VisionProcessor;
 
 /**
@@ -22,6 +23,7 @@ public abstract class CommandBase extends Command {
     public static Drivetrain drivetrain = new Drivetrain();
     public static Intake intake = new Intake();
     public static VisionProcessor visionProcessor = new VisionProcessor();
+//    public static LEDArray ledArray = new LEDArray();
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely

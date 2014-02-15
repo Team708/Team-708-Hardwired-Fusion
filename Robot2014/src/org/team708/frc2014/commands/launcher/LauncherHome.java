@@ -4,53 +4,26 @@
  */
 package org.team708.frc2014.commands.launcher;
 
-import org.team708.frc2014.commands.CommandBase;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
- * @author Robotics
+ * Moves the launcher to the home position (the bottom photogate).
+ * Constructor contains a boolean option for raising first in order
+ * to avoid getting stuck beneath the bottom photogate.
+ * @author Connor Willison
  */
-public class LauncherHome extends CommandBase {
-    
-    //Command to override and go forward should we choose to set JoystickFling as default
-    //Otherwise state machines in ManualFling and Fling wouldn't work.
-    
-    private boolean done = false;
-    
-    public LauncherHome() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        requires(launcher);
-    }
+public class LauncherHome extends CommandGroup {
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
+    private static final int HOMING_RAISE_COUNTS = 250;
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-        if(!launcher.getLowerSwitch()) {
-            launcher.goDownward();
-        } else {
-            done = true;
-            launcher.stop();
-            launcher.resetEncoder();
+    public LauncherHome(boolean raiseFirst) {
+        if(raiseFirst)
+        {
+            addSequential(new LauncherResetEncoder());                      //First, reset so we can move relative to start
+            addSequential(new LauncherMoveTo(HOMING_RAISE_COUNTS, true));   //Raise a bit in case we started below low sensor
         }
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return done;
-    }
-
-    // Called once after isFinished returns true
-    protected void end() {
-        launcher.stop();
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-        end();
+        addSequential(new LauncherMoveToBottom());                      //Move to the bottom photogate
+        addSequential(new LauncherResetEncoder());                      //re-zero at the bottom
     }
 }
+

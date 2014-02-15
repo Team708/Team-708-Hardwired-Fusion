@@ -10,9 +10,9 @@ import org.team708.frc2014.commands.CommandBase;
  *
  * @author Robotics
  */
-public class ManualIntakeOut extends CommandBase {
+public class DeployIntake extends CommandBase {
     
-    public ManualIntakeOut() {
+    public DeployIntake() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

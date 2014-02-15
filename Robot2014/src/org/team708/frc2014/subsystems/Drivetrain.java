@@ -30,10 +30,9 @@ public class Drivetrain extends Subsystem {
     private final UltrasonicSensor leftUltrasonic, rightUltrasonic;
     
     // Drivetrain Modes
-//    private boolean haloDrive = true;
-    private final int NORMAL = 0;
-    private final int SWAG = 1;
-    private final int ANTISWAG = 2;
+    public final int NORMAL = 0;
+    public final int SWAG = 1;
+    public final int ANTISWAG = 2;
     private int mode = NORMAL;
     
     // Scaling for drive modes
@@ -78,8 +77,10 @@ public class Drivetrain extends Subsystem {
         
         // Creates normal drive mode using two motor controllers (2 motors on each side)
         driver = new RobotDrive(leftMotor1,rightMotor1);
+        driver.setSafetyEnabled(false);
         // Creates drive mode using four motor controllers (3 motors on each side)
         swagDriver = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+        swagDriver.setSafetyEnabled(false);
         
         //Creates Drivetrain ultrasonic sensors
         leftUltrasonic = new UltrasonicSensor(RobotMap.drivetrainLeftUltrasonic, UltrasonicSensor.MB1010);
@@ -113,18 +114,6 @@ public class Drivetrain extends Subsystem {
             leftMotor2.set(0.0);
             rightMotor2.set(0.0);
         }
-    }
-    
-    public int NORMAL() {
-        return NORMAL;
-    }
-    
-    public int SWAG() {
-        return SWAG;
-    }
-    
-    public int ANTISWAG() {
-        return ANTISWAG;
     }
     
     public double getScalarFB(int index) {
@@ -167,36 +156,4 @@ public class Drivetrain extends Subsystem {
         SmartDashboard.putNumber("Right Ultrasonic", rightUltrasonic.getDistance());
         SmartDashboard.putNumber("Drivetrain Mode", mode);
     }
-    
-//    /**
-//     * Use joystick values to do skid-steer/tank drive.
-//     * @param leftAxis
-//     * @param rightAxis 
-//     */
-//    public void tankDrive(double leftAxis, double rightAxis)
-//    {
-//        if (mode == SWAG) {
-//            // Driver for three motors on
-//            swagDriver.tankDrive((scalarFB[SWAG] * leftAxis), (scalarFB[SWAG] * rightAxis));
-//        } else {
-//            // Driver for two motors on
-//            driver.tankDrive((scalarFB[mode] * leftAxis), (scalarFB[mode] * rightAxis));
-//        }
-//    }
-    
-//    public boolean isHaloDrive() {
-//        return haloDrive;
-//    }
-    
-//    public void setIsHaloDrive(boolean newMode) {
-//        haloDrive = newMode;
-//    }
-    
-//    public void drive(Gamepad gamepad) {
-//        if (this.isHaloDrive()) {
-//            this.haloDrive(gamepad.getAxis(Gamepad.leftStick_Y),gamepad.getAxis(Gamepad.rightStick_X));
-//        } else {
-//            this.tankDrive(gamepad.getAxis(Gamepad.leftStick_Y),gamepad.getAxis(Gamepad.rightStick_Y));
-//        }
-//    }
 }

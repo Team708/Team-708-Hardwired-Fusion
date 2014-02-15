@@ -22,7 +22,7 @@ public class ToggleAntiswagSpeed extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.setMode(drivetrain.ANTISWAG());
+        drivetrain.setMode(drivetrain.ANTISWAG);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,7 +32,7 @@ public class ToggleAntiswagSpeed extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.setMode(drivetrain.NORMAL());
+        drivetrain.setMode(drivetrain.NORMAL);
     }
 
     // Called when another command which requires one or more of the same

@@ -34,7 +34,7 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
         }
         
         if(!drivetrain.isAtOptimumDistance()) {
-            drivetrain.haloDrive(drivetrain.getScalarFB(drivetrain.NORMAL()), -drivetrain.getTurnSpeed());
+            drivetrain.haloDrive(drivetrain.getScalarFB(drivetrain.NORMAL), -drivetrain.getTurnSpeed());
         } else {
             drivetrain.stop();
         }
@@ -42,7 +42,7 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

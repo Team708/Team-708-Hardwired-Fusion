@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.team708.frc2014.commands.drivetrain.FollowBall;
 import org.team708.frc2014.commands.drivetrain.ToggleAntiswagSpeed;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
+import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.ManualDispense;
 import org.team708.frc2014.commands.intake.ManualIntake;
-import org.team708.frc2014.commands.intake.ManualIntakeIn;
-import org.team708.frc2014.commands.intake.ManualIntakeOut;
 import org.team708.frc2014.commands.intake.PassBall;
+import org.team708.frc2014.commands.intake.RetractIntake;
 import org.team708.util.Gamepad;
 
 /**
@@ -33,6 +33,7 @@ public class OI {
     // Operator
     private static final int holdToManualIntakeButtonNumber = Gamepad.button_A;
     private static final int holdToManualDispenseButtonNumber = Gamepad.button_B;
+//    private static final int toggleIntakeButtonNumber = Gamepad.button_Y;
     private static final int manualIntakeOutButtonNumber = Gamepad.button_Y;
     private static final int manualIntakeInButtonNumber = Gamepad.button_X;
     private static final int passBallButtonNumber = Gamepad.button_L_Shoulder;
@@ -76,6 +77,9 @@ public class OI {
     // Automatically closes the intake and passes the ball
     public static final Button passBall = new JoystickButton(operatorGamepad, passBallButtonNumber);
     
+//    // Toggles Intake
+//    public static final Button toggleIntake = new JoystickButton(operatorGamepad, toggleIntakeButtonNumber);
+    
     public OI() 
     {
         // Driver
@@ -87,8 +91,8 @@ public class OI {
         // Operator
         holdToManualIntake.whileHeld(new ManualIntake());
         holdToManualDispense.whileHeld(new ManualDispense());
-        manualIntakeOut.whenPressed(new ManualIntakeOut());
-        manualIntakeIn.whenPressed(new ManualIntakeIn());
+        manualIntakeOut.whenPressed(new DeployIntake());
+        manualIntakeIn.whenPressed(new RetractIntake());
         passBall.whenPressed(new PassBall());
     }
     

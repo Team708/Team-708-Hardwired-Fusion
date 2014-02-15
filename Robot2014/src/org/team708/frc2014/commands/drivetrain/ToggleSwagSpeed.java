@@ -24,7 +24,7 @@ public class ToggleSwagSpeed extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 //        if (!OI.isHoldToAntiswagSpeedButtonPressed()) {
-            drivetrain.setMode(drivetrain.SWAG());
+            drivetrain.setMode(drivetrain.SWAG);
 //        }
     }
 
@@ -35,7 +35,7 @@ public class ToggleSwagSpeed extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.setMode(drivetrain.NORMAL());
+        drivetrain.setMode(drivetrain.NORMAL);
     }
 
     // Called when another command which requires one or more of the same
