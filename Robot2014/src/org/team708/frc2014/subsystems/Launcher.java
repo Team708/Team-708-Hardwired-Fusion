@@ -74,14 +74,6 @@ public class Launcher extends Subsystem {
     }
     
     public void manualControl(double axis) {
-        if (getUpperSwitch() && axis > 0) {
-            axis = 0.0;
-        }
-        
-        if (getLowerSwitch() && axis < 0) {
-            axis = 0.0;
-        }
-        
         launcherMotor1.set(axis);
         launcherMotor2.set(axis);
     }
