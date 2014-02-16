@@ -220,7 +220,6 @@ public class Launcher extends Subsystem {
                     speed = newSpeed;
                     stoppedAtBoundary = false;
                 }
-
                 break;
         }
 

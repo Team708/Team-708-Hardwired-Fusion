@@ -28,8 +28,7 @@ public class Drivetrain extends Subsystem {
     //Creates Ultrasonic Sensors
     private final UltrasonicSensor leftUltrasonic, rightUltrasonic;
     
-    // Drivetrain Modes
-    private boolean swag = false;
+    private boolean swag = false; // Drivetrain mode check
     
     // Scaling for drive modes
     public final double normalPercent = 0.85;
@@ -140,7 +139,7 @@ public class Drivetrain extends Subsystem {
     public void sendToDash() {
         SmartDashboard.putNumber("Left Drivetrain Encoder", leftEncoder.get());
         SmartDashboard.putNumber("Right Drivetrain Encoder", rightEncoder.get());
-        SmartDashboard.putNumber("Left Ultrasonic", leftUltrasonic.getDistance());
+        SmartDashboard.putNumber("Left Ultrasonic", (-leftUltrasonic.getDistance()));
         SmartDashboard.putNumber("Right Ultrasonic", rightUltrasonic.getDistance());
         SmartDashboard.putBoolean("Swag Mode", swag);
     }

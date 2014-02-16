@@ -18,9 +18,9 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
         requires(drivetrain);
         
         if(shotType == drivetrain.REGULAR) {
-              drivetrain.setUltrasonicDistance(drivetrain.REGULAR_DISTANCE, drivetrain.REGULAR_DISTANCE, true);
+              drivetrain.setUltrasonicDistance((drivetrain.REGULAR_DISTANCE - 6), (drivetrain.REGULAR_DISTANCE + 6), false);
         } else {
-            drivetrain.setUltrasonicDistance (drivetrain.PASS_SHOT_DISTANCE, drivetrain.PASS_SHOT_DISTANCE, false);
+            drivetrain.setUltrasonicDistance ((drivetrain.PASS_SHOT_DISTANCE - 6), (drivetrain.PASS_SHOT_DISTANCE + 6), false);
         }
     }
 

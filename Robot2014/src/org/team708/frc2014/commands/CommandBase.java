@@ -3,6 +3,7 @@ package org.team708.frc2014.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.OI;
+import org.team708.frc2014.commands.launcher.LauncherHome;
 import org.team708.frc2014.subsystems.Launcher;
 import org.team708.frc2014.subsystems.Drivetrain;
 import org.team708.frc2014.subsystems.Intake;
@@ -38,6 +39,11 @@ public abstract class CommandBase extends Command {
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(intake);
         SmartDashboard.putData(visionProcessor);
+        SmartDashboard.putData(ledArray);
+        
+        //send commands to SmartDashboard for debugging
+        SmartDashboard.putData("Launcher Home no raise",new LauncherHome(false));
+        SmartDashboard.putData("Launcher Home with raise",new LauncherHome(true));
     }
 
     public CommandBase(String name) {

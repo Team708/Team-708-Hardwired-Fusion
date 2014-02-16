@@ -28,9 +28,6 @@ public class Intake extends Subsystem {
     private final double INTAKE_SPEED = 1.0;
     private final double DISPENSE_SPEED = -1.0;
     
-    // Booleans to keep track of the state of the intake system
-    private boolean isExtended = false;
-    
     private final IRSensor intakeIR; // IR Sensor to check for ball
     
     private final double lowHasBallDistance = 0.0; // Lower threshold for having the ball
@@ -46,19 +43,17 @@ public class Intake extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-//        setDefaultCommand(new JoystickMotorControl());
+        setDefaultCommand(new JoystickMotorControl());
     }
     
     // Extends the intake system and sets its state to extended
     public void extendIntake() {
         intakeSolenoid.set(EXTENDED);
-        isExtended = true;
     }
     
     // Retracts the intake system and sets its state to not extended
     public void retractIntake() {
         intakeSolenoid.set(RETRACTED);
-        isExtended = false;
     }
 
     // Checks to see if it has the ball
@@ -94,18 +89,13 @@ public class Intake extends Subsystem {
         }
     }
     
-    public boolean isExtended() {
-        return isExtended;
-    }
-    
     public boolean isDeployed() {
-        return intakeSolenoid.get().equals(EXTENDED);
+        return !intakeSolenoid.get().equals(EXTENDED);
     }
     
     public void sendToDash() {
         SmartDashboard.putBoolean("Has Ball", hasBall());
         SmartDashboard.putNumber("IR Sensor", intakeIR.getDistance());
-        SmartDashboard.putBoolean("Is Extended", isExtended);
         SmartDashboard.putBoolean("Is Deployed", isDeployed());
     }
 }

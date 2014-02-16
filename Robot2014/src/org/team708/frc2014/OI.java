@@ -4,13 +4,16 @@ package org.team708.frc2014;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.team708.frc2014.commands.drivetrain.FollowBall;
+import org.team708.frc2014.commands.ToggleLED;
+import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
 import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.ManualDispense;
 import org.team708.frc2014.commands.intake.ManualIntake;
 import org.team708.frc2014.commands.intake.PassBall;
 import org.team708.frc2014.commands.intake.RetractIntake;
+import org.team708.frc2014.commands.launcher.LauncherGoalShot;
+import org.team708.frc2014.commands.launcher.LauncherTrussShot;
 import org.team708.util.Gamepad;
 
 /**
@@ -24,16 +27,21 @@ public class OI {
      */
     
     // Driver
-    private static final int holdToFollowBallButtonNumber = Gamepad.button_B;
+//    private static final int holdToFollowBallButtonNumber = Gamepad.button_B;
     private static final int holdToSwagSpeedButtonNumber = Gamepad.button_R_Shoulder;
+    private static final int activateAutoPassButtonNumber = Gamepad.button_Y;
+    private static final int activateAutoShootButtonNumber = Gamepad.button_A;
+    private static final int toggleLEDButtonNumber = Gamepad.button_X;
     
     // Operator
-    private static final int holdToManualIntakeButtonNumber = Gamepad.button_A;
-    private static final int holdToManualDispenseButtonNumber = Gamepad.button_B;
+//    private static final int holdToManualIntakeButtonNumber = Gamepad.button_A;
+//    private static final int holdToManualDispenseButtonNumber = Gamepad.button_B;
 //    private static final int toggleIntakeButtonNumber = Gamepad.button_Y;
-    private static final int manualIntakeOutButtonNumber = Gamepad.button_Y;
-    private static final int manualIntakeInButtonNumber = Gamepad.button_X;
+    private static final int deployIntakeButtonNumber = Gamepad.button_B;
+    private static final int retractIntakeButtonNumber = Gamepad.button_A;
     private static final int passBallButtonNumber = Gamepad.button_L_Shoulder;
+    private static final int launchBallButtonNumber = Gamepad.button_R_Shoulder;
+    private static final int trussShotButtonNumber = Gamepad.button_X;
     
     //initialize Gamepads
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
@@ -46,27 +54,44 @@ public class OI {
     //Switch to swag speed
     public static final Button holdToSwagSpeed = new JoystickButton(driverGamepad, holdToSwagSpeedButtonNumber);
     
-    //Follow the ball while this button is held
-    public static final Button holdToFollowBallButton = new JoystickButton(driverGamepad,holdToFollowBallButtonNumber);
+    //Activates auto pass distance finding
+    public static final Button activateAutoPass = new JoystickButton(driverGamepad, activateAutoPassButtonNumber);
+    
+    // Activates auto shoot distance finding
+    public static final Button activateAutoShoot = new JoystickButton(driverGamepad, activateAutoShootButtonNumber);
+    
+    // Toggles the state of the LEDs
+    public static final Button toggleLED = new JoystickButton(driverGamepad, toggleLEDButtonNumber);
+    
+    // Activates auto shoot distance finding
+    
+//    //Follow the ball while this button is held
+//    public static final Button holdToFollowBallButton = new JoystickButton(driverGamepad,holdToFollowBallButtonNumber);
     
     /*
      * Operator Buttons
      */
     
-    //Turns on motor for intake and stops when released
-    public static final Button holdToManualIntake = new JoystickButton(operatorGamepad, holdToManualIntakeButtonNumber);
-    
-    // Turns on motor for dispensing ball and stops when released
-    public static final Button holdToManualDispense = new JoystickButton(operatorGamepad, holdToManualDispenseButtonNumber);
+//    //Turns on motor for intake and stops when released
+//    public static final Button holdToManualIntake = new JoystickButton(operatorGamepad, holdToManualIntakeButtonNumber);
+//    
+//    // Turns on motor for dispensing ball and stops when released
+//    public static final Button holdToManualDispense = new JoystickButton(operatorGamepad, holdToManualDispenseButtonNumber);
     
     // Deploys the intake
-    public static final Button manualIntakeOut = new JoystickButton(operatorGamepad, manualIntakeOutButtonNumber);
+    public static final Button deployIntake = new JoystickButton(operatorGamepad, deployIntakeButtonNumber);
     
     // Retracts the intake
-    public static final Button manualIntakeIn = new JoystickButton(operatorGamepad, manualIntakeInButtonNumber);
+    public static final Button retractIntake = new JoystickButton(operatorGamepad, retractIntakeButtonNumber);
     
     // Automatically closes the intake and passes the ball
     public static final Button passBall = new JoystickButton(operatorGamepad, passBallButtonNumber);
+    
+    // Cycles through the launch sequence
+    public static final Button launchBall = new JoystickButton(operatorGamepad, launchBallButtonNumber);
+    
+    // Moves the arm to the truss shot area
+    public static final Button trussShot = new JoystickButton(operatorGamepad, trussShotButtonNumber);
     
 //    // Toggles Intake
 //    public static final Button toggleIntake = new JoystickButton(operatorGamepad, toggleIntakeButtonNumber);
@@ -75,14 +100,19 @@ public class OI {
     {
         // Driver
         holdToSwagSpeed.whileHeld(new ToggleSwagSpeed());
-        holdToFollowBallButton.whileHeld(new FollowBall());
+        activateAutoPass.whenPressed(new DriveForwardToTargetUltrasonic(1));
+        activateAutoShoot.whenPressed(new DriveForwardToTargetUltrasonic(0));
+        toggleLED.whenPressed(new ToggleLED());
+//        holdToFollowBallButton.whileHeld(new FollowBall());
         
         // Operator
-        holdToManualIntake.whileHeld(new ManualIntake());
-        holdToManualDispense.whileHeld(new ManualDispense());
-        manualIntakeOut.whenPressed(new DeployIntake());
-        manualIntakeIn.whenPressed(new RetractIntake());
+//        holdToManualIntake.whileHeld(new ManualIntake());
+//        holdToManualDispense.whileHeld(new ManualDispense());
+        deployIntake.whenPressed(new DeployIntake());
+        retractIntake.whenPressed(new RetractIntake());
         passBall.whenPressed(new PassBall());
+        launchBall.whenPressed(new LauncherGoalShot());
+        trussShot.whenPressed(new LauncherTrussShot());
     }
     
         //// CREATING BUTTONS
