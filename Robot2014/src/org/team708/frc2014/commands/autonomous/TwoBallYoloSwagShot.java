@@ -6,19 +6,24 @@ package org.team708.frc2014.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
-import org.team708.frc2014.commands.launcher.LauncherGoalShot;
+import org.team708.frc2014.commands.CommandBase;
+import org.team708.frc2014.commands.drivetrain.FollowBall;
+import org.team708.frc2014.commands.intake.ManualIntake;
 
 /**
  *
- * @author Nam Tran
+ * @author Robotics
  */
-public class YoloSwagShot extends CommandGroup {
+public class TwoBallYoloSwagShot extends CommandGroup {
     
-    public YoloSwagShot() {
-        addSequential(new DriveForwardToTargetUltrasonic(0));
+    public TwoBallYoloSwagShot() {
+        addSequential(new YoloSwagShot());
         addSequential(new WaitCommand(0.1));
-        addSequential(new LauncherGoalShot());
+        addSequential(new FollowBall());
+        addSequential(new ManualIntake());
+        if (CommandBase.intake.hasBall()) {
+            addSequential(new YoloSwagShot());
+        }
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

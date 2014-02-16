@@ -2,21 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.autonomous;
+package org.team708.frc2014.commands.intake;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Robotics
+ * @author Nam Tran
  */
-public class ShootForHotGoal extends CommandBase {
+public class ToggleIntake extends CommandBase {
     
-    private final double firstHalfSeconds = 5.0;
-    
-    public ShootForHotGoal() {
+    public ToggleIntake() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -27,14 +23,16 @@ public class ShootForHotGoal extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (visionProcessor.isGoalLit()) {
-            launcher.goUpward();
+        if (intake.isExtended()) {
+            intake.retractIntake();
+        } else {
+            intake.extendIntake();
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

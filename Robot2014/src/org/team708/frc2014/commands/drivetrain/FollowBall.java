@@ -4,7 +4,6 @@
  */
 package org.team708.frc2014.commands.drivetrain;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.commands.CommandBase;
 
 /**

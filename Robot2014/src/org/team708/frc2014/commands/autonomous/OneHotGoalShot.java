@@ -6,21 +6,24 @@ package org.team708.frc2014.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import org.team708.frc2014.commands.CommandBase;
 import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
+import org.team708.frc2014.commands.launcher.LauncherGoalShot;
 
 /**
  *
- * @author Robotics
+ * @author Nam Tran
  */
 public class OneHotGoalShot extends CommandGroup {
     
-    private final double timeToWait = 5;
-    
     public OneHotGoalShot() {
         addSequential(new DriveForwardToTargetUltrasonic(0));
-        addSequential(new ShootForHotGoal());
-        addSequential(new WaitCommand(timeToWait));
-        addSequential(new ShootForHotGoal());
+        if (CommandBase.visionProcessor.isGoalLit()) {
+            addSequential(new LauncherGoalShot());
+        } else {
+            addSequential(new WaitCommand(5));
+            addSequential(new LauncherGoalShot());
+        }
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
