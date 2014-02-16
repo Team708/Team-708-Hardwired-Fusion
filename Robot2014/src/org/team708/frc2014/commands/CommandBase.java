@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.OI;
 import org.team708.frc2014.commands.launcher.LauncherHome;
+import org.team708.frc2014.commands.launcher.LauncherMoveTo;
+import org.team708.frc2014.commands.launcher.LauncherMoveToBottom;
+import org.team708.frc2014.commands.launcher.LauncherMoveToTop;
+import org.team708.frc2014.commands.launcher.LauncherResetEncoder;
 import org.team708.frc2014.subsystems.Launcher;
 import org.team708.frc2014.subsystems.Drivetrain;
 import org.team708.frc2014.subsystems.Intake;
@@ -44,6 +48,11 @@ public abstract class CommandBase extends Command {
         //send commands to SmartDashboard for debugging
         SmartDashboard.putData("Launcher Home no raise",new LauncherHome(false));
         SmartDashboard.putData("Launcher Home with raise",new LauncherHome(true));
+        SmartDashboard.putData("LauncherMoveToBottom", new LauncherMoveToBottom());
+        SmartDashboard.putData("LauncherMoveTo", new LauncherMoveTo(500));
+        SmartDashboard.putData("LauncherMoveToTop", new LauncherMoveToTop());
+        SmartDashboard.putData("LauncherResetEncoder", new LauncherResetEncoder());
+        
     }
 
     public CommandBase(String name) {
