@@ -53,16 +53,38 @@ public class Math708 {
         return Math.sqrt(lengthSquared(x,y));
     }
     
+    /**
+     * Returns c^2 from the Pythagorean Theorem (a^2 + b^2 = c^2).
+    * @param x
+     * @param y
+     * @return 
+     */
     public static double lengthSquared(double x,double y)
     {
         return x * x + y * y;
     }
     
+    /**
+     * Returns true if x and y are both negative or both positive.
+     * Returns false if one value is negative and the other is positive.
+     * @param x
+     * @param y
+     * @return 
+     */
     public static boolean AreSameSign(double x, double y)
     {
         return (x * y) >= 0;
     }
     
+    /**
+     * Checks to see if a value is between a high and lo parameter.  If it is
+     * higher than the upper bound it returns the upper bound, if it is lower
+     * than the lower bound it returns the lower bound, otherwise it returns x.
+     * @param x
+     * @param low
+     * @param high
+     * @return 
+     */
     public static double makeWithin(double x, double low, double high)
     {
         return Math.min(high,Math.max(low, x));
