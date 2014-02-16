@@ -30,7 +30,7 @@ public class ZygmontCrazy extends IterativeRobot {
 
     Command autonomousCommand;                      //the current autonomous command
     Compressor compressor;                          //compressor for the pneumatics
-//    SendableChooser autoChooser;                    //creates choose object on SmartDashboard
+    SendableChooser autoChooser;                    //creates choose object on SmartDashboard
     Timer statsTimer;                               //timer used for Smart Dash statistics
     private final double sendStatsIntervalSec = .5; //number of seconds between sending stats to SmartDash
     
@@ -50,8 +50,8 @@ public class ZygmontCrazy extends IterativeRobot {
         compressor.start();
         
         // Initialises the autonomous selection on SmartDashboard
-//        autoChooser = new SendableChooser();
-//        queueAutonomousCommands();
+        autoChooser = new SendableChooser();
+        queueAutonomousCommands();
         
         // Initialize all subsystems
         CommandBase.init();
@@ -124,9 +124,9 @@ public class ZygmontCrazy extends IterativeRobot {
         }
     }
     
-//    // Adds options for autonomous modes
-//    private void queueAutonomousCommands() {
-//        autoChooser.addDefault("One Ball -- No Hot Goal", new YoloSwagShot());
-//        autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
-//    }
+    // Adds options for autonomous modes
+    private void queueAutonomousCommands() {
+        autoChooser.addDefault("One Ball -- No Hot Goal", new YoloSwagShot());
+        autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
+    }
 }

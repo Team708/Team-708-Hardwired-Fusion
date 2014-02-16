@@ -48,7 +48,7 @@ public class Intake extends Subsystem {
      * Sets the default command for a subsystem to manual joystick control.
      */
     public void initDefaultCommand() {
-//        setDefaultCommand(new JoystickMotorControl());
+        setDefaultCommand(new JoystickMotorControl());
     }
     
     /**
@@ -99,11 +99,11 @@ public class Intake extends Subsystem {
      */
     public void joystickMotorControl(double axis) {
         if (axis > 0) {
-            intakeBall();
+            this.intakeBall();
         } else if (axis < 0) {
-            dispenseBall();
+            this.dispenseBall();
         } else {
-            stopIntake();
+            this.stopIntake();
         }
     }
     /**
