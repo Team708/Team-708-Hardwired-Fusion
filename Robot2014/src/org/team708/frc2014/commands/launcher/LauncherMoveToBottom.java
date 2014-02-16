@@ -22,7 +22,7 @@ public class LauncherMoveToBottom extends CommandBase{
     }
 
     protected boolean isFinished() {
-        return launcher.getLowerGate();
+        return launcher.stoppedAtBoundary();
     }
 
     protected void end() {

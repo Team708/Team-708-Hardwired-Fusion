@@ -22,7 +22,7 @@ public class LauncherMoveToTop extends CommandBase{
     }
 
     protected boolean isFinished() {
-        return launcher.getUpperGate();
+        return launcher.stoppedAtBoundary();
     }
 
     protected void end() {

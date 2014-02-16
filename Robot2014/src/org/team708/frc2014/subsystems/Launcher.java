@@ -42,6 +42,8 @@ public class Launcher extends Subsystem {
     // Motor Speeds
     private final double UPWARD_SPEED = 1.0;
     private final double DOWNWARD_SPEED = -0.5;
+    
+    private boolean stoppedAtBoundary = false;  //stores whether the launcher is currently stopped at a boundary
 
     public Launcher() {
         // Creates motors
@@ -51,10 +53,9 @@ public class Launcher extends Subsystem {
         // Creates sensors
         launcherEncoder = new Encoder(RobotMap.launcherEncoderA, RobotMap.launcherEncoderB);
         launcherEncoder.start();
-        
+
         launcherLowerGate = new DigitalInput(RobotMap.launcherLowerSwitch); //This is a photogate
         launcherUpperGate = new DigitalInput(RobotMap.launcherUpperSwitch); //This is a photogate
-//        launcherPotentiometer = new Potentiometer(RobotMap.launcherPotentiometer, potentiometerRotations);
     }
 
     public void initDefaultCommand() {
@@ -69,26 +70,25 @@ public class Launcher extends Subsystem {
     public void goDownward() {
         move(DOWNWARD_SPEED);
     }
-    
+
     /**
-     * Same as goUpward() but can reduce speed using a positive
-     * scalar.
-     * @param scalar 
+     * Same as goUpward() but can reduce speed using a positive scalar.
+     *
+     * @param scalar
      */
-    public void goUpward(double scalar)
-    {
-        move(UPWARD_SPEED * Math708.makeWithin(scalar,0.0,1.0)); //cannot increase or reverse speed with scalar
+    public void goUpward(double scalar) {
+        move(UPWARD_SPEED * Math708.makeWithin(scalar, 0.0, 1.0)); //cannot increase or reverse speed with scalar
     }
 
     /**
-     * Same as goDownward() but can reduce speed using a positive
-     * scalar.
-     * @param scalar 
+     * Same as goDownward() but can reduce speed using a positive scalar.
+     *
+     * @param scalar
      */
     public void goDownward(double scalar) {
-        move(DOWNWARD_SPEED * Math708.makeWithin(scalar,0.0,1.0));
+        move(DOWNWARD_SPEED * Math708.makeWithin(scalar, 0.0, 1.0));
     }
-    
+
     public void stop() {
         move(0.0);
     }
@@ -108,7 +108,7 @@ public class Launcher extends Subsystem {
         // Reverses the state of the switch because it reads "true" when not tripped
         return !launcherLowerGate.get();
     }
-    
+
     // Gets the distance that the encoder reads
     public int getCounts() {
         return launcherEncoder.get();
@@ -117,6 +117,18 @@ public class Launcher extends Subsystem {
     // Resets encoder values to zero
     public void resetEncoder() {
         launcherEncoder.reset();
+    }
+    
+    /**
+     * Returns true if the previous manipulation of the launcher's
+     * speed caused it to reach the upper or lower boundaries and stop.
+     * If this is the case, the command should terminate or react to the
+     * situation accordingly.
+     * @return 
+     */
+    public boolean stoppedAtBoundary()        
+    {   
+        return stoppedAtBoundary;
     }
 
     /**
@@ -134,13 +146,15 @@ public class Launcher extends Subsystem {
             case UPPER_RANGE:
                 if (isUpward(newSpeed)) {
                     speed = 0.0; //stop launcher
+                    stoppedAtBoundary = true;
                 } else if (isDownward(newSpeed)) {
                     //passing boundary into middle range
                     if (getUpperGate()) {
                         currentPosition = MIDDLE_RANGE;
                     }
-                    
+
                     speed = newSpeed;
+                    stoppedAtBoundary = false;
                 }
             case MIDDLE_RANGE:
                 if (isUpward(newSpeed)) {
@@ -157,26 +171,59 @@ public class Launcher extends Subsystem {
                 }
                 //any speed is legal in the middle range
                 speed = newSpeed;
+                stoppedAtBoundary = false;
             case LOWER_RANGE:
                 if (isDownward(newSpeed)) {
                     speed = 0.0; //stop launcher
+                    stoppedAtBoundary = true;
                 } else if (isUpward(newSpeed)) {
                     //passing boundary into middle range
                     if (getLowerGate()) {
                         currentPosition = MIDDLE_RANGE;
                     }
                     speed = newSpeed;
+                    stoppedAtBoundary = false;
                 }
 
             default: //or UNKNOWN_POSITION
                 /*
-                 * A homing routine must be performed. Since we do not know
-                 * Where the manipulator is, we cannot restrict its speed.
+                 * Try to determine where the launcher is by looking at
+                 * photogates and the new speed.
+                 * This will probably occur during a homing routine.
                  */
-                speed = newSpeed;
+                if (getLowerGate()) {
+                    if (isDownward(newSpeed)) {//entered lower range
+                        currentPosition = LOWER_RANGE;
+                        speed = 0.0;
+                        stoppedAtBoundary = true;
+                    } else {
+                        //entered middle range from below
+                        currentPosition = MIDDLE_RANGE;
+                        speed = newSpeed;
+                        stoppedAtBoundary = false;
+                    }
+                } else if (getUpperGate()) {
+                    if (isUpward(newSpeed)) {
+                        //entered upper range
+                        currentPosition = UPPER_RANGE;
+                        speed = 0.0;
+                        stoppedAtBoundary = true;
+                    } else {
+                        //entered middle range from above
+                        currentPosition = MIDDLE_RANGE;
+                        speed = newSpeed;
+                        stoppedAtBoundary = false;
+                    }
+                }else
+                {
+                    //cannot restrict speed because position of launcher is unknown
+                    speed = newSpeed;
+                    stoppedAtBoundary = false;
+                }
+
                 break;
         }
-        
+
         //set motor speeds
         launcherMotor1.set(speed);
         launcherMotor2.set(speed);
@@ -196,7 +243,7 @@ public class Launcher extends Subsystem {
     private boolean isDownward(double speed) {
         return Math708.AreSameSign(speed, DOWNWARD_SPEED);
     }
-    
+
     public void sendToDash() {
         SmartDashboard.putNumber("Launcher Encoder", launcherEncoder.getDistance());
         SmartDashboard.putBoolean("Lower Switch", this.getLowerGate());
