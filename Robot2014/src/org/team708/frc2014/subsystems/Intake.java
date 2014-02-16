@@ -98,9 +98,9 @@ public class Intake extends Subsystem {
      * @param axis 
      */
     public void joystickMotorControl(double axis) {
-        if (axis > 0) {
+        if (axis > .10) {
             this.intakeBall();
-        } else if (axis < 0) {
+        } else if (axis < -.10) {
             this.dispenseBall();
         } else {
             this.stopIntake();
