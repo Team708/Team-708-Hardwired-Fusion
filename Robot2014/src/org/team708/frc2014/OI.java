@@ -4,7 +4,9 @@ package org.team708.frc2014;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.team708.frc2014.commands.ToggleLED;
+//import org.team708.frc2014.commands.LEDs.AllOn;
+//import org.team708.frc2014.commands.LEDs.ToggleSED;
+//import org.team708.frc2014.commands.ToggleLED;
 import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
 import org.team708.frc2014.commands.intake.DeployIntake;
@@ -32,6 +34,7 @@ public class OI {
     private static final int activateAutoPassButtonNumber = Gamepad.button_Y;
     private static final int activateAutoShootButtonNumber = Gamepad.button_A;
     private static final int toggleLEDButtonNumber = Gamepad.button_X;
+    private static final int allOnSEDButtonNumber = Gamepad.button_B;
     
     // Operator
 //    private static final int holdToManualIntakeButtonNumber = Gamepad.button_A;
@@ -62,6 +65,8 @@ public class OI {
     
     // Toggles the state of the LEDs
     public static final Button toggleLED = new JoystickButton(driverGamepad, toggleLEDButtonNumber);
+    
+    public static final Button allOnSED = new JoystickButton(driverGamepad, allOnSEDButtonNumber);
     
     // Activates auto shoot distance finding
     
@@ -102,7 +107,8 @@ public class OI {
         holdToSwagSpeed.whileHeld(new ToggleSwagSpeed());
         activateAutoPass.whenPressed(new DriveForwardToTargetUltrasonic(1));
         activateAutoShoot.whenPressed(new DriveForwardToTargetUltrasonic(0));
-        toggleLED.whenPressed(new ToggleLED());
+//        toggleLED.whenPressed(new ToggleLED());
+//        allOnSED.whenPressed(new ToggleSED());
 //        holdToFollowBallButton.whileHeld(new FollowBall());
         
         // Operator

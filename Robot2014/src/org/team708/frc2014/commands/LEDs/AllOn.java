@@ -2,23 +2,17 @@
 // * To change this template, choose Tools | Templates
 // * and open the template in the editor.
 // */
-//package org.team708.frc2014.commands;
+//package org.team708.frc2014.commands.LEDs;
+//
+//import org.team708.frc2014.commands.CommandBase;
 //
 ///**
 // *
-// * @author Nam Tran
+// * @author Robotics
 // */
-//public class ToggleLED extends CommandBase {
+//public class AllOn extends CommandBase {
 //    
-//    private final double FLASH_RATE = 0.25; // Rate of flashing LEDS
-//    
-//    // States of LED
-//    private final int OFF = 0;
-//    private final int FLASHING = 1;
-//    private final int SOLID = 2;
-//    private int state = OFF;
-//    
-//    public ToggleLED() {
+//    public AllOn() {
 //        // Use requires() here to declare subsystem dependencies
 //        // eg. requires(chassis);
 //    }
@@ -29,24 +23,12 @@
 //
 //    // Called repeatedly when this Command is scheduled to run
 //    protected void execute() {
-//        if (state == SOLID) {
-//            state = OFF;
-//        } else {
-//            state += state;
-//        }
-//        
-//        if (state == OFF) {
-//            ledArray.turnOff();
-//        } else if (state == FLASHING) {
-//            ledArray.setFlashing(FLASH_RATE);
-//        } else if (state == SOLID) {
-//            ledArray.setSolid();
-//        }
+//        sedArray.allOn();
 //    }
 //
 //    // Make this return true when this Command no longer needs to run execute()
 //    protected boolean isFinished() {
-//        return true;
+//        return false;
 //    }
 //
 //    // Called once after isFinished returns true

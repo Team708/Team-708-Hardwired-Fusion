@@ -55,6 +55,9 @@ public class RobotMap {
     
     // Solenoids -- LEDs
     public static final int LEDArrayA = 3;
+    public static final int redSED = 4;
+    public static final int blueSED = 5;
+    public static final int greenSED = 6;
     
     // Joystick Ports
     public static final int driverGamepad = 1;

@@ -2,6 +2,7 @@ package org.team708.frc2014.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -31,6 +32,8 @@ public class Drivetrain extends Subsystem {
     
     //Creates Ultrasonic Sensors
     private final UltrasonicSensor leftUltrasonic, rightUltrasonic;
+    
+    private final Solenoid signal, red, blue, green;
     
     private boolean swag = false; // Drivetrain mode check
     
@@ -83,7 +86,17 @@ public class Drivetrain extends Subsystem {
         
         //Creates Drivetrain ultrasonic sensors
         leftUltrasonic = new UltrasonicSensor(RobotMap.drivetrainLeftUltrasonic, UltrasonicSensor.MB1010);
-        rightUltrasonic = new UltrasonicSensor(RobotMap.drivetrainRightUltrasonic, UltrasonicSensor.MB1010);        
+        rightUltrasonic = new UltrasonicSensor(RobotMap.drivetrainRightUltrasonic, UltrasonicSensor.MB1010);
+        
+        signal = new Solenoid(RobotMap.LEDArrayA);
+        red = new Solenoid(RobotMap.redSED);
+        blue = new Solenoid(RobotMap.blueSED);
+        green = new Solenoid(RobotMap.greenSED);
+        
+        signal.set(true);
+        red.set(true);
+        blue.set(true);
+        green.set(true);
     }
     
     /**
