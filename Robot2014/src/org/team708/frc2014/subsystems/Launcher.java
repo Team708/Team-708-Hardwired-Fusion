@@ -23,7 +23,7 @@ public class Launcher extends Subsystem {
     // here. Call these from Commands.
 
     // Creates motor controllers
-    private final SpeedController launcherMotor1, launcherMotor2;
+    private final SpeedController launcherMotor;
 
     // Sensors
     private final Encoder launcherEncoder;
@@ -45,10 +45,12 @@ public class Launcher extends Subsystem {
     
     private boolean stoppedAtBoundary = false;  //stores whether the launcher is currently stopped at a boundary
 
+    /**
+     * constructor
+     */
     public Launcher() {
         // Creates motors
-        launcherMotor1 = new Talon(RobotMap.launcherMotor1);
-        launcherMotor2 = new Talon(RobotMap.launcherMotor2);
+        launcherMotor = new Talon(RobotMap.launcherMotor);
 
         // Creates sensors
         launcherEncoder = new Encoder(RobotMap.launcherEncoderA, RobotMap.launcherEncoderB);
@@ -58,15 +60,23 @@ public class Launcher extends Subsystem {
         launcherUpperGate = new DigitalInput(RobotMap.launcherUpperSwitch); //This is a photogate
     }
 
+    /**
+     * By default, the operator can control the launcher with the joystick.
+     */
     public void initDefaultCommand() {
-        //by default, the operator can control the launcher with the joystick
         setDefaultCommand(new LauncherManualControl());
     }
 
+    /**
+     * Powers the Jordan's motors to send it upward.
+     */
     public void goUpward() {
         move(UPWARD_SPEED);
     }
 
+    /**
+     * Powers the Jordan's motors to send it downward.
+     */
     public void goDownward() {
         move(DOWNWARD_SPEED);
     }
@@ -89,32 +99,50 @@ public class Launcher extends Subsystem {
         move(DOWNWARD_SPEED * Math708.makeWithin(scalar, 0.0, 1.0));
     }
 
+    /**
+     * Stops the Jordan's motors.
+     */
     public void stop() {
         move(0.0);
     }
 
+    /**
+     * Powers the Jordan's motors to move it in the direction of the joystick.
+     * @param axis 
+     */
     public void manualControl(double axis) {
         move(axis);
     }
 
-    // Returns the upper bound switch
+    /**
+     * Returns the upper bound switch.
+     * @return 
+     */
     public boolean getUpperGate() {
         // Reverses the state of the switch because it reads "true" when not tripped
         return !launcherUpperGate.get();
     }
 
-    // Returns the lower bound switch
+    /**
+     * Returns the lower bound switch.
+     * @return 
+     */
     public boolean getLowerGate() {
         // Reverses the state of the switch because it reads "true" when not tripped
         return !launcherLowerGate.get();
     }
 
-    // Gets the distance that the encoder reads
+    /**
+     * Gets the distance that the encoder reads.
+     * @return 
+     */
     public int getCounts() {
         return launcherEncoder.get();
     }
 
-    // Resets encoder values to zero
+    /**
+     * Resets encoder values to zero.
+     */
     public void resetEncoder() {
         launcherEncoder.reset();
     }
@@ -224,25 +252,27 @@ public class Launcher extends Subsystem {
         }
 
         //set motor speeds
-        launcherMotor1.set(speed);
-        launcherMotor2.set(speed);
+        launcherMotor.set(speed);
 
     }
 
-    /*
+    /**
      * Checks if the given speed will cause the launcher to go upward.
      */
     private boolean isUpward(double speed) {
         return Math708.AreSameSign(speed, UPWARD_SPEED);
     }
 
-    /*
+    /**
      * Checks if the given speed will cause the launcher to go downward.
      */
     private boolean isDownward(double speed) {
         return Math708.AreSameSign(speed, DOWNWARD_SPEED);
     }
 
+    /**
+     * Sends data to the dumb-dashboard.
+     */
     public void sendToDash() {
         SmartDashboard.putNumber("Launcher Encoder", launcherEncoder.getDistance());
         SmartDashboard.putBoolean("Lower Switch", this.getLowerGate());

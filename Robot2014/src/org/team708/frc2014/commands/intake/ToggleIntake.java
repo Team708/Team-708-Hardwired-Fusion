@@ -26,7 +26,7 @@ public class ToggleIntake extends CommandBase {
         if (intake.isDeployed()) {
             intake.retractIntake();
         } else {
-            intake.extendIntake();
+            intake.deployIntake();
         }
     }
 

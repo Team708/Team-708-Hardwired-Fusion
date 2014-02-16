@@ -27,6 +27,9 @@ public class LEDArray extends Subsystem{
     private double onoffTimeSec = 1.0;
     private boolean flashing = false;
     
+    /**
+     * constructor
+     */
     public LEDArray()
     {
         leds1 = new Solenoid(RobotMap.LEDArrayA);
@@ -34,8 +37,11 @@ public class LEDArray extends Subsystem{
         waveTimer.start();
     }
     
+    /**
+     * "Maintains the LED's cycling (also known as "jawn")."
+     * -Connor WIllison
+     */
     protected void initDefaultCommand() {
-        //maintain the LED's cycling (also known as "jawn")
         setDefaultCommand(new CommandBase()
         {
             private boolean squareWaveValue = false;
@@ -49,6 +55,9 @@ public class LEDArray extends Subsystem{
 
             }
 
+            /**
+             * Sets the flashing based off the output of a square wave.
+             */
             protected void execute() {
                 if(flashing)
                 {
@@ -70,24 +79,39 @@ public class LEDArray extends Subsystem{
         });
     }
     
+    /**
+     * Sends constant power to the LEDs.
+     */
     public void setSolid()
     {
         solenoidWrite(true);
         flashing = false;
     }
     
+    /**
+     * Sends no power to the LEDs.
+     */
     public void turnOff()
     {
         flashing = false;
         solenoidWrite(false);
     }
     
+    /**
+     * Sends on-off power to the LEDs.
+     * @param onoffTime 
+     */
     public void setFlashing(double onoffTime)
     {
         this.onoffTimeSec = onoffTime;
         flashing = true;
     }
     
+    /**
+     * Sets the value that the solenoid is which
+     * is then translated to the state of the LEDs.
+     * @param value 
+     */
     private void solenoidWrite(boolean value)
     {
         leds1.set(value);

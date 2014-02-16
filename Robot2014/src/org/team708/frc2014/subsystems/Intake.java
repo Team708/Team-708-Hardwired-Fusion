@@ -9,7 +9,7 @@ import org.team708.frc2014.commands.intake.JoystickMotorControl;
 import org.team708.frc2014.sensors.IRSensor;
 
 /**
- *
+ * An intake system that rotates in or out using one motor.  It does not scale.
  * @author Nam Tran, Pat Walls
  */
 public class Intake extends Subsystem {
@@ -18,7 +18,7 @@ public class Intake extends Subsystem {
     private final DoubleSolenoid intakeSolenoid;
     // Solenoid values are not primitive types, so this makes it easy to read
     // Solenoid value for extended intake
-    private final DoubleSolenoid.Value EXTENDED = DoubleSolenoid.Value.kReverse;
+    private final DoubleSolenoid.Value DEPLOYED = DoubleSolenoid.Value.kReverse;
     // Solenoid value for retracted intake
     private final DoubleSolenoid.Value RETRACTED = DoubleSolenoid.Value.kForward;
     
@@ -33,6 +33,9 @@ public class Intake extends Subsystem {
     private final double lowHasBallDistance = 0.0; // Lower threshold for having the ball
     private final double highHasBallDistance = 4.0; // Upper threshold for having the ball
     
+    /**
+     * Constructor
+     */
     public Intake() {
         // Creates the solenoid for the intake piston
         intakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidA, RobotMap.intakeSolenoidB);
@@ -41,42 +44,57 @@ public class Intake extends Subsystem {
         intakeIR = new IRSensor(RobotMap.intakeIRSensor, IRSensor.GP2Y0A21YK0F);
     }
 
+    /**
+     * Sets the default command for a subsystem to manual joystick control.
+     */
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
         setDefaultCommand(new JoystickMotorControl());
     }
     
-    // Extends the intake system and sets its state to extended
-    public void extendIntake() {
-        intakeSolenoid.set(EXTENDED);
+    /**
+     * Extends the intake system and sets its state to extended.
+     */
+    public void deployIntake() {
+        intakeSolenoid.set(DEPLOYED);
     }
     
-    // Retracts the intake system and sets its state to not extended
+    /**
+     * Retracts the intake system and sets its state to not extended.
+     */
     public void retractIntake() {
         intakeSolenoid.set(RETRACTED);
     }
 
-    // Checks to see if it has the ball
+    /**
+     * Checks to see if it has the ball.
+     * @return 
+     */
     public boolean hasBall() {
         return (lowHasBallDistance <= intakeIR.getDistance() && intakeIR.getDistance() <= highHasBallDistance);
     }
     
-    // Spins to intake the ball
+    /**
+     * Spins to intake the ball.
+     */
     public void intakeBall() {
         intakeMotor.set(-INTAKE_SPEED);
     }
     
-    // Spins to dispense the ball (in case the wrong colour is picked up)
+    /**
+     * Spins to dispense the ball (in case the wrong color is picked up).
+     */
     public void dispenseBall() {
         intakeMotor.set(-DISPENSE_SPEED);
     }
     
-    // Stops the intake motor
+    /**
+     * Stops the intake motor.
+     */
     public void stopIntake() {
         intakeMotor.set(0.0);
     }
     /**
-     *  Controls the motors for the intake using the joystick
+     * Controls the motors for the intake using the joystick
      * @param axis 
      */
     public void joystickMotorControl(double axis) {
@@ -88,9 +106,12 @@ public class Intake extends Subsystem {
             stopIntake();
         }
     }
-    
+    /**
+     * Determines if the intake is deployed or not.
+     * @return 
+     */
     public boolean isDeployed() {
-        return !intakeSolenoid.get().equals(EXTENDED);
+        return intakeSolenoid.get().equals(DEPLOYED);
     }
     
     public void sendToDash() {

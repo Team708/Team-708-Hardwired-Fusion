@@ -11,6 +11,10 @@ import org.team708.frc2014.commands.drivetrain.Drive;
 import org.team708.frc2014.sensors.UltrasonicSensor;
 
 /**
+ * A tank-style drivetrain that either uses 4 (normal) or 6 (swag) motors.
+ * It has an encoder and an ultrasonic sensor per side of the robot. The 
+ * drivetrain scales the PWM power signal depending on whether it is in swag or
+ * not.
  * @author Matt Foley, Nam Tran, Pat Walls, Jialin Wang, Connor Willison
  */
 public class Drivetrain extends Subsystem {
@@ -97,11 +101,18 @@ public class Drivetrain extends Subsystem {
             driver.arcadeDrive((normalPercent * leftAxis), (normalPercent * rightAxis));
         }
     }
-    
+    /**
+     * Returns the swag state
+     * @return 
+     */
     public boolean getSwag() {
         return swag;
     }
-
+    
+    /**
+     * Sets whether swag mode is enabled
+     * @param newSwag 
+     */
     public void setSwag(boolean newSwag) {
         swag = newSwag;
         
@@ -111,11 +122,17 @@ public class Drivetrain extends Subsystem {
         }
     }
     
+    /**
+     * Resets the encoder values
+     */
     public void resetEncoders() {
         leftEncoder.reset();
         rightEncoder.reset();
     }
     
+    /**
+     * Stops the motors
+     */
     public void stop() {
         leftMotor1.set(0.0);
         leftMotor2.set(0.0);
@@ -123,19 +140,41 @@ public class Drivetrain extends Subsystem {
         rightMotor2.set(0.0);
     }
     
+    /**
+     * Sets the lower and upper ranges for the target ultrasonic distance from
+     * something. When inverted is true, then it returns if the distance is
+     * outside the range. When inverted is false, then it returns if the distance
+     * is inside the range.
+     * @param lowerDistance
+     * @param upperDistance
+     * @param inverted 
+     */
     public void setUltrasonicDistance(double lowerDistance, double upperDistance, boolean inverted) {
         leftUltrasonic.setTriggerBounds(lowerDistance, upperDistance, inverted);
         rightUltrasonic.setTriggerBounds(lowerDistance, upperDistance, inverted);
     }
     
+    /**
+     * Uses the Ultrasonic sensors to check if the robot is at the
+     * optimum distance to score
+     * @return 
+     */
     public boolean isAtOptimumDistance() {
         return leftUltrasonic.isTriggered() || rightUltrasonic.isTriggered();
     }
     
+    /**
+     * Calculates the turn speed using the difference of the left and right
+     * ultrasonic sensors, multiplied by a scalar for the rate of correction.
+     * @return 
+     */
     public double getTurnSpeed() {
         return (leftUltrasonic.getDistance() - rightUltrasonic.getDistance()) * ultrasonicScalar;
     }
     
+    /**
+     * Sends data to the dumb-dashboard
+     */
     public void sendToDash() {
         SmartDashboard.putNumber("Left Drivetrain Encoder", leftEncoder.get());
         SmartDashboard.putNumber("Right Drivetrain Encoder", rightEncoder.get());

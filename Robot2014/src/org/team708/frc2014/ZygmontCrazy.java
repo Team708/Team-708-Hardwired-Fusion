@@ -30,7 +30,7 @@ public class ZygmontCrazy extends IterativeRobot {
 
     Command autonomousCommand;                      //the current autonomous command
     Compressor compressor;                          //compressor for the pneumatics
-//    SendableChooser autoChooser;                    //creates choose object on SmartDashboard
+    SendableChooser autoChooser;                    //creates choose object on SmartDashboard
     Timer statsTimer;                               //timer used for Smart Dash statistics
     private final double sendStatsIntervalSec = .5; //number of seconds between sending stats to SmartDash
     
@@ -49,9 +49,9 @@ public class ZygmontCrazy extends IterativeRobot {
         compressor = new Compressor(RobotMap.compressorPressureSwitch, RobotMap.compressorSpike);
         compressor.start();
         
-//        // Initialises the autonomous selection on SmartDashboard
-//        autoChooser = new SendableChooser();
-//        queueAutonomousCommands();
+        // Initialises the autonomous selection on SmartDashboard
+        autoChooser = new SendableChooser();
+        queueAutonomousCommands();
         
         // Initialize all subsystems
         CommandBase.init();
@@ -59,7 +59,7 @@ public class ZygmontCrazy extends IterativeRobot {
 
     public void autonomousInit() {
         // instantiate the command used for the autonomous period
-//        autonomousCommand = ((Command)autoChooser.getSelected());
+        autonomousCommand = ((Command)autoChooser.getSelected());
         // schedule the autonomous command (example)
         autonomousCommand.start();
     }
@@ -78,7 +78,9 @@ public class ZygmontCrazy extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-//        autonomousCommand.cancel();
+        if (autonomousCommand != null) {
+            autonomousCommand.cancel();
+        }
     }
 
     /**
@@ -123,8 +125,8 @@ public class ZygmontCrazy extends IterativeRobot {
     }
     
 //    // Adds options for autonomous modes
-//    private void queueAutonomousCommands() {
-//        autoChooser.addDefault("One Ball -- No Hot Goal", new YoloSwagShot());
-//        autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
-//    }
+    private void queueAutonomousCommands() {
+        autoChooser.addDefault("One Ball -- No Hot Goal", new YoloSwagShot());
+        autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
+    }
 }
