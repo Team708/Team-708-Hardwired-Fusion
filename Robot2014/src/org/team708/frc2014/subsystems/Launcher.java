@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.launcher.LauncherManualControl;
+import org.team708.frc2014.commands.launcher.LauncherMoveToDefaultBall;
 import org.team708.util.Math708;
 
 /**
@@ -32,6 +33,7 @@ public class Launcher extends Subsystem {
     //encoder count values for different shot heights
     public static final int REGULAR_SHOT_ENC_COUNTS = 900;
     public static final int TRUSS_SHOT_ENC_COUNTS = 600;
+    public static final int HAS_BALL_POSITION = 75;
     //ranges for different manipulator heights
     private final int UPPER_RANGE = 0;      //above top photogate
     private final int MIDDLE_RANGE = 1;     //between photogates
@@ -40,8 +42,12 @@ public class Launcher extends Subsystem {
     private int currentPosition = UNKNOWN_POSITION;
 
     // Motor Speeds
-    private final double UPWARD_SPEED = 1.0;
-    private final double DOWNWARD_SPEED = -0.5;
+    private final double UPWARD_SPEED = -1.0;     //change these if launcher goes in wrong direction
+    private final double DOWNWARD_SPEED = 0.8;
+    
+    // Motoro scaling
+    private final double UPWARD_SCALING = 1.0;
+    private final double DOWNWARD_SCALING = 0.25;
     
     private boolean stoppedAtBoundary = false;  //stores whether the launcher is currently stopped at a boundary
 
@@ -168,92 +174,106 @@ public class Launcher extends Subsystem {
      * @param newSpeed
      */
     private void move(double newSpeed) {
-        double speed;
-
-        switch (currentPosition) {
-            case UPPER_RANGE:
-                if (isUpward(newSpeed)) {
-                    speed = 0.0; //stop launcher
-                    stoppedAtBoundary = true;
-                } else if (isDownward(newSpeed)) {
-                    //passing boundary into middle range
-                    if (getUpperGate()) {
-                        currentPosition = MIDDLE_RANGE;
-                    }
-
-                    speed = newSpeed;
-                    stoppedAtBoundary = false;
-                }
-            case MIDDLE_RANGE:
-                if (isUpward(newSpeed)) {
-                    //passing boundary into upper range
-                    if (getUpperGate()) {
-                        currentPosition = UPPER_RANGE;
-                    }
-
-                } else if (isDownward(newSpeed)) {
-                    //passing boundary into lower range
-                    if (getLowerGate()) {
-                        currentPosition = LOWER_RANGE;
-                    }
-                }
-                //any speed is legal in the middle range
-                speed = newSpeed;
-                stoppedAtBoundary = false;
-            case LOWER_RANGE:
-                if (isDownward(newSpeed)) {
-                    speed = 0.0; //stop launcher
-                    stoppedAtBoundary = true;
-                } else if (isUpward(newSpeed)) {
-                    //passing boundary into middle range
-                    if (getLowerGate()) {
-                        currentPosition = MIDDLE_RANGE;
-                    }
-                    speed = newSpeed;
-                    stoppedAtBoundary = false;
-                }
-
-            default: //or UNKNOWN_POSITION
-                /*
-                 * Try to determine where the launcher is by looking at
-                 * photogates and the new speed.
-                 * This will probably occur during a homing routine.
-                 */
-                if (getLowerGate()) {
-                    if (isDownward(newSpeed)) {//entered lower range
-                        currentPosition = LOWER_RANGE;
-                        speed = 0.0;
-                        stoppedAtBoundary = true;
-                    } else {
-                        //entered middle range from below
-                        currentPosition = MIDDLE_RANGE;
-                        speed = newSpeed;
-                        stoppedAtBoundary = false;
-                    }
-                } else if (getUpperGate()) {
-                    if (isUpward(newSpeed)) {
-                        //entered upper range
-                        currentPosition = UPPER_RANGE;
-                        speed = 0.0;
-                        stoppedAtBoundary = true;
-                    } else {
-                        //entered middle range from above
-                        currentPosition = MIDDLE_RANGE;
-                        speed = newSpeed;
-                        stoppedAtBoundary = false;
-                    }
-                }else
-                {
-                    //cannot restrict speed because position of launcher is unknown
-                    speed = newSpeed;
-                    stoppedAtBoundary = false;
-                }
-                break;
+//        double speed;
+//
+//        switch (currentPosition) {
+//            case UPPER_RANGE:
+//                if (isUpward(newSpeed)) {
+//                    speed = 0.0; //stop launcher
+//                    stoppedAtBoundary = true;
+//                } else if (isDownward(newSpeed)) {
+//                    //passing boundary into middle range
+//                    if (getUpperGate()) {
+//                        currentPosition = MIDDLE_RANGE;
+//                    }
+//
+//                    speed = newSpeed;
+//                    stoppedAtBoundary = false;
+//                }
+//            case MIDDLE_RANGE:
+//                if (isUpward(newSpeed)) {
+//                    //passing boundary into upper range
+//                    if (getUpperGate()) {
+//                        currentPosition = UPPER_RANGE;
+//                    }
+//
+//                } else if (isDownward(newSpeed)) {
+//                    //passing boundary into lower range
+//                    if (getLowerGate()) {
+//                        currentPosition = LOWER_RANGE;
+//                    }
+//                }
+//                //any speed is legal in the middle range
+//                speed = newSpeed;
+//                stoppedAtBoundary = false;
+//            case LOWER_RANGE:
+//                if (isDownward(newSpeed)) {
+//                    speed = 0.0; //stop launcher
+//                    stoppedAtBoundary = true;
+//                } else if (isUpward(newSpeed)) {
+//                    //passing boundary into middle range
+//                    if (getLowerGate()) {
+//                        currentPosition = MIDDLE_RANGE;
+//                    }
+//                    speed = newSpeed;
+//                    stoppedAtBoundary = false;
+//                }
+//
+//            default: //or UNKNOWN_POSITION
+//                /*
+//                 * Try to determine where the launcher is by looking at
+//                 * photogates and the new speed.
+//                 * This will probably occur during a homing routine.
+//                 */
+//                if (getLowerGate()) {
+//                    if (isDownward(newSpeed)) {//entered lower range
+//                        currentPosition = LOWER_RANGE;
+//                        speed = 0.0;
+//                        stoppedAtBoundary = true;
+//                    } else {
+//                        //entered middle range from below
+//                        currentPosition = MIDDLE_RANGE;
+//                        speed = newSpeed;
+//                        stoppedAtBoundary = false;
+//                    }
+//                } else if (getUpperGate()) {
+//                    if (isUpward(newSpeed)) {
+//                        //entered upper range
+//                        currentPosition = UPPER_RANGE;
+//                        speed = 0.0;
+//                        stoppedAtBoundary = true;
+//                    } else {
+//                        //entered middle range from above
+//                        currentPosition = MIDDLE_RANGE;
+//                        speed = newSpeed;
+//                        stoppedAtBoundary = false;
+//                    }
+//                }else
+//                {
+//                    //cannot restrict speed because position of launcher is unknown
+//                    speed = newSpeed;
+//                    stoppedAtBoundary = false;
+//                }
+//                break;
+//        }
+//
+//        //set motor speeds
+        if (getUpperGate()) {
+            if (isUpward(newSpeed)) {
+                newSpeed = 0;
+            }
         }
-
-        //set motor speeds
-        launcherMotor.set(speed);
-
+        
+        if (isDownward(newSpeed)) {
+            if (getLowerGate()) {
+                newSpeed = 0;
+                resetEncoder();
+            } else {
+               newSpeed *= DOWNWARD_SCALING; 
+            }
+        }
+        
+        launcherMotor.set(newSpeed);
     }
 
     /**
@@ -277,8 +297,8 @@ public class Launcher extends Subsystem {
         SmartDashboard.putNumber("Launcher Encoder", launcherEncoder.getDistance());
         SmartDashboard.putBoolean("Lower Switch", this.getLowerGate());
         SmartDashboard.putBoolean("Upper Switch", this.getUpperGate());
-        SmartDashboard.putString("Launcher Position", (currentPosition == LOWER_RANGE) ? "Lower Limit"
-                : (currentPosition == MIDDLE_RANGE) ? "Between Limits"
-                : (currentPosition == UPPER_RANGE) ? "Upper Limit" : "Unknown");
+//        SmartDashboard.putString("Launcher Position", (currentPosition == LOWER_RANGE) ? "Lower Limit"
+//                : (currentPosition == MIDDLE_RANGE) ? "Between Limits"
+//                : (currentPosition == UPPER_RANGE) ? "Upper Limit" : "Unknown");
     }
 }

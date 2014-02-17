@@ -16,11 +16,11 @@ public class PassBall extends CommandGroup {
     
     public PassBall() {
         // Brings intake in and the dispense the ball
-        if (CommandBase.intake.isDeployed()) {
-            addSequential(new RetractIntake());
-            addSequential(new WaitCommand(0.5));
-        }
+        addSequential(new RetractIntake());
+        addSequential(new WaitCommand(0.5));
         addSequential(new ManualDispense());
+        addSequential(new WaitCommand(1.0));
+        addSequential(new ManualStop());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

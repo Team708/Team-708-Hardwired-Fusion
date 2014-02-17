@@ -17,7 +17,7 @@ public class JoystickMotorControl extends CommandBase {
     public JoystickMotorControl() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-//        requires(intake);
+        requires(intake);
     }
 
     // Called just before this Command runs the first time
@@ -26,7 +26,7 @@ public class JoystickMotorControl extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        intake.joystickMotorControl(OI.operatorGamepad.getAxis(Gamepad.leftStick_Y));
+        intake.joystickMotorControl(OI.operatorGamepad.getAxis(Gamepad.rightStick_Y));
     }
 
     // Make this return true when this Command no longer needs to run execute()

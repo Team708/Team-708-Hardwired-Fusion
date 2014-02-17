@@ -14,6 +14,12 @@ import org.team708.frc2014.commands.CommandBase;
  */
 public class LauncherMoveToTop extends CommandBase{
 
+    public LauncherMoveToTop()
+    {
+        requires(launcher);
+        requires(intake);
+    }
+    
     protected void initialize() {
     }
 
@@ -22,7 +28,7 @@ public class LauncherMoveToTop extends CommandBase{
     }
 
     protected boolean isFinished() {
-        return launcher.stoppedAtBoundary();
+        return launcher.getUpperGate();
     }
 
     protected void end() {

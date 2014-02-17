@@ -14,6 +14,12 @@ import org.team708.frc2014.commands.CommandBase;
  */
 public class LauncherMoveToBottom extends CommandBase{
 
+    public LauncherMoveToBottom()
+    {
+        requires(launcher);
+        requires(intake);
+    }
+    
     protected void initialize() {
     }
 
@@ -22,7 +28,7 @@ public class LauncherMoveToBottom extends CommandBase{
     }
 
     protected boolean isFinished() {
-        return launcher.stoppedAtBoundary();
+        return launcher.getLowerGate();
     }
 
     protected void end() {

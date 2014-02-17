@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.intake;
+package org.team708.frc2014.commands.LEDs;
 
 import org.team708.frc2014.commands.CommandBase;
 
@@ -10,12 +10,11 @@ import org.team708.frc2014.commands.CommandBase;
  *
  * @author Nam Tran
  */
-public class ManualIntake extends CommandBase {
+public class ToggleLED extends CommandBase {
     
-    public ManualIntake() {
+    public ToggleLED() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(intake);
     }
 
     // Called just before this Command runs the first time
@@ -24,22 +23,24 @@ public class ManualIntake extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-         intake.intakeBall();
+        if (ledArray.getState() == ledArray.SOLID) {
+            ledArray.setState(ledArray.OFF);
+        } else {
+            ledArray.setState(ledArray.getState() + 1);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        intake.stopIntake();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }

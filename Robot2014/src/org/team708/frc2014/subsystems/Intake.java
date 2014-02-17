@@ -18,9 +18,9 @@ public class Intake extends Subsystem {
     private final DoubleSolenoid intakeSolenoid;
     // Solenoid values are not primitive types, so this makes it easy to read
     // Solenoid value for extended intake
-    private final DoubleSolenoid.Value DEPLOYED = DoubleSolenoid.Value.kReverse;
+    private final DoubleSolenoid.Value DEPLOYED = DoubleSolenoid.Value.kForward;
     // Solenoid value for retracted intake
-    private final DoubleSolenoid.Value RETRACTED = DoubleSolenoid.Value.kForward;
+    private final DoubleSolenoid.Value RETRACTED = DoubleSolenoid.Value.kReverse;
     
     //Motor Controller
     private final Talon intakeMotor;
@@ -98,9 +98,9 @@ public class Intake extends Subsystem {
      * @param axis 
      */
     public void joystickMotorControl(double axis) {
-        if (axis > .10) {
+        if (axis > .5) {
             this.intakeBall();
-        } else if (axis < -.10) {
+        } else if (axis < -.5) {
             this.dispenseBall();
         } else {
             this.stopIntake();

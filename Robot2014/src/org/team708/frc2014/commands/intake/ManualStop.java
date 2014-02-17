@@ -8,11 +8,11 @@ import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Nam Tran
+ * @author Robotics
  */
-public class ManualIntake extends CommandBase {
+public class ManualStop extends CommandBase {
     
-    public ManualIntake() {
+    public ManualStop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(intake);
@@ -24,7 +24,7 @@ public class ManualIntake extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-         intake.intakeBall();
+        intake.stopIntake();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,12 +34,10 @@ public class ManualIntake extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        intake.stopIntake();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        this.end();
     }
 }

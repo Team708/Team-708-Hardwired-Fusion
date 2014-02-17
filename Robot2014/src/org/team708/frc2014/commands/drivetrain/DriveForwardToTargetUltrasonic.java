@@ -30,6 +30,7 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        ledArray.setState(ledArray.FLASHING);
         drivetrain.haloDrive(-drivetrain.normalPercent, -drivetrain.getTurnSpeed());
     }
 
@@ -41,6 +42,7 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
         drivetrain.stop();
+        ledArray.setState(ledArray.SOLID);
     }
 
     // Called when another command which requires one or more of the same

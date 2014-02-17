@@ -4,9 +4,8 @@ package org.team708.frc2014;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-//import org.team708.frc2014.commands.LEDs.AllOn;
 //import org.team708.frc2014.commands.LEDs.ToggleSED;
-//import org.team708.frc2014.commands.ToggleLED;
+import org.team708.frc2014.commands.LEDs.ToggleLED;
 import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
 import org.team708.frc2014.commands.drivetrain.ToggleSwagSpeed;
 import org.team708.frc2014.commands.intake.DeployIntake;
@@ -15,6 +14,7 @@ import org.team708.frc2014.commands.intake.ManualIntake;
 import org.team708.frc2014.commands.intake.PassBall;
 import org.team708.frc2014.commands.intake.RetractIntake;
 import org.team708.frc2014.commands.launcher.LauncherGoalShot;
+import org.team708.frc2014.commands.launcher.LauncherMoveToDefaultBall;
 import org.team708.frc2014.commands.launcher.LauncherTrussShot;
 import org.team708.util.Gamepad;
 
@@ -45,6 +45,7 @@ public class OI {
     private static final int passBallButtonNumber = Gamepad.button_L_Shoulder;
     private static final int launchBallButtonNumber = Gamepad.button_R_Shoulder;
     private static final int trussShotButtonNumber = Gamepad.button_X;
+    private static final int armMoveHasBallButtonNumber = Gamepad.button_Y;
     
     //initialize Gamepads
     public static final Gamepad driverGamepad = new Gamepad(RobotMap.driverGamepad);
@@ -67,8 +68,6 @@ public class OI {
     public static final Button toggleLED = new JoystickButton(driverGamepad, toggleLEDButtonNumber);
     
     public static final Button allOnSED = new JoystickButton(driverGamepad, allOnSEDButtonNumber);
-    
-    // Activates auto shoot distance finding
     
 //    //Follow the ball while this button is held
 //    public static final Button holdToFollowBallButton = new JoystickButton(driverGamepad,holdToFollowBallButtonNumber);
@@ -95,8 +94,10 @@ public class OI {
     // Cycles through the launch sequence
     public static final Button launchBall = new JoystickButton(operatorGamepad, launchBallButtonNumber);
     
-    // Moves the arm to the truss shot area
-    public static final Button trussShot = new JoystickButton(operatorGamepad, trussShotButtonNumber);
+//    // Moves the arm to the truss shot area
+//    public static final Button trussShot = new JoystickButton(operatorGamepad, trussShotButtonNumber);
+//    
+//    public static final Button armMoveHasBall = new JoystickButton(operatorGamepad, armMoveHasBallButtonNumber);
     
 //    // Toggles Intake
 //    public static final Button toggleIntake = new JoystickButton(operatorGamepad, toggleIntakeButtonNumber);
@@ -105,9 +106,9 @@ public class OI {
     {
         // Driver
         holdToSwagSpeed.whileHeld(new ToggleSwagSpeed());
-        activateAutoPass.whenPressed(new DriveForwardToTargetUltrasonic(1));
+//        activateAutoPass.whenPressed(new DriveForwardToTargetUltrasonic(1));
         activateAutoShoot.whenPressed(new DriveForwardToTargetUltrasonic(0));
-//        toggleLED.whenPressed(new ToggleLED());
+        toggleLED.whenPressed(new ToggleLED());
 //        allOnSED.whenPressed(new ToggleSED());
 //        holdToFollowBallButton.whileHeld(new FollowBall());
         
@@ -116,9 +117,10 @@ public class OI {
 //        holdToManualDispense.whileHeld(new ManualDispense());
         deployIntake.whenPressed(new DeployIntake());
         retractIntake.whenPressed(new RetractIntake());
-        passBall.whenPressed(new PassBall());
-        launchBall.whenPressed(new LauncherGoalShot());
-        trussShot.whenPressed(new LauncherTrussShot());
+//        passBall.whenPressed(new PassBall());
+//        launchBall.whenPressed(new LauncherGoalShot());
+//        trussShot.whenPressed(new LauncherTrussShot());
+//        armMoveHasBall.whenPressed(new LauncherMoveToDefaultBall());
     }
     
         //// CREATING BUTTONS
