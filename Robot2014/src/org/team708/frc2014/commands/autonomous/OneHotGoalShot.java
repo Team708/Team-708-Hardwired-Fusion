@@ -13,7 +13,6 @@ import org.team708.frc2014.commands.drivetrain.ResetEncoders;
 import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.IntakeBall;
 import org.team708.frc2014.commands.intake.IntakeStop;
-import org.team708.frc2014.commands.launcher.LauncherGoalShot;
 import org.team708.frc2014.commands.launcher.LauncherHoldBall;
 import org.team708.frc2014.commands.launcher.LauncherMoveToBottom;
 import org.team708.frc2014.commands.launcher.LauncherMoveToTop;

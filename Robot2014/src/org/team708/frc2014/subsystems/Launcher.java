@@ -13,10 +13,10 @@ import org.team708.util.Math708;
 /**
  * The launcher for the 2014 robot is a "Jordan" style elevator catapult. A claw
  * holds the ball and is pulled upward by a chain. When the ball reaches the
- * top, the claw launches it at the goal. Two photogate sensors and one optical
+ * top, the claw launches it at the goal. Two limit switches sensors and one optical
  * encoder are used to keep track of the launcher's position.
  *
- * @author Kyumin Lee, Nam Tran, Pat Walls, Jillan Wang, Connor Willison
+ * @author Kyumin Lee, Nam Tran, Pat Walls, Jialin Wang, Connor Willison
  */
 public class Launcher extends Subsystem {
     // Put methods for controlling this subsystem
@@ -33,18 +33,12 @@ public class Launcher extends Subsystem {
     public static final int REGULAR_SHOT_ENC_COUNTS = 900;
     public static final int TRUSS_SHOT_ENC_COUNTS = 600;
     public static final int HAS_BALL_POSITION = 290;
-    //ranges for different manipulator heights
-    private final int UPPER_RANGE = 0;      //above top photogate
-    private final int MIDDLE_RANGE = 1;     //between photogates
-    private final int LOWER_RANGE = 2;        //below bottom photogate
-    private final int UNKNOWN_POSITION = 3; //unsure of where manipulator is (need to do home command)
-    private int currentPosition = UNKNOWN_POSITION;
 
-    // Motor Speeds
-    private final double UPWARD_SPEED = -1.0;     //change these if launcher goes in wrong direction
+    // Motor Speeds -- Negative moves up, Positive moves down
+    private final double UPWARD_SPEED = -1.0;
     private final double DOWNWARD_SPEED = 0.8;
     
-    // Motoro scaling
+    // Motor scaling
     private final double UPWARD_SCALING = 1.0;
     private final double DOWNWARD_SCALING = 0.25;
     

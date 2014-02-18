@@ -2,15 +2,6 @@ package org.team708.frc2014.commands.launcher;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import org.team708.frc2014.commands.CommandBase;
-import org.team708.frc2014.commands.intake.DeployIntake;
-import org.team708.frc2014.commands.intake.IntakeBall;
-import org.team708.frc2014.commands.intake.IntakeDispense;
-import org.team708.frc2014.commands.intake.IntakeStop;
-import org.team708.frc2014.commands.intake.JoystickMotorControl;
-import org.team708.frc2014.commands.intake.ManualDispense;
-import org.team708.frc2014.commands.intake.ManualIntake;
-import org.team708.frc2014.subsystems.Launcher;
 
 /**
  * Launch the ball with maximum power, then return to home position. Must make

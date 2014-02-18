@@ -7,7 +7,6 @@
 
 package org.team708.frc2014;
 
-
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -59,7 +58,8 @@ public class ZygmontCrazy extends IterativeRobot {
 
     public void autonomousInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = ((Command)autoChooser.getSelected());
+//        autonomousCommand = ((Command)autoChooser.getSelected());
+        autonomousCommand = new YoloSwagShot();
         // schedule the autonomous command (example)
         autonomousCommand.start();
     }
@@ -78,9 +78,9 @@ public class ZygmontCrazy extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) {
+//        if (autonomousCommand != null) {
             autonomousCommand.cancel();
-        }
+//        }
     }
 
     /**

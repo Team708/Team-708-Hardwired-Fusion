@@ -68,12 +68,18 @@ public class Gamepad extends Joystick{
         }
     }
     
-    // Gets if the left trigger is fully pressed.
+    /**
+     * Gets if the left trigger is fully pressed.
+     * @return 
+     */
     public boolean getLeftTriggerPressed() {
         return (getAxis(Gamepad.shoulderAxis) <= -0.9);
     }
     
-    // Gets if the right trigger is fully pressed.
+    /**
+     * Gets if the right trigger is fully pressed.
+     * @return 
+     */
     public boolean getRightTriggerPressed() {
         return (getAxis(Gamepad.shoulderAxis) >= 0.9);
     }
