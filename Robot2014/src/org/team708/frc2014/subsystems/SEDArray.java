@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
+import org.team708.frc2014.commands.SEDs.RandomSEDColors;
 
 /**
  *
@@ -17,7 +18,7 @@ public class SEDArray extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     
-    private Solenoid red, blue, green;
+    private Solenoid red, blue, green,power;
     
     public static final int BLACK = 0;   //000
     public static final int RED = 1;     //001
@@ -35,12 +36,14 @@ public class SEDArray extends Subsystem {
         red = new Solenoid(RobotMap.redSED);
         blue = new Solenoid(RobotMap.blueSED);
         green = new Solenoid(RobotMap.greenSED);
-        
+        power = new Solenoid(RobotMap.powerSED);
+        power.set(true);
         setColor(WHITE);
     }
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
+        setDefaultCommand(new RandomSEDColors());
     }
     
     public void setColor(int color)

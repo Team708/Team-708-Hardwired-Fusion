@@ -4,7 +4,9 @@
  */
 package org.team708.frc2014.commands.drivetrain;
 
+import org.team708.frc2014.OI;
 import org.team708.frc2014.commands.CommandBase;
+import org.team708.util.Gamepad;
 
 /**
  *
@@ -12,16 +14,21 @@ import org.team708.frc2014.commands.CommandBase;
  */
 public class DriveForwardToTargetUltrasonic extends CommandBase {
     
+    private final int ERROR_ZONE = 3;
+    private double targetDistance;
+    
     public DriveForwardToTargetUltrasonic(int shotType) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(drivetrain);
         
         if(shotType == drivetrain.REGULAR) {
-              drivetrain.setUltrasonicDistance((drivetrain.REGULAR_DISTANCE - 6), (drivetrain.REGULAR_DISTANCE + 6), false);
+            targetDistance = drivetrain.REGULAR_DISTANCE;
         } else {
-              drivetrain.setUltrasonicDistance ((drivetrain.PASS_SHOT_DISTANCE - 6), (drivetrain.PASS_SHOT_DISTANCE + 6), false);
+            targetDistance = drivetrain.PASS_SHOT_DISTANCE;
         }
+        
+        drivetrain.setUltrasonicDistance ((targetDistance - ERROR_ZONE), (targetDistance + ERROR_ZONE), false);
     }
 
     // Called just before this Command runs the first time
@@ -31,7 +38,7 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         ledArray.setState(ledArray.FLASHING);
-        drivetrain.haloDrive(-drivetrain.normalPercent, -drivetrain.getTurnSpeed());
+        drivetrain.haloDrive(-drivetrain.getForwardSpeed(targetDistance - ERROR_ZONE, targetDistance + ERROR_ZONE), -OI.driverGamepad.getAxis(Gamepad.rightStick_X));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,6 +49,8 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
         drivetrain.stop();
+        System.out.println(drivetrain.getLeftDistance());
+        System.out.println(drivetrain.getRightDistance());
         ledArray.setState(ledArray.SOLID);
     }
 

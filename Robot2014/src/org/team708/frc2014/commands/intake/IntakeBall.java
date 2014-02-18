@@ -10,13 +10,17 @@ import org.team708.frc2014.commands.CommandBase;
  *
  * @author Connor Willison
  */
-public class IntakeGather extends CommandBase{
+public class IntakeBall extends CommandBase{
+    
+    public IntakeBall() {
+        requires(intake);
+    }
 
     protected void initialize() {
     }
 
     protected void execute() {
-        CommandBase.intake.intakeBall();
+        intake.intakeBall();
     }
 
     protected boolean isFinished() {
@@ -24,9 +28,10 @@ public class IntakeGather extends CommandBase{
     }
 
     protected void end() {
+//        intake.stopIntake();
     }
 
     protected void interrupted() {
+        end();
     }
-    
 }

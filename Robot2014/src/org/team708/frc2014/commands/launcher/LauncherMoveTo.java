@@ -22,7 +22,7 @@ public class LauncherMoveTo extends CommandBase {
     private static final int ENGAGEMENT_COUNTS = 1000;       //# counts away from goal to enable speed reduction
     private static final double REDUCTION_CUTOFF = .5;      //reduce smoothly to x as target is approached 
     private static final int TOLERANCE_COUNTS = 100;        //# counts away from goal to stop
-
+    
     private int goalCounts;
     private boolean precision;
     private boolean done;
@@ -37,22 +37,25 @@ public class LauncherMoveTo extends CommandBase {
         this.goalCounts = counts;
         this.precision = precision;
         done = false;
+        
+        requires(launcher);
+        requires(intake);
     }
 
     protected void initialize() {
-        requires(launcher);
+        
     }
 
     protected void execute() {
         //assume the launcher is zeroed at the bottom (low photogate)
         int countsDiff = goalCounts - launcher.getCounts();
         int abs_countsDiff = Math.abs(countsDiff);
-        double scalar = 1.0;
+        double scalar = 0.59;
 
         /*
          * Check if goal has been reached or launcher has stopped at a boundary.
          */
-        if (abs_countsDiff <= TOLERANCE_COUNTS || launcher.stoppedAtBoundary()) {
+        if (abs_countsDiff <= TOLERANCE_COUNTS || launcher.getUpperGate()) {
             launcher.stop();
             done = true;
             return;
@@ -80,6 +83,7 @@ public class LauncherMoveTo extends CommandBase {
 
     protected void end() {
         launcher.stop();
+        done = false;
     }
 
     protected void interrupted() {

@@ -2,22 +2,27 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.launcher;
+package org.team708.frc2014.commands.intake;
 
-import org.team708.frc2014.OI;
+import edu.wpi.first.wpilibj.Timer;
 import org.team708.frc2014.commands.CommandBase;
-import org.team708.util.Gamepad;
 
 /**
  *
  * @author Robotics
  */
-public class LauncherManualControl extends CommandBase {
+public class IntakeBallTimed extends CommandBase {
     
-    public LauncherManualControl() {
+    private Timer runTime;
+    private double timeToRun;
+    
+    public IntakeBallTimed(double newTimeToRun) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(launcher);
+        requires(intake);
+        
+        runTime = new Timer();
+        timeToRun = newTimeToRun;
     }
 
     // Called just before this Command runs the first time
@@ -26,19 +31,22 @@ public class LauncherManualControl extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (intake.isDeployed()) {
-            launcher.manualControl(-OI.operatorGamepad.getAxis(Gamepad.rightStick_Y));
-        }
+        runTime.start();
+        intake.intakeBall();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return timeToRun <= (runTime.get());
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        launcher.stop();
+        runTime.stop();
+        System.out.println(runTime.get());
+        runTime.reset();
+        
+        intake.stopIntake();
     }
 
     // Called when another command which requires one or more of the same

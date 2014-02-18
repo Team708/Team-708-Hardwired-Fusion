@@ -25,8 +25,11 @@ public class UltrasonicSensor extends DistanceSensor{
         super(slot,channel,m);
     }
 
-    public double getDistance(){
+    public double getRawDistance(){
         return (getVoltage() - model.getLowV()) * model.getScale() + model.getLowD();
     }
 
+    public double getDistance() {
+        return (getAverageVoltage() - model.getLowV()) * model.getScale() + model.getLowD();
+    }
 }

@@ -63,6 +63,14 @@ public abstract class DistanceSensor{
     public double getVoltage(){
         return sensor.getVoltage();
     }
+    
+    /**
+     * Returns the average voltage read from this sensor.
+     * @return
+     */
+    public double getAverageVoltage() {
+        return sensor.getAverageVoltage();
+    }
 
     /**
      * Check whether the sensor is triggered based on triggering boundaries
@@ -100,6 +108,14 @@ public abstract class DistanceSensor{
         this.highTriggerBound = highTriggerBound;
         this.lowTriggerBound = lowTriggerBound;
         this.invertTriggerRange = invertedTriggerRange;
+    }
+    
+    public double getLowTriggerBound() {
+        return lowTriggerBound;
+    }
+    
+    public double getHighTriggerBound() {
+        return highTriggerBound;
     }
     
     protected static class Model{

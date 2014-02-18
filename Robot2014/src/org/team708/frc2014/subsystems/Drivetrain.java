@@ -20,8 +20,6 @@ import org.team708.frc2014.sensors.UltrasonicSensor;
  */
 public class Drivetrain extends Subsystem {
     
-    private Solenoid red, blue, green;
-    
     // Creates speed controllers for left side (1 = normal/crawl, 2 = swag)
     private final SpeedController leftMotor1, leftMotor2;
     // Creates speed controllers for right side (1 = normal/crawl, 2 = swag)
@@ -42,7 +40,10 @@ public class Drivetrain extends Subsystem {
     public final double swagPercent = 1.00;
     
     // Scaling for ultrasonic direction correction
-    private final double ultrasonicScalar = .5;
+    private final double ultrasonicScalar = .10;
+    private final double ultrasonicMoveSpeed = 0.70;
+    private final double turnTolerance = 4
+            ;
     
     // Shooting type constants
     public final int REGULAR = 0;
@@ -87,16 +88,6 @@ public class Drivetrain extends Subsystem {
         //Creates Drivetrain ultrasonic sensors
         leftUltrasonic = new UltrasonicSensor(RobotMap.drivetrainLeftUltrasonic, UltrasonicSensor.MB1010);
         rightUltrasonic = new UltrasonicSensor(RobotMap.drivetrainRightUltrasonic, UltrasonicSensor.MB1010);
-        
-//        signal = new Solenoid(RobotMap.LEDArrayA);
-        red = new Solenoid(RobotMap.redSED);
-        blue = new Solenoid(RobotMap.blueSED);
-        green = new Solenoid(RobotMap.greenSED);
-        
-//        signal.set(true);
-        red.set(true);
-        blue.set(true);
-        green.set(true);
     }
     
     /**
@@ -143,6 +134,10 @@ public class Drivetrain extends Subsystem {
         rightEncoder.reset();
     }
     
+    public double getAverageEncoderDistance() {
+        return (-leftEncoder.getDistance() + (rightEncoder.getDistance())) / 2;
+    }
+    
     /**
      * Stops the motors
      */
@@ -173,7 +168,7 @@ public class Drivetrain extends Subsystem {
      * @return 
      */
     public boolean isAtOptimumDistance() {
-        return leftUltrasonic.isTriggered() || rightUltrasonic.isTriggered();
+        return leftUltrasonic.isTriggered() && rightUltrasonic.isTriggered();
     }
     
     /**
@@ -182,7 +177,37 @@ public class Drivetrain extends Subsystem {
      * @return 
      */
     public double getTurnSpeed() {
-        return (leftUltrasonic.getDistance() - rightUltrasonic.getDistance()) * ultrasonicScalar;
+        double ultrasonicDifference = leftUltrasonic.getDistance() - rightUltrasonic.getDistance();
+        double turnSpeed = 0.0;
+        
+        if (ultrasonicDifference > turnTolerance) {
+            turnSpeed = ultrasonicDifference * ultrasonicScalar;
+        }
+        
+        return turnSpeed;
+    }
+    
+    public double getForwardSpeed(double lowerDistance, double upperDistance) {
+        double averageDistance = ((leftUltrasonic.getDistance() + rightUltrasonic.getDistance())/2);
+        double forwardSpeed;
+        
+        if (averageDistance < lowerDistance) {
+            forwardSpeed = -ultrasonicMoveSpeed;
+        } else if (averageDistance > upperDistance) {
+            forwardSpeed = ultrasonicMoveSpeed;
+        } else {
+            forwardSpeed = 0.0;
+        }
+        
+        return forwardSpeed;
+    }
+    
+    public double getLeftDistance() {
+        return leftUltrasonic.getDistance();
+    }
+    
+    public double getRightDistance() {
+        return rightUltrasonic.getDistance();
     }
     
     /**
@@ -191,8 +216,8 @@ public class Drivetrain extends Subsystem {
     public void sendToDash() {
         SmartDashboard.putNumber("Left Drivetrain Encoder", leftEncoder.get());
         SmartDashboard.putNumber("Right Drivetrain Encoder", rightEncoder.get());
-        SmartDashboard.putNumber("Left Ultrasonic Voltage", leftUltrasonic.getVoltage());
-        SmartDashboard.putNumber("Right Ultrasonic Voltage", rightUltrasonic.getVoltage());
+        SmartDashboard.putNumber("Left Ultrasonic Avg V", leftUltrasonic.getAverageVoltage());
+        SmartDashboard.putNumber("Right Ultrasonic Avg V", rightUltrasonic.getAverageVoltage());
         SmartDashboard.putNumber("Left Ultrasonic", (leftUltrasonic.getDistance()));
         SmartDashboard.putNumber("Right Ultrasonic", rightUltrasonic.getDistance());
         SmartDashboard.putBoolean("Swag Mode", swag);

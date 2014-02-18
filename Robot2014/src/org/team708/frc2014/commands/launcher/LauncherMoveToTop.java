@@ -24,7 +24,9 @@ public class LauncherMoveToTop extends CommandBase{
     }
 
     protected void execute() {
-        launcher.goUpward();
+        if (intake.isDeployed()) {
+            launcher.goUpward();
+        }
     }
 
     protected boolean isFinished() {

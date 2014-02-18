@@ -11,12 +11,16 @@ import org.team708.frc2014.commands.CommandBase;
  * @author Connor Willison
  */
 public class IntakeStop extends CommandBase{
+    
+    public IntakeStop() {
+        requires(intake);
+    }
 
     protected void initialize() {
     }
 
     protected void execute() {
-        CommandBase.intake.stopIntake();
+        intake.stopIntake();
     }
 
     protected boolean isFinished() {

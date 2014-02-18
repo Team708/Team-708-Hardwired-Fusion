@@ -24,7 +24,9 @@ public class LauncherMoveToBottom extends CommandBase{
     }
 
     protected void execute() {
-        launcher.goDownward();
+        if (intake.isDeployed()) {
+            launcher.goDownward();
+        }
     }
 
     protected boolean isFinished() {

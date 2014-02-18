@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.launcher.LauncherManualControl;
-import org.team708.frc2014.commands.launcher.LauncherMoveToDefaultBall;
 import org.team708.util.Math708;
 
 /**
@@ -33,7 +32,7 @@ public class Launcher extends Subsystem {
     //encoder count values for different shot heights
     public static final int REGULAR_SHOT_ENC_COUNTS = 900;
     public static final int TRUSS_SHOT_ENC_COUNTS = 600;
-    public static final int HAS_BALL_POSITION = 75;
+    public static final int HAS_BALL_POSITION = 290;
     //ranges for different manipulator heights
     private final int UPPER_RANGE = 0;      //above top photogate
     private final int MIDDLE_RANGE = 1;     //between photogates
@@ -294,7 +293,7 @@ public class Launcher extends Subsystem {
      * Sends data to the dumb-dashboard.
      */
     public void sendToDash() {
-        SmartDashboard.putNumber("Launcher Encoder", launcherEncoder.getDistance());
+        SmartDashboard.putNumber("Launcher Encoder", launcherEncoder.get());
         SmartDashboard.putBoolean("Lower Switch", this.getLowerGate());
         SmartDashboard.putBoolean("Upper Switch", this.getUpperGate());
 //        SmartDashboard.putString("Launcher Position", (currentPosition == LOWER_RANGE) ? "Lower Limit"
