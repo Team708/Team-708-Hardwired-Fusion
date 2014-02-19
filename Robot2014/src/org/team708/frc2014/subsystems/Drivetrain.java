@@ -168,7 +168,7 @@ public class Drivetrain extends Subsystem {
      * @return 
      */
     public boolean isAtOptimumDistance() {
-        return leftUltrasonic.isTriggered() && rightUltrasonic.isTriggered();
+        return leftUltrasonic.isTriggered() || rightUltrasonic.isTriggered();
     }
     
     /**

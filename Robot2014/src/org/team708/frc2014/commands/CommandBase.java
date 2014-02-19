@@ -9,6 +9,8 @@ import org.team708.frc2014.commands.drivetrain.ResetEncoders;
 import org.team708.frc2014.commands.drivetrain.TurnToTargetUltrasonic;
 import org.team708.frc2014.commands.intake.DispenseBallTimed;
 import org.team708.frc2014.commands.intake.IntakeBallTimed;
+import org.team708.frc2014.commands.launcher.LauncherMoveToBottom;
+import org.team708.frc2014.commands.launcher.LauncherMoveToTop;
 import org.team708.frc2014.subsystems.Drivetrain;
 import org.team708.frc2014.subsystems.Intake;
 import org.team708.frc2014.subsystems.LEDArray;
@@ -54,6 +56,9 @@ public abstract class CommandBase extends Command {
         
         SmartDashboard.putData("Intake for 5 second", new IntakeBallTimed(5));
         SmartDashboard.putData("Dispense for 5 second", new DispenseBallTimed(5));
+        
+        SmartDashboard.putData("Move To Top Thing", new LauncherMoveToTop());
+        SmartDashboard.putData("Move To Bottom Thing", new LauncherMoveToBottom());
         
         SmartDashboard.putData("Drivetrain Encoder Reset", new ResetEncoders());
         SmartDashboard.putData("Drivetrain Auto Turn", new TurnToTargetUltrasonic());

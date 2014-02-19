@@ -6,10 +6,12 @@ package org.team708.frc2014.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import org.team708.frc2014.commands.drivetrain.DriveBackwardToEncoder;
 import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
 import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.DispenseBallTimed;
 import org.team708.frc2014.commands.intake.IntakeBallTimed;
+import org.team708.frc2014.commands.intake.IntakeUntilHasBall;
 import org.team708.frc2014.commands.launcher.LauncherGoalShot;
 import org.team708.frc2014.commands.launcher.LauncherMoveTo;
 import org.team708.frc2014.commands.launcher.LauncherMoveToBottom;
@@ -23,14 +25,16 @@ public class TwoBallYoloSwagShot extends CommandGroup {
     
     public TwoBallYoloSwagShot() {
         addSequential(new DeployIntake ());
-        addParallel(new DeployIntake());
-        addSequential(new IntakeBallTimed(0.10));
-        addSequential(new LauncherMoveTo(4500));
+        addSequential(new IntakeBallTimed(1.1));
+        addSequential(new LauncherMoveTo(900));
+        addSequential(new IntakeBallTimed(0.3));
+        addSequential(new DriveBackwardToEncoder(-4000));
         addSequential(new DriveForwardToTargetUltrasonic(0));
-        addSequential(new DispenseBallTimed(0.10));
+        addSequential(new DispenseBallTimed(0.15));
         addSequential(new LauncherGoalShot());
-        addSequential(new LauncherMoveToBottom());
-        addSequential(new IntakeBallTimed(0.25));
+//        addSequential(new IntakeBallTimed(0.25));
+        addSequential(new IntakeUntilHasBall());
+        addSequential(new WaitCommand(0.5));
         addSequential(new LauncherGoalShot());
         
         // Add Commands here:
