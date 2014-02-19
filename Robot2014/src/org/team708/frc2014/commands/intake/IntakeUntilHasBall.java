@@ -4,54 +4,41 @@
  */
 package org.team708.frc2014.commands.intake;
 
-import edu.wpi.first.wpilibj.Timer;
 import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
  * @author Robotics
  */
-public class DispenseBallTimed extends CommandBase {
+public class IntakeUntilHasBall extends CommandBase {
     
-    private Timer runTime;
-    private double timeToRun;
-    
-    public DispenseBallTimed(double timeToRun) {
+    public IntakeUntilHasBall() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
         requires(intake);
-        
-        runTime = new Timer();
-        this.timeToRun = timeToRun;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        runTime.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        intake.dispenseBall();
+        intake.intakeBall();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timeToRun <= runTime.get();
+        return intake.hasBall();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        runTime.stop();
-        System.out.println(runTime.get());
-        runTime.reset();
-        
+        System.out.println(intake.hasBall());
         intake.stopIntake();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        end();
     }
 }

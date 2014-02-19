@@ -57,8 +57,9 @@ public abstract class CommandBase extends Command {
         SmartDashboard.putData("Intake for 5 second", new IntakeBallTimed(5));
         SmartDashboard.putData("Dispense for 5 second", new DispenseBallTimed(5));
         
-        SmartDashboard.putData("Move to Top", new LauncherMoveToTop());
-        SmartDashboard.putData("Move To Bottom", new LauncherMoveToBottom());
+        SmartDashboard.putData("Move To Top Thing", new LauncherMoveToTop());
+        SmartDashboard.putData("Move To Bottom Thing", new LauncherMoveToBottom());
+
         
         SmartDashboard.putData("Drivetrain Encoder Reset", new ResetEncoders());
         SmartDashboard.putData("Drivetrain Auto Turn", new TurnToTargetUltrasonic());

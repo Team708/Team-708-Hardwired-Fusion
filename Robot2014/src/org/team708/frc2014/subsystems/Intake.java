@@ -42,6 +42,7 @@ public class Intake extends Subsystem {
         intakeMotor = new Talon(RobotMap.intakeMotor); // Initialises intake motor
         // Creates the IR sensor for the intake system
         intakeIR = new IRSensor(RobotMap.intakeIRSensor, IRSensor.GP2Y0A21YK0F);
+        intakeIR.setTriggerBounds(lowHasBallDistance, highHasBallDistance,false);
     }
 
     /**
@@ -70,7 +71,7 @@ public class Intake extends Subsystem {
      * @return 
      */
     public boolean hasBall() {
-        return (lowHasBallDistance <= intakeIR.getDistance() && intakeIR.getDistance() <= highHasBallDistance);
+        return intakeIR.isTriggered();
     }
     
     /**
