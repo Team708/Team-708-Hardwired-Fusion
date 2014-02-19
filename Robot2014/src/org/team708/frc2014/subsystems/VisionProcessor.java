@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Hashtable;
+import org.team708.frc2014.commands.vision.ProcessVisionData;
 import org.team708.util.Math708;
 
 /**
@@ -20,31 +21,31 @@ import org.team708.util.Math708;
  */
 public class VisionProcessor extends Subsystem{
     // High goal aspect ratio (11ft6in/3ft1in) in inches (3.729 repeating)
-    private final double highGoalAspectRatio = 3.73; 
+   // private final double highGoalAspectRatio = 3.73; 
     
-    // Distance related measurements from the network table
-    private double distanceToTarget = 0.0;
-    private int differencePx = 0;
+    //Raw ball data from network table
+    private double ball_center_x = 0;
+    private double ball_radius = 0;
+    private boolean hasBall = false;
+    
+    //Processed ball data
+    private double ballDistanceIn = 0.0;
+    private int ballCenterDiffPx = 0;
+    
+    //Ball constants
     private final double ballDiameterIn = 24;
     
-    // Data sent from the network table
-    private double currentAspectRatio = 0.0;
-    private double upper_left_x = 0;
-    private double upper_left_y = 0;
-    private double upper_right_x = 0;
-    private double upper_right_y = 0;
-    private double lower_left_x = 0;
-    private double lower_left_y = 0;
-    private double center_x = 0;
-    private double radius = 0;
+    //Raw hot goal data
+    private double hot_center_x = 0;
+    private boolean hasHotGoal = false;
+    
+    //Processed hot goal data
+    private double hotCenterDiffPx = 0;
+    
+    //General roborealm data
     private double blob_count = 0;
     
-    // Information statuses for the image
-    private boolean hasBall = false;
-    private boolean isHighGoal = false;
-    
     // Numbers used to do vision processing
-    private static final double aspectRatioTolerance = .4;
     private final int imageWidthPx = 320;
     
     //daisy says to set this to 43.5 deg
@@ -63,24 +64,32 @@ public class VisionProcessor extends Subsystem{
      * Sets the default command for the subsystem.
      */
     protected void initDefaultCommand() {
-        //no default command
+        setDefaultCommand(new ProcessVisionData());
     }
-    
-    /**
-     * Returns if the camera has found the target object.
-     * @return
-     */
-    public boolean hasTarget()
-    {
+
+    public boolean hasBall() {
         return hasBall;
     }
+
+    public int getBallCenterDiffPx() {
+        return ballCenterDiffPx;
+    }
+
+    public boolean hasHotGoal() {
+        return hasHotGoal;
+    }
+
+    public double getHotCenterDiffPx() {
+        return hotCenterDiffPx;
+    }
     
     /**
-     * Returns if the goal is lit.
+     * Returns the distance to the target.
      * @return
      */
-    public boolean isGoalLit() {
-        return isHighGoal;
+    public double getBallDistanceIn()
+    {
+        return ballDistanceIn;
     }
     
     /**
@@ -95,15 +104,11 @@ public class VisionProcessor extends Subsystem{
              * Receive data from RoboRealm program.
              */
             NetworkTable table = NetworkTable.getTable("vision");
-            upper_left_x = (double) table.getNumber("p1x");
-            upper_left_y = (double) table.getNumber("p1y");
-            upper_right_x = (double)table.getNumber("p2x");
-            upper_right_y = (double)table.getNumber("p2y");
-            lower_left_x = (double) table.getNumber("p3x");
-            lower_left_y = (double) table.getNumber("p3y");
-            center_x = (double) table.getNumber("cx");
-            radius = (double) table.getNumber("r");
+            ball_center_x = (double) table.getNumber("bcx");
+            ball_radius = (double) table.getNumber("r");
             hasBall = table.getNumber("ball") > 0;
+            hot_center_x = (double) table.getNumber("hcx");
+            hasHotGoal = table.getNumber("goal") > 0;
             blob_count = (double) table.getNumber("count");
             
             
@@ -118,43 +123,16 @@ public class VisionProcessor extends Subsystem{
                 isHighGoal = true;
             }
             
-            distanceToTarget = (ballDiameterIn * imageWidthPx)/
+            ballDistanceIn = (ballDiameterIn * imageWidthPx)/
                                     ((2* radius) * Math.tan(cameraFOVRads/2) * 2);
             
             //calculate difference between center of target and center of screen
-            differencePx = (int)(center_x - (imageWidthPx / 2.0));
+            ballCenterDiffPx = (int)(center_x - (imageWidthPx / 2.0));
             
         }catch(Exception e)
         {
 //            e.printStackTrace();
         }
-    }
-    
-    /**
-     * Returns how many blobs are found by the camera.
-     * @return 
-     */
-    public int getBlobCount()
-    {
-        return (int)blob_count;
-    }
-    
-    /**
-     * Returns the difference of pixels.
-     * @return
-     */
-    public int getDifferencePx()
-    {
-        return differencePx;
-    }
-    
-    /**
-     * Returns the distance to the target.
-     * @return
-     */
-    public double getDistanceToTarget()
-    {
-        return distanceToTarget;
     }
     
     /**
