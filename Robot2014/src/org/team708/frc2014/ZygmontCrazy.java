@@ -7,6 +7,7 @@
 
 package org.team708.frc2014;
 
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -58,8 +59,7 @@ public class ZygmontCrazy extends IterativeRobot {
 
     public void autonomousInit() {
         // instantiate the command used for the autonomous period
-//        autonomousCommand = ((Command)autoChooser.getSelected());
-        autonomousCommand = new YoloSwagShot();
+        autonomousCommand = ((Command)autoChooser.getSelected());
         // schedule the autonomous command (example)
         autonomousCommand.start();
     }

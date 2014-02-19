@@ -36,14 +36,14 @@ public class LauncherMoveTo extends CommandBase {
 
         this.goalCounts = counts;
         this.precision = precision;
-        
+        done = false;
         
         requires(launcher);
         requires(intake);
     }
 
     protected void initialize() {
-        done = false;
+        
     }
 
     protected void execute() {

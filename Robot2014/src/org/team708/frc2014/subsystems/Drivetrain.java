@@ -2,6 +2,7 @@ package org.team708.frc2014.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -41,7 +42,8 @@ public class Drivetrain extends Subsystem {
     // Scaling for ultrasonic direction correction
     private final double ultrasonicScalar = .10;
     private final double ultrasonicMoveSpeed = 0.70;
-    private final double turnTolerance = 4;
+    private final double turnTolerance = 4
+            ;
     
     // Shooting type constants
     public final int REGULAR = 0;
@@ -49,7 +51,7 @@ public class Drivetrain extends Subsystem {
     
     // Shooting distances
     public final int REGULAR_DISTANCE = 52;
-    public final int PASS_SHOT_DISTANCE = 108;
+    public final int PASS_SHOT_DISTANCE = 160;
 
     public void initDefaultCommand() 
     {
@@ -166,8 +168,7 @@ public class Drivetrain extends Subsystem {
      * @return 
      */
     public boolean isAtOptimumDistance() {
-//        return leftUltrasonic.isTriggered() && rightUltrasonic.isTriggered();
-        return leftUltrasonic.isTriggered() || rightUltrasonic.isTriggered();
+        return leftUltrasonic.isTriggered() && rightUltrasonic.isTriggered();
     }
     
     /**

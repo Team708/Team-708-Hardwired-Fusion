@@ -25,8 +25,8 @@ public class Intake extends Subsystem {
     //Motor Controller
     private final Talon intakeMotor;
     // Speeds for the intake motor
-    private final double INTAKE_SPEED = -1.0;
-    private final double DISPENSE_SPEED = 1.0;
+    private final double INTAKE_SPEED = 1.0;
+    private final double DISPENSE_SPEED = -1.0;
     
     private final IRSensor intakeIR; // IR Sensor to check for ball
     
@@ -77,14 +77,14 @@ public class Intake extends Subsystem {
      * Spins to intake the ball.
      */
     public void intakeBall() {
-        intakeMotor.set(INTAKE_SPEED);
+        intakeMotor.set(-INTAKE_SPEED);
     }
     
     /**
      * Spins to dispense the ball (in case the wrong color is picked up).
      */
     public void dispenseBall() {
-        intakeMotor.set(DISPENSE_SPEED);
+        intakeMotor.set(-DISPENSE_SPEED);
     }
     
     /**

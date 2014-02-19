@@ -13,6 +13,7 @@ import org.team708.frc2014.commands.drivetrain.ResetEncoders;
 import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.IntakeBall;
 import org.team708.frc2014.commands.intake.IntakeStop;
+import org.team708.frc2014.commands.launcher.LauncherGoalShot;
 import org.team708.frc2014.commands.launcher.LauncherHoldBall;
 import org.team708.frc2014.commands.launcher.LauncherMoveToBottom;
 import org.team708.frc2014.commands.launcher.LauncherMoveToTop;
@@ -24,23 +25,26 @@ import org.team708.frc2014.commands.launcher.LauncherMoveToTop;
 public class OneHotGoalShot extends CommandGroup {
     
     public OneHotGoalShot() {
+        //initial driving
+        addSequential(new ResetEncoders());
+        addSequential(new DriveBackwardToEncoder(-4000));
+        addSequential(new DriveForwardToTargetUltrasonic(0));
+        
+        //open intake and prepare to shoot
+        addSequential(new IntakeBall());
+        addSequential(new WaitCommand(.5));
+        addSequential(new DeployIntake());
+        addSequential(new WaitCommand(1.0));
+        addSequential(new IntakeStop());
+        addSequential(new LauncherHoldBall());
+        
         if (CommandBase.visionProcessor.isGoalLit()) {
-            addSequential(new YoloSwagShot());
+            //shoot
+            addSequential(new LauncherMoveToTop());
+            addSequential(new WaitCommand(0.1));
+            addSequential(new LauncherMoveToBottom());
         } else {
-            //initial driving
-            addSequential(new ResetEncoders());
-            addSequential(new DriveBackwardToEncoder(-4000));
-            addSequential(new DriveForwardToTargetUltrasonic(0));
-
-            //open intake and prepare to shoot
-            addSequential(new IntakeBall());
-            addSequential(new WaitCommand(.5));
-            addSequential(new DeployIntake());
-            addSequential(new WaitCommand(1.0));
-            addSequential(new IntakeStop());
-            addSequential(new LauncherHoldBall());
             addSequential(new WaitCommand(5));
-            
             //shoot
             addSequential(new LauncherMoveToTop());
             addSequential(new WaitCommand(0.1));

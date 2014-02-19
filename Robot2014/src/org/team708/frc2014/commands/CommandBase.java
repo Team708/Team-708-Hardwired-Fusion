@@ -9,7 +9,6 @@ import org.team708.frc2014.commands.drivetrain.ResetEncoders;
 import org.team708.frc2014.commands.drivetrain.TurnToTargetUltrasonic;
 import org.team708.frc2014.commands.intake.DispenseBallTimed;
 import org.team708.frc2014.commands.intake.IntakeBallTimed;
-import org.team708.frc2014.commands.launcher.LauncherHoldBall;
 import org.team708.frc2014.commands.launcher.LauncherMoveToBottom;
 import org.team708.frc2014.commands.launcher.LauncherMoveToTop;
 import org.team708.frc2014.subsystems.Drivetrain;
@@ -55,12 +54,11 @@ public abstract class CommandBase extends Command {
         SmartDashboard.putData("YOLOSWAG Shot", new YoloSwagShot());
         SmartDashboard.putData("2 Ball YOLOSWAG Shot", new TwoBallYoloSwagShot());
         
-        SmartDashboard.putData("Move Top", new LauncherMoveToTop());
-        SmartDashboard.putData("Move Bottom", new LauncherMoveToBottom());
-        SmartDashboard.putData("Hold Ball", new LauncherHoldBall());
-        
         SmartDashboard.putData("Intake for 5 second", new IntakeBallTimed(5));
         SmartDashboard.putData("Dispense for 5 second", new DispenseBallTimed(5));
+        
+        SmartDashboard.putData("Move to Top", new LauncherMoveToTop());
+        SmartDashboard.putData("Move To Bottom", new LauncherMoveToBottom());
         
         SmartDashboard.putData("Drivetrain Encoder Reset", new ResetEncoders());
         SmartDashboard.putData("Drivetrain Auto Turn", new TurnToTargetUltrasonic());

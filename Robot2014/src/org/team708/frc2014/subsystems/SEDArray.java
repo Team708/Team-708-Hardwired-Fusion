@@ -12,7 +12,7 @@ import org.team708.frc2014.commands.SEDs.RandomSEDColors;
 
 /**
  *
- * @author Nam Tran, Matt Foley, Connor Willison
+ * @author Nam Tran, Matt Foley
  */
 public class SEDArray extends Subsystem {
     // Put methods for controlling this subsystem
