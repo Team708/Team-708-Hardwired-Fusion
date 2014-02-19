@@ -70,14 +70,14 @@ public class Launcher extends Subsystem {
      * Powers the Jordan's motors to send it upward.
      */
     public void goUpward() {
-        move(UPWARD_SPEED);
+        move(-UPWARD_SPEED);
     }
 
     /**
      * Powers the Jordan's motors to send it downward.
      */
     public void goDownward() {
-        move(DOWNWARD_SPEED);
+        move(-DOWNWARD_SPEED);
     }
 
     /**

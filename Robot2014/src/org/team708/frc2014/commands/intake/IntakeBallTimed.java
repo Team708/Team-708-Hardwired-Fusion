@@ -21,17 +21,17 @@ public class IntakeBallTimed extends CommandBase {
         // eg. requires(chassis);
         requires(intake);
         
-        runTime = new Timer();
         timeToRun = newTimeToRun;
+        runTime = new Timer();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        runTime.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        runTime.start();
         intake.intakeBall();
     }
 

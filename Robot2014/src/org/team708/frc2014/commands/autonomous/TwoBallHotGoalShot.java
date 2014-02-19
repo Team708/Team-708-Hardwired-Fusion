@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.team708.frc2014.commands.CommandBase;
 import org.team708.frc2014.commands.drivetrain.FollowBall;
-import org.team708.frc2014.commands.intake.ManualIntake;
+import org.team708.frc2014.commands.intake.IntakeBall;
 
 /**
  *
@@ -20,7 +20,7 @@ public class TwoBallHotGoalShot extends CommandGroup {
         addSequential(new OneHotGoalShot());
         addSequential(new WaitCommand(0.1));
         addSequential(new FollowBall());
-        addSequential(new ManualIntake());
+        addSequential(new IntakeBall());
         if (CommandBase.intake.hasBall()) {
             addSequential(new OneHotGoalShot());
         }

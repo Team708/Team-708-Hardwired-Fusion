@@ -27,11 +27,11 @@ public class DispenseBallTimed extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        runTime.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        runTime.start();
         intake.dispenseBall();
     }
 

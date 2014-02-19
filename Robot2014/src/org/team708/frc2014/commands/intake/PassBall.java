@@ -18,7 +18,7 @@ public class PassBall extends CommandGroup {
         // Brings intake in and the dispense the ball
         addSequential(new RetractIntake());
         addSequential(new WaitCommand(0.5));
-        addSequential(new ManualDispense());
+        addSequential(new IntakeDispense());
         addSequential(new WaitCommand(1.0));
         addSequential(new ManualStop());
         // Add Commands here:

@@ -24,26 +24,23 @@ import org.team708.frc2014.commands.launcher.LauncherMoveToTop;
 public class OneHotGoalShot extends CommandGroup {
     
     public OneHotGoalShot() {
-        //initial driving
-        addSequential(new ResetEncoders());
-        addSequential(new DriveBackwardToEncoder(-4000));
-        addSequential(new DriveForwardToTargetUltrasonic(0));
-        
-        //open intake and prepare to shoot
-        addSequential(new IntakeBall());
-        addSequential(new WaitCommand(.5));
-        addSequential(new DeployIntake());
-        addSequential(new WaitCommand(1.0));
-        addSequential(new IntakeStop());
-        addSequential(new LauncherHoldBall());
-        
         if (CommandBase.visionProcessor.isGoalLit()) {
-            //shoot
-            addSequential(new LauncherMoveToTop());
-            addSequential(new WaitCommand(0.1));
-            addSequential(new LauncherMoveToBottom());
+            addSequential(new YoloSwagShot());
         } else {
+            //initial driving
+            addSequential(new ResetEncoders());
+            addSequential(new DriveBackwardToEncoder(-4000));
+            addSequential(new DriveForwardToTargetUltrasonic(0));
+
+            //open intake and prepare to shoot
+            addSequential(new IntakeBall());
+            addSequential(new WaitCommand(.5));
+            addSequential(new DeployIntake());
+            addSequential(new WaitCommand(1.0));
+            addSequential(new IntakeStop());
+            addSequential(new LauncherHoldBall());
             addSequential(new WaitCommand(5));
+            
             //shoot
             addSequential(new LauncherMoveToTop());
             addSequential(new WaitCommand(0.1));

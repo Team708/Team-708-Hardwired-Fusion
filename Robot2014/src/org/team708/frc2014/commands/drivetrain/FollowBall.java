@@ -55,7 +55,7 @@ public class FollowBall extends CommandBase {
             if(distanceDifferenceToTarget > distanceToleranceIn)
             {
                 movement = -movementSpeed;
-            } else if(distanceDifferenceToTarget < distanceToleranceIn)
+            } else if(distanceDifferenceToTarget < -distanceToleranceIn)
             {
                 movement = movementSpeed;
             } else
@@ -68,10 +68,10 @@ public class FollowBall extends CommandBase {
             drivetrain.haloDrive(0.0,0.0);
         }
     }
-
+;
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return (distanceDifferenceToTarget < distanceToleranceIn && distanceDifferenceToTarget > -distanceToleranceIn);
     }
 
     // Called once after isFinished returns true
