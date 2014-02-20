@@ -51,7 +51,7 @@ public class Drivetrain extends Subsystem {
     
     // Shooting distances
     public final int REGULAR_DISTANCE = 52;
-    public final int PASS_SHOT_DISTANCE = 160;
+    public final int PASS_SHOT_DISTANCE = 108;
 
     public void initDefaultCommand() 
     {

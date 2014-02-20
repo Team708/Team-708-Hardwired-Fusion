@@ -27,6 +27,7 @@ public class OI {
     private static final int overrideAutoButtonNumber = Gamepad.button_L_Shoulder;
     private static final int holdToSwagSpeedButtonNumber = Gamepad.button_R_Shoulder;
     private static final int activateAutoShootButtonNumber = Gamepad.button_A;
+    private static final int activateAutoPassButtonNumber = Gamepad.button_B;
     private static final int toggleLEDButtonNumber = Gamepad.button_X;
     
     // Operator
@@ -50,6 +51,8 @@ public class OI {
     
     // Activates auto shoot distance finding
     public static final Button activateAutoShoot = new JoystickButton(driverGamepad, activateAutoShootButtonNumber);
+    
+    public static final Button activateAutoPass = new JoystickButton(driverGamepad, activateAutoPassButtonNumber);
     
     // Toggles the state of the LEDs
     public static final Button toggleLED = new JoystickButton(driverGamepad, toggleLEDButtonNumber);
@@ -76,6 +79,7 @@ public class OI {
         overrideAuto.whenPressed(new Stop());
         holdToSwagSpeed.whileHeld(new ToggleSwagSpeed());
         activateAutoShoot.whenPressed(new DriveForwardToTargetUltrasonic(0));
+        activateAutoPass.whenPressed(new DriveForwardToTargetUltrasonic(1));
         toggleLED.whenPressed(new ToggleLED());
         
         // Operator
