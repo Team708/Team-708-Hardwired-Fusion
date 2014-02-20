@@ -38,6 +38,8 @@ public class SEDArray extends Subsystem {
         green = new Solenoid(RobotMap.greenSED);
         power = new Solenoid(RobotMap.powerSED);
         power.set(true);
+        
+        
         setColor(WHITE);
     }
 

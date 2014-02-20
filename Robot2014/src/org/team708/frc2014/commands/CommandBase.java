@@ -1,5 +1,6 @@
 package org.team708.frc2014.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.OI;
@@ -34,6 +35,8 @@ public abstract class CommandBase extends Command {
     public static VisionProcessor visionProcessor = new VisionProcessor();
     public static LEDArray ledArray = new LEDArray();
     public static SEDArray sedArray = new SEDArray();
+    
+    public static DriverStation.Alliance currentAlliance;
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
@@ -42,6 +45,9 @@ public abstract class CommandBase extends Command {
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
         oi = new OI();
+        
+        // Gets the alliance
+        currentAlliance = DriverStation.getInstance().getAlliance();
 
         // Show what command your subsystem is running on the SmartDashboard
         SmartDashboard.putData(launcher);
