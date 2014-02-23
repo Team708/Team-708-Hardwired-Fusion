@@ -189,7 +189,8 @@ public class Drivetrain extends Subsystem {
     }
     
     public double getForwardSpeed(double lowerDistance, double upperDistance) {
-        double averageDistance = ((leftUltrasonic.getDistance() + rightUltrasonic.getDistance())/2);
+//        double averageDistance = ((leftUltrasonic.getDistance() + rightUltrasonic.getDistance())/2);
+        double averageDistance = leftUltrasonic.getDistance();
         double forwardSpeed;
         
         if (averageDistance < lowerDistance) {

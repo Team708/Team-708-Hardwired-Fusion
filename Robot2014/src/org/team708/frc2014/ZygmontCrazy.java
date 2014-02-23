@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.team708.frc2014.commands.CommandBase;
-import org.team708.frc2014.commands.autonomous.OneHotGoalShot;
+//import org.team708.frc2014.commands.autonomous.OneHotGoalShot;
 import org.team708.frc2014.commands.autonomous.YoloSwagShot;
 
 /**
@@ -94,7 +94,7 @@ public class ZygmontCrazy extends IterativeRobot {
     
     public void disabledPeriodic()
     {
-        CommandBase.visionProcessor.processData();
+//        CommandBase.visionProcessor.processData();
         sendStats();
     }
     
@@ -116,7 +116,7 @@ public class ZygmontCrazy extends IterativeRobot {
                 statsTimer.reset();
 
                 // Various debug information
-                CommandBase.visionProcessor.sendToDash();
+//                CommandBase.visionProcessor.sendToDash();
                 CommandBase.drivetrain.sendToDash();
                 CommandBase.intake.sendToDash();
                 CommandBase.launcher.sendToDash();
@@ -127,6 +127,6 @@ public class ZygmontCrazy extends IterativeRobot {
     // Adds options for autonomous modes
     private void queueAutonomousCommands() {
         autoChooser.addDefault("One Ball -- No Hot Goal", new YoloSwagShot());
-        autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
+//        autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
     }
 }

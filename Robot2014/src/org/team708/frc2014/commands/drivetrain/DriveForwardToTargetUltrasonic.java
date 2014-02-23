@@ -22,17 +22,16 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
         // eg. requires(chassis);
         requires(drivetrain);
         
-        if(shotType == drivetrain.REGULAR) {
-            targetDistance = drivetrain.REGULAR_DISTANCE;
-        } else {
+        if(shotType == drivetrain.PASS_SHOT) {
             targetDistance = drivetrain.PASS_SHOT_DISTANCE;
+        } else {
+            targetDistance = drivetrain.REGULAR_DISTANCE;
         }
-        
-        drivetrain.setUltrasonicDistance ((targetDistance - ERROR_ZONE), (targetDistance + ERROR_ZONE), false);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        drivetrain.setUltrasonicDistance ((targetDistance - ERROR_ZONE), (targetDistance + ERROR_ZONE), false);
     }
 
     // Called repeatedly when this Command is scheduled to run

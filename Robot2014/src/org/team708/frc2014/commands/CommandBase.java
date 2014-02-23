@@ -17,7 +17,7 @@ import org.team708.frc2014.subsystems.Intake;
 import org.team708.frc2014.subsystems.LEDArray;
 import org.team708.frc2014.subsystems.Launcher;
 import org.team708.frc2014.subsystems.SEDArray;
-import org.team708.frc2014.subsystems.VisionProcessor;
+//import org.team708.frc2014.subsystems.VisionProcessor;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -32,7 +32,7 @@ public abstract class CommandBase extends Command {
     public static Launcher launcher = new Launcher();
     public static Drivetrain drivetrain = new Drivetrain();
     public static Intake intake = new Intake();
-    public static VisionProcessor visionProcessor = new VisionProcessor();
+//    public static VisionProcessor visionProcessor = new VisionProcessor();
     public static LEDArray ledArray = new LEDArray();
     public static SEDArray sedArray = new SEDArray();
     
@@ -53,7 +53,7 @@ public abstract class CommandBase extends Command {
         SmartDashboard.putData(launcher);
         SmartDashboard.putData(drivetrain);
         SmartDashboard.putData(intake);
-        SmartDashboard.putData(visionProcessor);
+//        SmartDashboard.putData(visionProcessor);
         SmartDashboard.putData(ledArray);
         
         //send commands to SmartDashboard for debugging
