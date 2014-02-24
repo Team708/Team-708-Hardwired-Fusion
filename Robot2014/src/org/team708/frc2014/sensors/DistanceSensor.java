@@ -78,7 +78,7 @@ public abstract class DistanceSensor{
      * @return 
      */
     public boolean isTriggered(){
-        //return false if the programmer has not specified boundaries
+       //return false if the programmer has not specified boundaries
         if(lowTriggerBound < 0 || highTriggerBound < 0) {
             return false;
         }

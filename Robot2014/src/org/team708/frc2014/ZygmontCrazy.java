@@ -15,7 +15,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.commands.CommandBase;
+import org.team708.frc2014.commands.autonomous.TwoBallYoloSwagShot;
 //import org.team708.frc2014.commands.autonomous.OneHotGoalShot;
 import org.team708.frc2014.commands.autonomous.YoloSwagShot;
 
@@ -52,6 +54,7 @@ public class ZygmontCrazy extends IterativeRobot {
         // Initialises the autonomous selection on SmartDashboard
         autoChooser = new SendableChooser();
         queueAutonomousCommands();
+        SmartDashboard.putData("Autonomous Selection", autoChooser);
         
         // Initialize all subsystems
         CommandBase.init();
@@ -126,7 +129,9 @@ public class ZygmontCrazy extends IterativeRobot {
     
     // Adds options for autonomous modes
     private void queueAutonomousCommands() {
-        autoChooser.addDefault("One Ball -- No Hot Goal", new YoloSwagShot());
-//        autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
+        autoChooser.addDefault("One Ball YOLOSWAG", new YoloSwagShot());
+       //autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
+        autoChooser.addObject("Two Ball YOLOSWAG", new TwoBallYoloSwagShot());
     }
+    
 }

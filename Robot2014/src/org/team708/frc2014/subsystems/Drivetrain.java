@@ -51,7 +51,7 @@ public class Drivetrain extends Subsystem {
     public final int PASS_SHOT = 1;
     
     // Shooting distances
-    public final int REGULAR_DISTANCE = 52;
+    public final int REGULAR_DISTANCE = 64;
     public final int PASS_SHOT_DISTANCE = 108;
 
     public void initDefaultCommand() 
@@ -190,7 +190,7 @@ public class Drivetrain extends Subsystem {
     
     public double getForwardSpeed(double lowerDistance, double upperDistance) {
 //        double averageDistance = ((leftUltrasonic.getDistance() + rightUltrasonic.getDistance())/2);
-        double averageDistance = leftUltrasonic.getDistance();
+        double averageDistance = rightUltrasonic.getDistance();
         double forwardSpeed;
         
         if (averageDistance < lowerDistance) {
