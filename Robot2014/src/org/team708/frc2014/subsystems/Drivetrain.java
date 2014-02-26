@@ -212,6 +212,14 @@ public class Drivetrain extends Subsystem {
         return rightUltrasonic.getDistance();
     }
     
+    public double getLeftEncoder() {
+        return leftEncoder.get();
+    }
+    
+    public double getRightEncoder() {
+        return rightEncoder.get();
+    }
+    
     /**
      * Sends data to the dumb-dashboard
      */

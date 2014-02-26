@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.commands.CommandBase;
 import org.team708.frc2014.commands.autonomous.TwoBallYoloSwagShot;
-//import org.team708.frc2014.commands.autonomous.OneHotGoalShot;
 import org.team708.frc2014.commands.autonomous.YoloSwagShot;
 
 /**
@@ -36,7 +35,7 @@ public class ZygmontCrazy extends IterativeRobot {
     Timer statsTimer;                               //timer used for Smart Dash statistics
     private final double sendStatsIntervalSec = .5; //number of seconds between sending stats to SmartDash
     
-    private final boolean debug = true; // Set to false if not using SmartDashboard
+    public static final boolean debug = true; // Set to false if not using SmartDashboard
 
     /**
      * This function is run when the robot is first started up and should be
@@ -130,8 +129,10 @@ public class ZygmontCrazy extends IterativeRobot {
     // Adds options for autonomous modes
     private void queueAutonomousCommands() {
         autoChooser.addDefault("One Ball YOLOSWAG", new YoloSwagShot());
-       //autoChooser.addObject("One Ball -- Hot Goal", new OneHotGoalShot());
         autoChooser.addObject("Two Ball YOLOSWAG", new TwoBallYoloSwagShot());
     }
     
+    public boolean isDebug() {
+        return debug;
+    }
 }

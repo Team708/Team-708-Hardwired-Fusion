@@ -5,6 +5,7 @@
 package org.team708.frc2014.commands.drivetrain;
 
 import org.team708.frc2014.OI;
+import org.team708.frc2014.ZygmontCrazy;
 import org.team708.frc2014.commands.CommandBase;
 import org.team708.util.Gamepad;
 
@@ -48,8 +49,10 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
         drivetrain.stop();
-        System.out.println(drivetrain.getLeftDistance());
-        System.out.println(drivetrain.getRightDistance());
+        if (ZygmontCrazy.debug) {
+            System.out.println(drivetrain.getLeftDistance());
+            System.out.println(drivetrain.getRightDistance());
+        }
         ledArray.setState(ledArray.SOLID);
     }
 
