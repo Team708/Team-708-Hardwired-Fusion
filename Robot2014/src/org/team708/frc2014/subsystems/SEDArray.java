@@ -28,9 +28,11 @@ public class SEDArray extends Subsystem {
     public static final int VIOLET = 5;  //101
     public static final int TEAL = 6;    //110
     public static final int WHITE = 7;   //111
+    public static int defaultColour;
     
-    private final DriverStation.Alliance redAlliance = DriverStation.Alliance.kRed;
-    private final DriverStation.Alliance blueAlliance = DriverStation.Alliance.kBlue;
+    private final DriverStation.Alliance currentAlliance;
+    public final DriverStation.Alliance redAlliance = DriverStation.Alliance.kRed;
+    public final DriverStation.Alliance blueAlliance = DriverStation.Alliance.kBlue;
     
     public SEDArray() {
         red = new Solenoid(RobotMap.redSED);
@@ -39,8 +41,16 @@ public class SEDArray extends Subsystem {
         power = new Solenoid(RobotMap.powerSED);
         power.set(true);
         
+        currentAlliance = DriverStation.getInstance().getAlliance();
+        if (currentAlliance.equals(redAlliance)) {
+            defaultColour = RED;
+        } else if (currentAlliance.equals(blueAlliance)) {
+            defaultColour = BLUE;
+        } else {
+            defaultColour = GREEN;
+        }
         
-        setColor(WHITE);
+        setToAllianceColour();
     }
 
     public void initDefaultCommand() {
@@ -56,8 +66,10 @@ public class SEDArray extends Subsystem {
     }
     
     public void setToAllianceColour() {
-//        if (DriverStation.getAlliance().equals(redAlliance)) {
-//            
-//        }
+        setColor(defaultColour);
+    }
+    
+    public DriverStation.Alliance getAllianceColour() {
+        return currentAlliance;
     }
 }
