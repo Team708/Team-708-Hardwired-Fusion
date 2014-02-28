@@ -18,7 +18,7 @@ public class DriveBackwardToEncoder extends CommandBase {
     private final double MOVE_SPEED = -0.90;
     
     private final double DISTANCE_TOLERANCE = 100;
-    private final double TURN_TOLERANCE = 5.0;
+    private final double TURN_TOLERANCE = 100.0;
     
     public DriveBackwardToEncoder(double goalCount) {
         // Use requires() here to declare subsystem dependencies
@@ -38,7 +38,7 @@ public class DriveBackwardToEncoder extends CommandBase {
         double encoderDifference = drivetrain.getLeftEncoder() - drivetrain.getRightEncoder();
         
         if (encoderDifference < -TURN_TOLERANCE || encoderDifference > TURN_TOLERANCE) {
-            turnSpeed = encoderDifference / 10;
+            turnSpeed = encoderDifference / 1000;
         } else {
             turnSpeed = 0.0;
         }

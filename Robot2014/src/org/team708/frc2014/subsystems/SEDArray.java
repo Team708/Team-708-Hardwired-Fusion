@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team708.frc2014.RobotMap;
-import org.team708.frc2014.commands.SEDs.RandomSEDColors;
+import org.team708.frc2014.commands.SEDs.AllianceOrSwag;
 
 /**
  *
@@ -55,7 +55,7 @@ public class SEDArray extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new RandomSEDColors());
+        setDefaultCommand(new AllianceOrSwag());
     }
     
     public void setColor(int color)
