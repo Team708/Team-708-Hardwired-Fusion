@@ -123,7 +123,6 @@ public class ZygmontCrazy extends IterativeRobot {
                 CommandBase.drivetrain.sendToDash();
                 CommandBase.intake.sendToDash();
                 CommandBase.launcher.sendToDash();
-                CommandBase.sedArray.sendToDash();
             }
         }
     }
