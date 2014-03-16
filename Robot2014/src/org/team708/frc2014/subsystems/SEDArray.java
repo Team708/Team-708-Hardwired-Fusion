@@ -4,9 +4,9 @@
  */
 package org.team708.frc2014.subsystems;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.SEDs.AllianceOrSwag;
 
@@ -30,27 +30,12 @@ public class SEDArray extends Subsystem {
     public static final int WHITE = 7;   //111
     public static int defaultColour;
     
-    private final DriverStation.Alliance currentAlliance;
-    public final DriverStation.Alliance redAlliance = DriverStation.Alliance.kRed;
-    public final DriverStation.Alliance blueAlliance = DriverStation.Alliance.kBlue;
-    
     public SEDArray() {
         red = new Solenoid(RobotMap.redSED);
         blue = new Solenoid(RobotMap.blueSED);
         green = new Solenoid(RobotMap.greenSED);
         power = new Solenoid(RobotMap.powerSED);
         power.set(true);
-        
-        currentAlliance = DriverStation.getInstance().getAlliance();
-        if (currentAlliance.equals(redAlliance)) {
-            defaultColour = RED;
-        } else if (currentAlliance.equals(blueAlliance)) {
-            defaultColour = BLUE;
-        } else {
-            defaultColour = GREEN;
-        }
-        
-        setToAllianceColour();
     }
 
     public void initDefaultCommand() {
@@ -65,11 +50,7 @@ public class SEDArray extends Subsystem {
         blue.set((color & 4) > 0);
     }
     
-    public void setToAllianceColour() {
-        setColor(defaultColour);
-    }
-    
-    public DriverStation.Alliance getAllianceColour() {
-        return currentAlliance;
+    public void sendToDash() {
+        SmartDashboard.putNumber("Default Colour", defaultColour);
     }
 }

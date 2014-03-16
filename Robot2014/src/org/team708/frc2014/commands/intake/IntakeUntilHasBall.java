@@ -4,6 +4,7 @@
  */
 package org.team708.frc2014.commands.intake;
 
+import org.team708.frc2014.ZygmontCrazy;
 import org.team708.frc2014.commands.CommandBase;
 
 /**
@@ -33,12 +34,15 @@ public class IntakeUntilHasBall extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        System.out.println(intake.hasBall());
+        if (ZygmontCrazy.debug) {
+            System.out.println(intake.hasBall());
+        }
         intake.stopIntake();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        end();
     }
 }
