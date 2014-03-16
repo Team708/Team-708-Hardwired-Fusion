@@ -31,7 +31,7 @@ public class AllianceOrSwag extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         currentAlliance = DriverStation.getInstance().getAlliance();
-        
+
         if (drivetrain.getSwagDrive()) {
             if (currentAlliance.equals(RED_ALLIANCE)) {
                 sedArray.setColor(SEDArray.VIOLET);

@@ -6,7 +6,6 @@ package org.team708.frc2014.commands.intake;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
@@ -17,10 +16,7 @@ public class PassBall extends CommandGroup {
     public PassBall() {
         // Brings intake in and the dispense the ball
         addSequential(new RetractIntake());
-        addSequential(new WaitCommand(0.5));
-        addSequential(new ManualDispense());
-        addSequential(new WaitCommand(1.0));
-        addSequential(new ManualStop());
+        addSequential(new DispenseUntilNoBall());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

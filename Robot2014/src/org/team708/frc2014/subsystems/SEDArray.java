@@ -6,6 +6,7 @@ package org.team708.frc2014.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.SEDs.AllianceOrSwag;
 

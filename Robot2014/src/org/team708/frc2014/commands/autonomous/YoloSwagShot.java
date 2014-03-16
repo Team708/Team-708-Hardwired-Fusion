@@ -25,7 +25,7 @@ public class YoloSwagShot extends CommandGroup {
     public YoloSwagShot() {
         //initial driving
         addSequential(new ResetEncoders());
-        addSequential(new DriveBackwardToEncoder(-4000));
+        addSequential(new DriveBackwardToEncoder(-3000));
         addSequential(new DriveForwardToTargetUltrasonic(0));
         
         //open intake and prepare to shoot

@@ -2,50 +2,42 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team708.frc2014.commands.drivetrain;
+package org.team708.frc2014.commands.intake;
 
+import org.team708.frc2014.ZygmontCrazy;
 import org.team708.frc2014.commands.CommandBase;
 
 /**
  *
- * @author Nam Tran
+ * @author Robotics
  */
-public class DriveBackwardToEncoder extends CommandBase {
+public class DispenseUntilNoBall extends CommandBase {
     
-    private double goalCount;
-    
-    private double turnSpeed = 0.0;
-    private final double MOVE_SPEED = -0.90;
-    
-    private final double DISTANCE_TOLERANCE = 100;
-    private final double TURN_TOLERANCE = 100.0;
-    
-    public DriveBackwardToEncoder(double goalCount) {
+    public DispenseUntilNoBall() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        requires(drivetrain);
-        
-        this.goalCount = goalCount;
+        requires(intake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        drivetrain.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.haloDrive(MOVE_SPEED, 0.0);
+        intake.dispenseBall();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Math.abs(goalCount - drivetrain.getAverageEncoderDistance()) <= DISTANCE_TOLERANCE;
+        return !intake.hasBall();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.setMotors(-0.1);
+        if (ZygmontCrazy.debug) {
+            System.out.println(intake.hasBall());
+        }
+        intake.stopIntake();
     }
 
     // Called when another command which requires one or more of the same

@@ -43,15 +43,21 @@ public class Drivetrain extends Subsystem {
     // Scaling for ultrasonic direction correction
     private final double ultrasonicScalar = .10;
     private final double ultrasonicMoveSpeed = 0.70;
-    private final double turnTolerance = 4
-            ;
+    private final double turnTolerance = 4;
+    
+    //Encoder correction
+    private boolean encodersZeroed = false;
+    private double zeroedRightEncoder;
+    private double zeroedLeftEncoder;
+    private double turnSpeed = 0.0;
+    private final double TURN_TOLERANCE = 100.0;
     
     // Shooting type constants
     public final int REGULAR = 0;
     public final int PASS_SHOT = 1;
     
     // Shooting distances
-    public final int REGULAR_DISTANCE = 64;
+    public final int REGULAR_DISTANCE = 58;   //was 64
     public final int PASS_SHOT_DISTANCE = 108;
 
     public void initDefaultCommand() 
@@ -98,6 +104,23 @@ public class Drivetrain extends Subsystem {
      */
     public void haloDrive (double leftAxis, double rightAxis)
     {
+        if (rightAxis == 0.0) {
+            if (!encodersZeroed) {
+                zeroedLeftEncoder = -getLeftEncoder();
+                zeroedRightEncoder = getRightEncoder();
+                encodersZeroed = true;
+            }
+            
+            double encoderDifference = (-getLeftEncoder() - zeroedLeftEncoder) - (getRightEncoder() - zeroedRightEncoder);
+            if (encoderDifference < -TURN_TOLERANCE || encoderDifference > TURN_TOLERANCE) {
+                rightAxis = encoderDifference / 1000;
+            } else {
+                rightAxis = 0.0;
+            }
+        } else {
+            encodersZeroed = false;
+        }
+        
         if (swagDrive) {
             // Driver for two motors on
             swagDriver.arcadeDrive((currentPercent * leftAxis), (currentPercent * rightAxis));
@@ -170,6 +193,11 @@ public class Drivetrain extends Subsystem {
         leftMotor2.set(0.0);
         rightMotor1.set(0.0);
         rightMotor2.set(0.0);
+    }
+    
+    public void setMotors(double speed) {
+        leftMotor1.set(speed);
+        rightMotor1.set(speed);
     }
     
     /**
