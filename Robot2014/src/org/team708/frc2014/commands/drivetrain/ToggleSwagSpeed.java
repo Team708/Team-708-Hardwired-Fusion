@@ -22,7 +22,7 @@ public class ToggleSwagSpeed extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drivetrain.setSwag(true);
+        drivetrain.setSwagSpeed(true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,7 +32,7 @@ public class ToggleSwagSpeed extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        drivetrain.setSwag(false);
+        drivetrain.setSwagSpeed(false);
     }
 
     // Called when another command which requires one or more of the same

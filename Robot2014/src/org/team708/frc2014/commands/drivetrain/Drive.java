@@ -27,6 +27,14 @@ public class Drive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (OI.driverGamepad.getRightTriggerPressed()) {
+            drivetrain.setSwagSpeed(true);
+            drivetrain.setSwagDrive(true);
+        } else {
+            drivetrain.setSwagSpeed(false);
+            drivetrain.setSwagDrive(false);
+        }
+        
         drivetrain.haloDrive(OI.driverGamepad.getAxis(Gamepad.leftStick_Y),-OI.driverGamepad.getAxis(Gamepad.rightStick_X));
     }
     

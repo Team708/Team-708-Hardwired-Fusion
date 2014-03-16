@@ -52,6 +52,7 @@ public class OI {
     // Activates auto shoot distance finding
     public static final Button activateAutoShoot = new JoystickButton(driverGamepad, activateAutoShootButtonNumber);
     
+    // Activates auto pass distance finding
     public static final Button activateAutoPass = new JoystickButton(driverGamepad, activateAutoPassButtonNumber);
     
     // Toggles the state of the LEDs

@@ -4,13 +4,19 @@
  */
 package org.team708.frc2014.commands.SEDs;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import org.team708.frc2014.commands.CommandBase;
+import org.team708.frc2014.subsystems.SEDArray;
 
 /**
  *
  * @author Robotics
  */
 public class AllianceOrSwag extends CommandBase {
+    
+    private DriverStation.Alliance currentAlliance;
+    public final DriverStation.Alliance RED_ALLIANCE = DriverStation.Alliance.kRed;
+    public final DriverStation.Alliance BLUE_ALLIANCE = DriverStation.Alliance.kBlue;
     
     public AllianceOrSwag() {
         // Use requires() here to declare subsystem dependencies
@@ -24,16 +30,24 @@ public class AllianceOrSwag extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (drivetrain.getSwag()) {
-            if (sedArray.getAllianceColour().equals(sedArray.redAlliance)) {
-                sedArray.setColor(sedArray.VIOLET);
-            } else if (sedArray.getAllianceColour().equals(sedArray.blueAlliance)) {
-                sedArray.setColor(sedArray.TEAL);
+        currentAlliance = DriverStation.getInstance().getAlliance();
+        
+        if (drivetrain.getSwagDrive()) {
+            if (currentAlliance.equals(RED_ALLIANCE)) {
+                sedArray.setColor(SEDArray.VIOLET);
+            } else if (currentAlliance.equals(BLUE_ALLIANCE)) {
+                sedArray.setColor(SEDArray.TEAL);
             } else {
-                sedArray.setColor(sedArray.YELLOW);
+                sedArray.setColor(SEDArray.YELLOW);
             }
         } else {
-            sedArray.setToAllianceColour();
+            if (currentAlliance.equals(RED_ALLIANCE)) {
+                sedArray.setColor(SEDArray.RED);
+            } else if (currentAlliance.equals(BLUE_ALLIANCE)) {
+                sedArray.setColor(SEDArray.BLUE);
+            } else {
+                sedArray.setColor(SEDArray.WHITE);
+            }
         }
     }
 

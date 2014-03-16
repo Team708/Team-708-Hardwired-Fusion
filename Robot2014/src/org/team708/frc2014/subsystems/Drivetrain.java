@@ -1,6 +1,5 @@
 package org.team708.frc2014.subsystems;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -8,7 +7,6 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
-import org.team708.frc2014.commands.CommandBase;
 import org.team708.frc2014.commands.drivetrain.Drive;
 import org.team708.frc2014.sensors.UltrasonicSensor;
 
@@ -34,11 +32,13 @@ public class Drivetrain extends Subsystem {
     //Creates Ultrasonic Sensors
     private final UltrasonicSensor leftUltrasonic, rightUltrasonic;
     
-    private boolean swag = false; // Drivetrain mode check
+    private boolean swagSpeed = false; // Changes the speed of the drivetrain
+    private boolean swagDrive = false; // Changes how many motors to use
     
     // Scaling for drive modes
-    public final double normalPercent = 0.85;
-    public final double swagPercent = 1.00;
+    public final double NORMAL_PERCENT = 0.85;
+    public final double SWAG_PERCENT = 1.00;
+    public double currentPercent = NORMAL_PERCENT;
     
     // Scaling for ultrasonic direction correction
     private final double ultrasonicScalar = .10;
@@ -98,34 +98,57 @@ public class Drivetrain extends Subsystem {
      */
     public void haloDrive (double leftAxis, double rightAxis)
     {
-        if (swag) {
+        if (swagDrive) {
             // Driver for two motors on
-            swagDriver.arcadeDrive((swagPercent * leftAxis), (swagPercent * rightAxis));
+            swagDriver.arcadeDrive((currentPercent * leftAxis), (currentPercent * rightAxis));
         } else {
             // Driver for three motors on
-            driver.arcadeDrive((normalPercent * leftAxis), (normalPercent * rightAxis));
+            driver.arcadeDrive((currentPercent * leftAxis), (currentPercent * rightAxis));
         }
     }
     /**
-     * Returns the swag state
+     * Returns the swag drive state
      * @return 
      */
-    public boolean getSwag() {
-        return swag;
+    public boolean getSwagDrive() {
+        return swagDrive;
     }
     
     /**
      * Sets whether swag mode is enabled
      * @param newSwag 
      */
-    public void setSwag(boolean newSwag) {
-        swag = newSwag;
+    public void setSwagDrive(boolean newSwag) {
+        swagDrive = newSwag;
         
-        if (!swag) {
+        if (!swagDrive) {
             leftMotor2.set(0.0);
             rightMotor2.set(0.0);   
         }
     }
+    
+    /**
+     * Returns if the drivetrain should be in swag speed
+     * @return 
+     */
+    public boolean getSwagSpeed() {
+        return swagSpeed;
+    }
+    
+    /**
+     * Sets whether swag speed is enabled
+     * @param newSwag 
+     */
+    public void setSwagSpeed(boolean newSwag) {
+        swagSpeed = newSwag;
+        
+        if (swagSpeed) {
+            currentPercent = SWAG_PERCENT;
+        } else {
+            currentPercent = NORMAL_PERCENT;
+        }
+    }
+        
     
     /**
      * Resets the encoder values
@@ -230,6 +253,7 @@ public class Drivetrain extends Subsystem {
         SmartDashboard.putNumber("Right Ultrasonic Avg V", rightUltrasonic.getAverageVoltage());
         SmartDashboard.putNumber("Left Ultrasonic", (leftUltrasonic.getDistance()));
         SmartDashboard.putNumber("Right Ultrasonic", rightUltrasonic.getDistance());
-        SmartDashboard.putBoolean("Swag Mode", swag);
+        SmartDashboard.putBoolean("Swag Mode", swagDrive);
+        SmartDashboard.putNumber("Current Speed Scaling", currentPercent);
     }
 }
