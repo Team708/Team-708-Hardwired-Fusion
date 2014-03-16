@@ -37,13 +37,13 @@ public class FollowBall extends CommandBase {
     protected void execute() {
         visionProcessor.processData();
         
-        if(visionProcessor.hasTarget())
+        if(visionProcessor.hasHotGoal())
         {
             //calculate the rotation needed to line up target
-            if(visionProcessor.getDifferencePx() > rotationTolerancePx)
+            if(visionProcessor.getBallCenterDiffPx() > rotationTolerancePx)
             {
                 rotation = rotationSpeed;
-            }else if(visionProcessor.getDifferencePx() < -rotationTolerancePx)
+            }else if(visionProcessor.getBallCenterDiffPx() < -rotationTolerancePx)
             {
                 rotation = -rotationSpeed;
             }else{
@@ -51,7 +51,7 @@ public class FollowBall extends CommandBase {
             }
 
             //calculate the movement speed needed to chase target
-            distanceDifferenceToTarget = chaseDistanceIn - visionProcessor.getDistanceToTarget();
+            distanceDifferenceToTarget = chaseDistanceIn - visionProcessor.getBallDistanceIn();
             if(distanceDifferenceToTarget > distanceToleranceIn)
             {
                 movement = -movementSpeed;

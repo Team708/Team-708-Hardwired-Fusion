@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.team708.frc2014.commands.drivetrain.DriveBackwardToEncoder;
 import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
+import org.team708.frc2014.commands.drivetrain.FollowBall;
 import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.DispenseBallTimed;
 import org.team708.frc2014.commands.intake.IntakeBall;
@@ -59,7 +60,7 @@ public class CustomisableAuto extends CommandGroup {
                 addSequential(new FollowBall());
                 if (balls == 3) {
                     addSequential(new IntakeUntilHasBall());
-                    addSequential(new RotateToEncoder(180));
+//                    addSequential(new RotateToEncoder(180));
                     addSequential(new LauncherGoalShot());
                 }
             }
