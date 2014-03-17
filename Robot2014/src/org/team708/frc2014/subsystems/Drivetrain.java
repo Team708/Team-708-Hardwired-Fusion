@@ -230,7 +230,6 @@ public class Drivetrain extends Subsystem {
      */
     public double getTurnSpeed() {
         double ultrasonicDifference = leftUltrasonic.getDistance() - rightUltrasonic.getDistance();
-        double turnSpeed = 0.0;
         
         if (ultrasonicDifference > turnTolerance) {
             turnSpeed = ultrasonicDifference * ultrasonicScalar;
