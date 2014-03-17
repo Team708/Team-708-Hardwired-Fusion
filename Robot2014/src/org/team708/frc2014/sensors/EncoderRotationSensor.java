@@ -31,7 +31,7 @@ public class EncoderRotationSensor extends RotationSensor{
      * @return 
      */
     public double getAngle(){
-        //
+        //calculate radian angle, then convert to degrees
         return Math.toDegrees((left.getDistance() - right.getDistance())/robotDiameter);
     }
 

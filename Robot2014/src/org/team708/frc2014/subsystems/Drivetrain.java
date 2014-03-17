@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.drivetrain.Drive;
+import org.team708.frc2014.sensors.EncoderRotationSensor;
+import org.team708.frc2014.sensors.RotationSensor;
 import org.team708.frc2014.sensors.UltrasonicSensor;
 
 /**
@@ -24,7 +26,14 @@ public class Drivetrain extends Subsystem {
     // Creates speed controllers for right side (1 = normal/crawl, 2 = swag)
     private final SpeedController rightMotor1, rightMotor2;
     
-    private final Encoder leftEncoder, rightEncoder; // Sensors
+    private final Encoder leftEncoder, rightEncoder; // Encoders
+    
+    //virtual rotation sensor using encoders
+    private final RotationSensor encoderRotationSensor;
+    private static final int encWheelCounts = 360; //360 count encoders
+    private static final double wheelDiameterIn = 4.0; //4in colson wheels
+    private static final double distancePerCountIn = Math.PI * wheelDiameterIn / encWheelCounts;
+    private static final double robotDiameterIn = 27.5;
     
     // Creates drivers (one for two motors running, one for three running)
     private final RobotDrive driver, swagDriver;
@@ -82,8 +91,14 @@ public class Drivetrain extends Subsystem {
         //Creates encoders
         leftEncoder = new Encoder(RobotMap.leftEncoderA, RobotMap.leftEncoderB);
         rightEncoder = new Encoder(RobotMap.rightEncoderA, RobotMap.rightEncoderB);
+        leftEncoder.setReverseDirection(true); //left encoder must be reversed due to drivetrain mirror image
+        leftEncoder.setDistancePerPulse(distancePerCountIn);
+        rightEncoder.setDistancePerPulse(distancePerCountIn);
         leftEncoder.start();
         rightEncoder.start();
+        
+        //create virtual encoder rotation sensor
+        encoderRotationSensor = new EncoderRotationSensor(leftEncoder,rightEncoder,robotDiameterIn);
         
         // Creates normal drive mode using two motor controllers (2 motors on each side)
         driver = new RobotDrive(leftMotor1,rightMotor1);
@@ -182,7 +197,7 @@ public class Drivetrain extends Subsystem {
     }
     
     public double getAverageEncoderDistance() {
-        return (-leftEncoder.getDistance() + (rightEncoder.getDistance())) / 2;
+        return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
     }
     
     /**
@@ -268,6 +283,11 @@ public class Drivetrain extends Subsystem {
     
     public double getRightEncoder() {
         return rightEncoder.get();
+    }
+    
+    public double getAngleDeg()
+    {
+        return encoderRotationSensor.getAngle();
     }
     
     /**
