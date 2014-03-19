@@ -6,7 +6,7 @@ package org.team708.frc2014.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.team708.frc2014.commands.drivetrain.EncoderDrive;
-import org.team708.frc2014.commands.drivetrain.FollowBall;
+//import org.team708.frc2014.commands.drivetrain.FollowBall;
 import org.team708.frc2014.commands.intake.IntakeUntilHasBall;
 
 /**
@@ -17,7 +17,7 @@ public class ThreeBallYoloSwagShot extends CommandGroup {
     
     public ThreeBallYoloSwagShot() {
         addSequential(new TwoBallYoloSwagShot());
-        addSequential(new FollowBall());
+//        addSequential(new FollowBall());
         addSequential(new IntakeUntilHasBall());
         addSequential(new EncoderDrive(0.0, 180));
         addSequential(new YoloSwagShot());

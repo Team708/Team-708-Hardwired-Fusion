@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.team708.frc2014.commands.drivetrain.DriveBackwardToEncoder;
 import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
 import org.team708.frc2014.commands.drivetrain.EncoderDrive;
-import org.team708.frc2014.commands.drivetrain.FollowBall;
+//import org.team708.frc2014.commands.drivetrain.FollowBall;
 import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.DispenseBallTimed;
 import org.team708.frc2014.commands.intake.IntakeBall;
@@ -34,6 +34,8 @@ public class CustomisableAuto extends CommandGroup {
     
     public CustomisableAuto() {
         
+        getPreferences();
+        
         if (balls == 2 || balls == 3) {
             this.intakeSecondBall();
         }
@@ -51,21 +53,21 @@ public class CustomisableAuto extends CommandGroup {
         
         if (balls == 1) {
             if (followBall) {
-                addSequential(new FollowBall());
+//                addSequential(new FollowBall());
             }
         } else {
             this.prepareSecondBall();
             addSequential(new LauncherGoalShot());
             
             if ((balls == 2 && followBall) || balls == 3) {
-                addSequential(new FollowBall());
+//                addSequential(new FollowBall());
                 if (balls == 3) {
                     addSequential(new IntakeUntilHasBall());
                     addSequential(new EncoderDrive(0.0, 180));
                     addSequential(new LauncherGoalShot());
                     
                     for (int i = 0; i < balls - 3; i++) {
-                        addSequential(new FollowBall());
+//                        addSequential(new FollowBall());
                         addSequential(new IntakeUntilHasBall());
                         addSequential(new DriveForwardToTargetUltrasonic(0));
                         addSequential(new LauncherGoalShot());
@@ -101,7 +103,7 @@ public class CustomisableAuto extends CommandGroup {
         
     }
     
-    public void getPreferences() {
+    public final void getPreferences() {
         balls = preferences.getInt("Number of Balls", balls);
         followHotGoal = preferences.getBoolean("Follow Hot Goal", followHotGoal);
         followBall = preferences.getBoolean("Follow Ball After", followBall);

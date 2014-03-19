@@ -9,14 +9,12 @@
 //import org.team708.frc2014.commands.CommandBase;
 //import org.team708.frc2014.commands.drivetrain.DriveBackwardToEncoder;
 //import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
+//import org.team708.frc2014.commands.drivetrain.EncoderDrive;
 //import org.team708.frc2014.commands.drivetrain.ResetEncoders;
 //import org.team708.frc2014.commands.intake.DeployIntake;
 //import org.team708.frc2014.commands.intake.IntakeBall;
 //import org.team708.frc2014.commands.intake.IntakeStop;
-//import org.team708.frc2014.commands.launcher.LauncherGoalShot;
 //import org.team708.frc2014.commands.launcher.LauncherHoldBall;
-//import org.team708.frc2014.commands.launcher.LauncherMoveToBottom;
-//import org.team708.frc2014.commands.launcher.LauncherMoveToTop;
 //
 ///**
 // *
@@ -24,10 +22,22 @@
 // */
 //public class OneHotGoalShot extends CommandGroup {
 //    
+//    private final double ENCODER_DISTANCE = -4000;
+//    
 //    public OneHotGoalShot() {
 //        //initial driving
 //        addSequential(new ResetEncoders());
-//        addSequential(new DriveBackwardToEncoder(-4000));
+//        
+//        if (CommandBase.visionProcessor.isHotGoalLeft()) {
+//            addSequential(new EncoderDrive((ENCODER_DISTANCE / 2), 45));
+//            addSequential(new EncoderDrive((ENCODER_DISTANCE / 2), -45));
+//        } else if (CommandBase.visionProcessor.isHotGoalRight()) {
+//            addSequential(new EncoderDrive((ENCODER_DISTANCE / 2), -45));
+//            addSequential(new EncoderDrive((ENCODER_DISTANCE / 2), 45));
+//        } else {
+//            addSequential(new DriveBackwardToEncoder(ENCODER_DISTANCE));
+//        }
+//        
 //        addSequential(new DriveForwardToTargetUltrasonic(0));
 //        
 //        //open intake and prepare to shoot
@@ -38,18 +48,6 @@
 //        addSequential(new IntakeStop());
 //        addSequential(new LauncherHoldBall());
 //        
-//        if (CommandBase.visionProcessor.isGoalLit()) {
-//            //shoot
-//            addSequential(new LauncherMoveToTop());
-//            addSequential(new WaitCommand(0.1));
-//            addSequential(new LauncherMoveToBottom());
-//        } else {
-//            addSequential(new WaitCommand(5));
-//            //shoot
-//            addSequential(new LauncherMoveToTop());
-//            addSequential(new WaitCommand(0.1));
-//            addSequential(new LauncherMoveToBottom());
-//        }
 //        // Add Commands here:
 //        // e.g. addSequential(new Command1());
 //        //      addSequential(new Command2());
