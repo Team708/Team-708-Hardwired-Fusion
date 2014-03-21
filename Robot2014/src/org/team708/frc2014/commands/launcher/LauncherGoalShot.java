@@ -22,11 +22,23 @@ import org.team708.frc2014.subsystems.Launcher;
 public class LauncherGoalShot extends CommandGroup {
 
     public LauncherGoalShot() {
-        addSequential(new LauncherMoveToTop()); //launch ball
+		requires(launcher);
+    }
+	
+	@Override
+	protected void execute() {
+		super(this.execute());
+		addSequential(new LauncherMoveToTop()); //launch ball
         addSequential(new WaitCommand(.1));     //wait to allow for follow through
         addSequential (new LauncherMoveToBottom());  //reset launcher
 //        addSequential(new LauncherMoveTo(Launcher.REGULAR_SHOT_ENC_COUNTS, false));
 //        addSequential(new WaitCommand(.1));   //wait a bit for safety
 //        addSequential(new LauncherHome(false)); //go home but do not raise first
-    }
+	}
+	
+	@Override
+	protected void interrupted() {
+		super(this.interrupted());
+		LauncherMoveToTop().getInstance().cancel();
+	}
 }
