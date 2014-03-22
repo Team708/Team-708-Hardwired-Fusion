@@ -115,8 +115,9 @@ public class Drivetrain extends Subsystem {
                 rightAxis = Math708.makeWithin(encoderDifference / 1000,-1.0,1.0);
             } else {
                 rightAxis = 0.0;
-                encodersZeroed = false;
             }
+        } else {
+            encodersZeroed = false;
         }
         
         if (swag) {
