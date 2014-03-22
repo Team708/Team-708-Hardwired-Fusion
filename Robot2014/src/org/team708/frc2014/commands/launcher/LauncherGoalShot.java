@@ -22,6 +22,7 @@ import org.team708.frc2014.subsystems.Launcher;
 public class LauncherGoalShot extends CommandGroup {
 
     public LauncherGoalShot() {
+        requires(CommandBase.launcher);
         addSequential(new LauncherMoveToTop()); //launch ball
         addSequential(new WaitCommand(.1));     //wait to allow for follow through
         addSequential (new LauncherMoveToBottom());  //reset launcher

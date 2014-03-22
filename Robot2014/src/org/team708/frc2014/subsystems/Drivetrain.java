@@ -2,7 +2,6 @@ package org.team708.frc2014.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -42,8 +41,7 @@ public class Drivetrain extends Subsystem {
     // Scaling for ultrasonic direction correction
     private final double ultrasonicScalar = .10;
     private final double ultrasonicMoveSpeed = 0.70;
-    private final double turnTolerance = 4
-            ;
+    private final double turnTolerance = 4;
     
     // Shooting type constants
     public final int REGULAR = 0;
@@ -188,7 +186,8 @@ public class Drivetrain extends Subsystem {
     }
     
     public double getForwardSpeed(double lowerDistance, double upperDistance) {
-        double averageDistance = ((leftUltrasonic.getDistance() + rightUltrasonic.getDistance())/2);
+//        double averageDistance = ((leftUltrasonic.getDistance() + rightUltrasonic.getDistance())/2);
+        double averageDistance = (rightUltrasonic.getDistance() / 2);
         double forwardSpeed;
         
         if (averageDistance < lowerDistance) {

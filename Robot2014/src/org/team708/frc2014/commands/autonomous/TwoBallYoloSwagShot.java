@@ -27,7 +27,7 @@ public class TwoBallYoloSwagShot extends CommandGroup {
         addSequential(new DeployIntake ());
         addSequential(new IntakeBallTimed(1.1));
         addSequential(new LauncherMoveTo(900));
-        addSequential(new IntakeBallTimed(0.3));
+        addSequential(new IntakeBallTimed(0.18)); // Was 0.3
         addSequential(new DriveBackwardToEncoder(-4000));
         addSequential(new DriveForwardToTargetUltrasonic(0));
         addSequential(new DispenseBallTimed(0.15));
