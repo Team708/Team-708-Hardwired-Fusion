@@ -31,7 +31,7 @@ public class Intake extends Subsystem {
     private final IRSensor intakeIR; // IR Sensor to check for ball
     
     private final double lowHasBallDistance = 0.0; // Lower threshold for having the ball
-    private final double highHasBallDistance = 4.0; // Upper threshold for having the ball
+    private final double highHasBallDistance = 6.0; // Upper threshold for having the ball
     
     /**
      * Constructor

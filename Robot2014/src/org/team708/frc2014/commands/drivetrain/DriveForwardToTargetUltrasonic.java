@@ -49,8 +49,8 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
         drivetrain.stop();
-        System.out.println(drivetrain.getLeftDistance());
-        System.out.println(drivetrain.getRightDistance());
+//        System.out.println(drivetrain.getLeftDistance());
+//        System.out.println(drivetrain.getRightDistance());
         ledArray.setState(ledArray.SOLID);
     }
 

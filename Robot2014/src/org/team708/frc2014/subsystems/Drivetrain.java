@@ -43,12 +43,19 @@ public class Drivetrain extends Subsystem {
     private final double ultrasonicMoveSpeed = 0.70;
     private final double turnTolerance = 4;
     
+//    //Encoder correction
+//    private boolean encodersZeroed = false;
+//    private double zeroedRightEncoder;
+//    private double zeroedLeftEncoder;
+//    private double turnSpeed = 0.0;
+//    private final double TURN_TOLERANCE = 100.0;
+    
     // Shooting type constants
     public final int REGULAR = 0;
     public final int PASS_SHOT = 1;
     
     // Shooting distances
-    public final int REGULAR_DISTANCE = 58;
+    public final int REGULAR_DISTANCE = 70;
     public final int PASS_SHOT_DISTANCE = 108;
 
     public void initDefaultCommand() 
@@ -95,6 +102,23 @@ public class Drivetrain extends Subsystem {
      */
     public void haloDrive (double leftAxis, double rightAxis)
     {
+//        if (leftAxis != 0.0 && rightAxis == 0.0) {
+//            if (!encodersZeroed) {
+//                zeroedLeftEncoder = -getLeftEncoder();
+//                zeroedRightEncoder = getRightEncoder();
+//                encodersZeroed = true;
+//            }
+//            
+//            double encoderDifference = (-getLeftEncoder() - zeroedLeftEncoder) - (getRightEncoder() - zeroedRightEncoder);
+//            if (encoderDifference < -TURN_TOLERANCE || encoderDifference > TURN_TOLERANCE) {
+//                rightAxis = encoderDifference / 1000;
+//            } else {
+//                rightAxis = 0.0;
+//            }
+//        } else {
+//            encodersZeroed = false;
+//        }
+        
         if (swag) {
             // Driver for two motors on
             swagDriver.arcadeDrive((swagPercent * leftAxis), (swagPercent * rightAxis));
@@ -134,6 +158,14 @@ public class Drivetrain extends Subsystem {
     
     public double getAverageEncoderDistance() {
         return (-leftEncoder.getDistance() + (rightEncoder.getDistance())) / 2;
+    }
+    
+    public double getLeftEncoder() {
+        return leftEncoder.get();
+    }
+    
+    public double getRightEncoder() {
+        return rightEncoder.get();
     }
     
     /**
@@ -187,7 +219,7 @@ public class Drivetrain extends Subsystem {
     
     public double getForwardSpeed(double lowerDistance, double upperDistance) {
 //        double averageDistance = ((leftUltrasonic.getDistance() + rightUltrasonic.getDistance())/2);
-        double averageDistance = (rightUltrasonic.getDistance() / 2);
+        double averageDistance = rightUltrasonic.getDistance();
         double forwardSpeed;
         
         if (averageDistance < lowerDistance) {
