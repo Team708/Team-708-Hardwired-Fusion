@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.RobotMap;
 import org.team708.frc2014.commands.drivetrain.Drive;
 import org.team708.frc2014.sensors.UltrasonicSensor;
+import org.team708.util.Math708;
 
 /**
  * A tank-style drivetrain that either uses 4 (normal) or 6 (swag) motors.
@@ -43,12 +44,12 @@ public class Drivetrain extends Subsystem {
     private final double ultrasonicMoveSpeed = 0.70;
     private final double turnTolerance = 4;
     
-//    //Encoder correction
-//    private boolean encodersZeroed = false;
-//    private double zeroedRightEncoder;
-//    private double zeroedLeftEncoder;
-//    private double turnSpeed = 0.0;
-//    private final double TURN_TOLERANCE = 100.0;
+    //Encoder correction
+    private boolean encodersZeroed = false;
+    private double zeroedRightEncoder;
+    private double zeroedLeftEncoder;
+    private double turnSpeed = 0.0;
+    private final double TURN_TOLERANCE = 100.0;
     
     // Shooting type constants
     public final int REGULAR = 0;
@@ -102,22 +103,22 @@ public class Drivetrain extends Subsystem {
      */
     public void haloDrive (double leftAxis, double rightAxis)
     {
-//        if (leftAxis != 0.0 && rightAxis == 0.0) {
-//            if (!encodersZeroed) {
-//                zeroedLeftEncoder = -getLeftEncoder();
-//                zeroedRightEncoder = getRightEncoder();
-//                encodersZeroed = true;
-//            }
-//            
-//            double encoderDifference = (-getLeftEncoder() - zeroedLeftEncoder) - (getRightEncoder() - zeroedRightEncoder);
-//            if (encoderDifference < -TURN_TOLERANCE || encoderDifference > TURN_TOLERANCE) {
-//                rightAxis = encoderDifference / 1000;
-//            } else {
-//                rightAxis = 0.0;
-//            }
-//        } else {
-//            encodersZeroed = false;
-//        }
+        if (leftAxis != 0.0 && rightAxis == 0.0) {
+            if (!encodersZeroed) {
+                zeroedLeftEncoder = -getLeftEncoder();
+                zeroedRightEncoder = getRightEncoder();
+                encodersZeroed = true;
+            }
+            
+            double encoderDifference = (-getLeftEncoder() - zeroedLeftEncoder) - (getRightEncoder() - zeroedRightEncoder);
+            if (encoderDifference < -TURN_TOLERANCE || encoderDifference > TURN_TOLERANCE) {
+                rightAxis = Math708.makeWithin(encoderDifference / 1000,-1.0,1.0);
+            } else {
+                rightAxis = 0.0;
+            }
+        } else {
+            encodersZeroed = false;
+        }
         
         if (swag) {
             // Driver for two motors on
