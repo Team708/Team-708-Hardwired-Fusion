@@ -48,7 +48,9 @@ public class Drivetrain extends Subsystem {
     private boolean encodersZeroed = false;
     private double zeroedRightEncoder;
     private double zeroedLeftEncoder;
-    private final double TURN_TOLERANCE = 100.0;
+    private final double TURN_TOLERANCE = 50.0;
+    private double correction;
+    private double compensation_scalar = 500.0;
     
     // Shooting type constants
     public final int REGULAR = 0;
@@ -102,6 +104,8 @@ public class Drivetrain extends Subsystem {
      */
     public void haloDrive (double leftAxis, double rightAxis)
     {
+        correction = rightAxis;
+        
         if (leftAxis != 0.0 && rightAxis == 0.0) {
             if (!encodersZeroed) {
                 zeroedLeftEncoder = -getLeftEncoder();
@@ -111,9 +115,9 @@ public class Drivetrain extends Subsystem {
             
             double encoderDifference = (-getLeftEncoder() - zeroedLeftEncoder) - (getRightEncoder() - zeroedRightEncoder);
             if (encoderDifference < -TURN_TOLERANCE || encoderDifference > TURN_TOLERANCE) {
-                rightAxis = Math708.makeWithin(encoderDifference / 1000, -1.0,1.0);
+                correction = Math708.makeWithin(encoderDifference / compensation_scalar, -1.0,1.0);
             } else {
-                rightAxis = 0.0;
+                correction = 0.0;
             }
         } else {
             encodersZeroed = false;
@@ -121,10 +125,10 @@ public class Drivetrain extends Subsystem {
         
         if (swag) {
             // Driver for two motors on
-            swagDriver.arcadeDrive((swagPercent * leftAxis), (swagPercent * rightAxis));
+            swagDriver.arcadeDrive((swagPercent * leftAxis), (swagPercent * correction));
         } else {
             // Driver for three motors on
-            driver.arcadeDrive((normalPercent * leftAxis), (normalPercent * rightAxis));
+            driver.arcadeDrive((normalPercent * leftAxis), (normalPercent * correction));
         }
     }
     /**
@@ -252,5 +256,6 @@ public class Drivetrain extends Subsystem {
         SmartDashboard.putNumber("Left Ultrasonic", (leftUltrasonic.getDistance()));
         SmartDashboard.putNumber("Right Ultrasonic", rightUltrasonic.getDistance());
         SmartDashboard.putBoolean("Swag Mode", swag);
+        SmartDashboard.putNumber("Bias Compensation",correction);
     }
 }
