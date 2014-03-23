@@ -109,9 +109,9 @@ public class Drivetrain extends Subsystem {
                 encodersZeroed = true;
             }
             
-            double encoderDifference = (getRightEncoder() - zeroedRightEncoder) - (-getLeftEncoder() - zeroedLeftEncoder);
+            double encoderDifference = (-getLeftEncoder() - zeroedLeftEncoder) - (getRightEncoder() - zeroedRightEncoder);
             if (encoderDifference < -TURN_TOLERANCE || encoderDifference > TURN_TOLERANCE) {
-                rightAxis = Math708.makeWithin(encoderDifference / 1000,-1.0,1.0);
+                rightAxis = Math708.makeWithin(encoderDifference / 1000, -1.0,1.0);
             } else {
                 rightAxis = 0.0;
             }
