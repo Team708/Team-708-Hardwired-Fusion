@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.team708.frc2014.commands.drivetrain.DriveBackwardToEncoder;
 import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
+import org.team708.frc2014.commands.drivetrain.ResetEncoders;
 import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.DispenseBallTimed;
 import org.team708.frc2014.commands.intake.IntakeBallTimed;
@@ -28,6 +29,7 @@ public class TwoBallYoloSwagShot extends CommandGroup {
         addSequential(new IntakeBallTimed(1.1));
         addSequential(new LauncherMoveTo(900));
         addSequential(new IntakeBallTimed(0.18)); // Was 0.3
+        addSequential(new ResetEncoders());
         addSequential(new DriveBackwardToEncoder(-4000));
         addSequential(new DriveForwardToTargetUltrasonic(0));
         addSequential(new DispenseBallTimed(0.15));
