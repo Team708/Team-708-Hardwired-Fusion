@@ -48,7 +48,6 @@ public class Drivetrain extends Subsystem {
     private boolean encodersZeroed = false;
     private double zeroedRightEncoder;
     private double zeroedLeftEncoder;
-    private double turnSpeed = 0.0;
     private final double TURN_TOLERANCE = 100.0;
     
     // Shooting type constants
