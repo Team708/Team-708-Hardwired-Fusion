@@ -25,16 +25,26 @@ import org.team708.frc2014.commands.launcher.LauncherMoveToTop;
 public class TwoBallYoloSwagShot extends CommandGroup {
     
     public TwoBallYoloSwagShot() {
-        addSequential(new DeployIntake ());
-        addSequential(new IntakeBallTimed(1.1));
+        // Opens the intake while keeping the first ball in by spinning
+        addSequential(new DeployIntake());
+        addSequential(new IntakeBallTimed(0.8));    // Was 1.2
+        
+        // Move the arm up to make room to intake the second ball, then intakes the ball
         addSequential(new LauncherMoveTo(900));
-        addSequential(new IntakeBallTimed(0.18)); // Was 0.3
+        addSequential(new IntakeBallTimed(0.3)); // Was 0.3
+        
+        // Drive to the goal
         addSequential(new ResetEncoders());
         addSequential(new DriveBackwardToEncoder(-4000));
         addSequential(new DriveForwardToTargetUltrasonic(0));
-        addSequential(new DispenseBallTimed(0.15));
+        addSequential(new WaitCommand(0.2));
+        
+        // Moves second ball out of the way and shoots the first ball
+        addSequential(new DispenseBallTimed(0.08));  // Was 0.15
+        addSequential(new WaitCommand(0.7));
         addSequential(new LauncherGoalShot());
-//        addSequential(new IntakeBallTimed(0.25));
+        
+        // Intakes the second ball and shoots it
         addSequential(new IntakeUntilHasBall());
         addSequential(new WaitCommand(0.5));
         addSequential(new LauncherGoalShot());

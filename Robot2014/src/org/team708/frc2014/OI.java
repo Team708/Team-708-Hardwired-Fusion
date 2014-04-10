@@ -79,7 +79,7 @@ public class OI {
         // Driver
         overrideAuto.whenPressed(new Stop());
         holdToSwagSpeed.whileHeld(new ToggleSwagSpeed());
-        activateAutoShoot.whenPressed(new DriveForwardToTargetUltrasonic(0));
+        activateAutoShoot.whenPressed(new DriveForwardToTargetUltrasonic(2));
         activateAutoPass.whenPressed(new DriveForwardToTargetUltrasonic(1));
         toggleLED.whenPressed(new ToggleLED());
         

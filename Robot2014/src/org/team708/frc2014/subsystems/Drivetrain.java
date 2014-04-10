@@ -53,11 +53,13 @@ public class Drivetrain extends Subsystem {
     private double compensation_scalar = 500.0;
     
     // Shooting type constants
-    public final int REGULAR = 0;
+    public final int AUTONOMOUS_SHOT = 0;
     public final int PASS_SHOT = 1;
+    public final int TELEOP_SHOT = 2;
     
     // Shooting distances
-    public final int REGULAR_DISTANCE = 60;
+    public final int AUTONOMOUS_SHOT_DISTANCE = 60;
+    public final int TELEOP_SHOT_DISTANCE = 39;
     public final int PASS_SHOT_DISTANCE = 108;
 
     public void initDefaultCommand() 

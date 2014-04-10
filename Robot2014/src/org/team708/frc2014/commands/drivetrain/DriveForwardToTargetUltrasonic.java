@@ -22,8 +22,10 @@ public class DriveForwardToTargetUltrasonic extends CommandBase {
         // eg. requires(chassis);
         requires(drivetrain);
         
-        if(shotType == drivetrain.REGULAR) {
-            targetDistance = drivetrain.REGULAR_DISTANCE;
+        if(shotType == drivetrain.AUTONOMOUS_SHOT) {
+            targetDistance = drivetrain.AUTONOMOUS_SHOT_DISTANCE;
+        } else if (shotType == drivetrain.TELEOP_SHOT) {
+            targetDistance = drivetrain.TELEOP_SHOT_DISTANCE;
         } else {
             targetDistance = drivetrain.PASS_SHOT_DISTANCE;
         }
