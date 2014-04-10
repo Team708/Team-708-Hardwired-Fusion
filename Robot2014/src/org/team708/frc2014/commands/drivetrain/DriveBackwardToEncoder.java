@@ -23,6 +23,11 @@ public class DriveBackwardToEncoder extends CommandBase {
         
         this.goalCount = goalCount;
     }
+    
+    public DriveBackwardToEncoder(double goalCount, double speed) {
+        this(goalCount);
+        moveSpeed = speed;
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() {

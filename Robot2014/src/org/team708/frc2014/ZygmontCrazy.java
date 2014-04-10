@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team708.frc2014.commands.CommandBase;
 import org.team708.frc2014.commands.autonomous.OneHotGoalShot;
+import org.team708.frc2014.commands.autonomous.ThreeBallYoloSwagShot;
 import org.team708.frc2014.commands.autonomous.TwoBallYoloSwagShot;
 import org.team708.frc2014.commands.autonomous.YoloSwagShot;
 
@@ -130,6 +131,7 @@ public class ZygmontCrazy extends IterativeRobot {
     private void queueAutonomousCommands() {
         autoChooser.addDefault("One Ball YOLOSWAG", new YoloSwagShot());
         autoChooser.addObject("Two Ball YOLOSWAG", new TwoBallYoloSwagShot());
+        autoChooser.addObject("Three Ball YOLOSWAG", new ThreeBallYoloSwagShot());
         SmartDashboard.putData("Autonomous Selector", autoChooser);
     }
 }
