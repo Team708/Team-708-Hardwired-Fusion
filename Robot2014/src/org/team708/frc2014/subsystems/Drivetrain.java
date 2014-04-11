@@ -48,9 +48,9 @@ public class Drivetrain extends Subsystem {
     private boolean encodersZeroed = false;
     private double zeroedRightEncoder;
     private double zeroedLeftEncoder;
-    private final double TURN_TOLERANCE = 50.0;
+    private final double TURN_TOLERANCE = 25.0;
     private double correction;
-    private double compensation_scalar = 500.0;
+    private double compensation_scalar = 300.0;
     
     // Shooting type constants
     public final int AUTONOMOUS_SHOT = 0;
