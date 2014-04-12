@@ -27,6 +27,7 @@ public class DataLogger {
     private Vector m_data;                 //vector (dynamic array) for storing string data.
     private Vector m_headings;             //list of table headings (in order left to right) 
     private Random m_random;
+    private long m_startTime;
     private long m_prevLogTime;
     private long m_granularity;
     private final long m_defaultGranularity = 1; //1 msec minimum time between timestamps
@@ -48,10 +49,14 @@ public class DataLogger {
      * @param path
      */
     public void startLog(String filename) {
-        m_logging = true;
-        m_filename = filename;
-        if (m_granularity < 0) {
-            m_granularity = m_defaultGranularity;
+        if (!m_logging) {
+
+            m_logging = true;
+            m_filename = filename;
+            m_startTime = System.currentTimeMillis();
+            if (m_granularity < 0) {
+                m_granularity = m_defaultGranularity;
+            }
         }
     }
 
@@ -67,8 +72,10 @@ public class DataLogger {
      * /ni-rt/datalogs/ If the file exists, the current data is appended.
      */
     public void endLog() {
-        m_logging = false;
-        write(true);
+        if (m_logging) {
+            m_logging = false;
+            write(true);
+        }
     }
 
     /*
@@ -267,7 +274,7 @@ public class DataLogger {
     private class LogEntry extends Hashtable {
 
         public LogEntry() {
-            this.put("ts", String.valueOf(System.currentTimeMillis()));
+            this.put("ts", String.valueOf(System.currentTimeMillis() - m_startTime));
         }
     };
 }

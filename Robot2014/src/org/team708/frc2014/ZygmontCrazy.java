@@ -21,6 +21,7 @@ import org.team708.frc2014.commands.autonomous.OneHotGoalShot;
 import org.team708.frc2014.commands.autonomous.ThreeBallYoloSwagShot;
 import org.team708.frc2014.commands.autonomous.TwoBallYoloSwagShot;
 import org.team708.frc2014.commands.autonomous.YoloSwagShot;
+import org.team708.util.DataLogger;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -38,6 +39,9 @@ public class ZygmontCrazy extends IterativeRobot {
     private final double sendStatsIntervalSec = .5; //number of seconds between sending stats to SmartDash
     
     private final boolean debug = true; // Set to false if not using SmartDashboard
+    
+    public static DataLogger logger = new DataLogger();
+    private int autonRuns = 1;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -58,6 +62,9 @@ public class ZygmontCrazy extends IterativeRobot {
         
         // Initialize all subsystems
         CommandBase.init();
+        
+        //Set up data logger
+        logger.setGranularity(20);
     }
 
     public void autonomousInit() {
@@ -65,6 +72,9 @@ public class ZygmontCrazy extends IterativeRobot {
         autonomousCommand = ((Command)autoChooser.getSelected());
         // schedule the autonomous command (example)
         autonomousCommand.start();
+        
+        //start logging
+        logger.startLog("Auton" + autonRuns);
     }
 
     /**
@@ -93,6 +103,11 @@ public class ZygmontCrazy extends IterativeRobot {
         Scheduler.getInstance().run();
         
         sendStats();
+    }
+    
+    public void disabledInit()
+    {
+        logger.endLog();
     }
     
     public void disabledPeriodic()
