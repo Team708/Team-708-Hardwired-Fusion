@@ -7,7 +7,6 @@ package org.team708.frc2014.commands.autonomous;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.team708.frc2014.commands.drivetrain.DriveBackwardToEncoder;
-import org.team708.frc2014.commands.drivetrain.DriveForwardToTargetUltrasonic;
 import org.team708.frc2014.commands.drivetrain.ResetEncoders;
 import org.team708.frc2014.commands.intake.DeployIntake;
 import org.team708.frc2014.commands.intake.DispenseBallTimed;
@@ -15,8 +14,6 @@ import org.team708.frc2014.commands.intake.IntakeBallTimed;
 import org.team708.frc2014.commands.intake.IntakeUntilHasBall;
 import org.team708.frc2014.commands.launcher.LauncherGoalShot;
 import org.team708.frc2014.commands.launcher.LauncherMoveTo;
-import org.team708.frc2014.commands.launcher.LauncherMoveToBottom;
-import org.team708.frc2014.commands.launcher.LauncherMoveToTop;
 
 /**
  *
